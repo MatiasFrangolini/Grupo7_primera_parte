@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class ClienteJuridico extends Cliente {
 	
 	/**
-	 * Constructor de la clase Cliente Fisico, que llama al constructor de su superclase.
+	 * Constructor de la clase Cliente Juridico, que llama al constructor de su superclase.
 	 */
 	public ClienteJuridico(String nombre, String dni) {
 		super(nombre, dni);

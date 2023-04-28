@@ -6,7 +6,7 @@ import modelo.IFactura;
 
 /**
  * 
- * Patron Factory encargado de crear las Facturas.
+ * Patron Factory encargado de crear las Facturas y decorarlas.
  *
  */
 public class FacturaFactory {

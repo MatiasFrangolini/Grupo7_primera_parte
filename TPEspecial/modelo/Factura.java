@@ -39,7 +39,7 @@ public class Factura implements IFactura{
 
 	@Override
 	public String toString() {
-		return "Factura del " + abonado.toString() + "\nPrecio total: $" + getPrecioTotal();
+		return "Factura del " + abonado.toString() + "\nPrecio total de la factura: $" + getPrecioTotal()+"\n\n";
 	}
 
 

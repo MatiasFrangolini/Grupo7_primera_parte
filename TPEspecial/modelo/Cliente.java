@@ -13,20 +13,22 @@ public abstract class Cliente implements Cloneable{
 	
 	/**
 	 * Constructor de la clase Cliente
-	 * <Pre>: nombre debe ser distinto de null
+	 * <b>Pre: </b> nombre debe ser distinto de null <br>
+	 * <b>Pre: </b> Dni distinto de null <br>
 	 * @param nombre: Parametro de tipo string que indica el nombre del cliente
 	 * @param dni: Parametro de tipo String que representa el dni del cliente
 	 */
 	public Cliente(String nombre, String dni) {
 		assert nombre != null:"Nombre de cliente nulo";
+		assert dni != null:"Dni de cliente nulo";
 		this.nombre = nombre;
 		this.dni = dni;
 	}
 	/**
 	 * Metodo que agrega un domicilio a la lista de domicilios del cliente
-	 * <Pre>: El domicilio no puede ser null
+	 * <b>Pre: </b> El domicilio no puede ser null
 	 * @param domicilio: Domicilio del cliente
-	 * <Post> Agrega un domicilio a la lista de domicilios del cliente.
+	 * <b>Post: </b> Agrega un domicilio a la lista de domicilios del cliente.
 	 */
 	public void addDomicilio(Domicilio domicilio) {
 		assert domicilio != null:"Domicilio nulo";
@@ -37,9 +39,9 @@ public abstract class Cliente implements Cloneable{
 	
 	/**
 	 * Metodo que agrega una contratacion a la lista de contrataciones del cliente
-	 * <Pre>: La contratacion no puede ser null
+	 * <b>Pre: </b> La contratacion no puede ser null<br>
 	 * @param contratacion: Contratacion del cliente
-	 * <Post> Agrega una contratacion a la lista de contrataciones del cliente.
+	 * <b>Post: </b> Agrega una contratacion a la lista de contrataciones del cliente.<br>
 	 */
 	public void addContratacion(Contratacion contratacion) {
 		assert contratacion != null:"Contratacion nula";

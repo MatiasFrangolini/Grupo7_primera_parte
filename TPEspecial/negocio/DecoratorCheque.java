@@ -9,7 +9,9 @@ import modelo.IFactura;
  */
 public class DecoratorCheque extends DecoratorMedioDePago {
 
-
+	/**
+	 * Constructor de la clase DecoratorCheque. Llama al constructor de su superclase.
+	 */
 	public DecoratorCheque(IFactura encapsulado) {
 		super(encapsulado);
 	}
