@@ -12,7 +12,9 @@ public class DecoratorTarjeta extends DecoratorMedioDePago {
 	public DecoratorTarjeta(IFactura encapsulado) {
 		super(encapsulado);
 	}
+	
 /**
+* Metodo override que agrega la recarga correspondiente cuando se paga con cheque.
  * @return Devuelve el Precio Incrementado en %5.
  */
 	@Override
