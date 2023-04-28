@@ -5,11 +5,9 @@ import java.util.Iterator;
 
 
 public abstract class Cliente implements Cloneable{
-    /**
-     * @aggregation composicion
-     */
-    protected ArrayList<Domicilio> domicilios = new ArrayList<Domicilio>();
-	protected ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>();
+   
+    protected ArrayList<Domicilio> domicilios = new ArrayList<Domicilio>(); //Relacion de composicion
+	protected ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>(); //Relacion de composicion
 	private String nombre;
 	private String dni;
 	
@@ -28,22 +26,30 @@ public abstract class Cliente implements Cloneable{
 	 * Metodo que agrega un domicilio a la lista de domicilios del cliente
 	 * <Pre>: El domicilio no puede ser null
 	 * @param domicilio: Domicilio del cliente
+	 * <Post> Agrega un domicilio a la lista de domicilios del cliente.
 	 */
 	public void addDomicilio(Domicilio domicilio) {
+		assert domicilio != null:"Domicilio nulo";
+		int oldSize = this.domicilios.size();
 		this.domicilios.add(domicilio);
+		assert this.domicilios.size() == oldSize+1: "Fallo postcondicion";
 	}
 	
 	/**
 	 * Metodo que agrega una contratacion a la lista de contrataciones del cliente
 	 * <Pre>: La contratacion no puede ser null
 	 * @param contratacion: Contratacion del cliente
+	 * <Post> Agrega una contratacion a la lista de contrataciones del cliente.
 	 */
 	public void addContratacion(Contratacion contratacion) {
+		assert contratacion != null:"Contratacion nula";
+		int oldSize = this.contrataciones.size();
 		this.contrataciones.add(contratacion);
+		assert this.contrataciones.size() == oldSize+1: "Fallo postcondicion";
 	}
 	
 	/**
-	 * @return devuelve el precio total de todas las contrataciones del cliente.
+	 * @return Devuelve el precio total de todas las contrataciones del cliente.
 	 * El pago de los servicios se calcula realizando la sumatoria de los mismos.
 	 */
 	public double getPagoTotal() {
@@ -56,7 +62,9 @@ public abstract class Cliente implements Cloneable{
 	}
 
 	
-	
+	/**
+	 * Metodo que realiza una clonacion profunda del Cliente
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		Cliente clonado;
