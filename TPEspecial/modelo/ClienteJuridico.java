@@ -3,7 +3,10 @@ package modelo;
 import java.util.Iterator;
 
 public class ClienteJuridico extends Cliente {
-
+	
+	/**
+	 * Constructor de la clase Cliente Fisico, que llama al constructor de su superclase.
+	 */
 	public ClienteJuridico(String nombre, String dni) {
 		super(nombre, dni);
 	}
@@ -12,6 +15,7 @@ public class ClienteJuridico extends Cliente {
 	 * Metodo que sobreescribe el de la clase abstracta Cliente
 	 * El pago de los servicios se calcula realizando la sumatoria de los mismos.
 	 * A partir de la 3ra contratacion se bonifica el 50% de las mismas.
+	 * @return Devuelve el precio total de la suma de contrataciones del cliente, con descuentos aplicados en caso de corresponder.
 	 */
 	@Override
 	public double getPagoTotal() {
@@ -26,7 +30,11 @@ public class ClienteJuridico extends Cliente {
 		}
 		return aux;
 	}
-
+	
+	/**
+	 * Metodo clone del Cliente Juridico. No admite clonacion.
+	 * @throws Siempre lanza excepcion.
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException("Un cliente juridico no admite clonacion.");
