@@ -8,7 +8,10 @@ import modelo.IFactura;
  * Aplica Decorador Efectivo
  */
 public class DecoratorEfectivo extends DecoratorMedioDePago {
-
+	
+	/**
+	 * Constructor de la clase DecoratorEfectivo. Llama al constructor de su superclase.
+	 */
 	public DecoratorEfectivo(IFactura encapsulado) {
 		super(encapsulado);
 	}

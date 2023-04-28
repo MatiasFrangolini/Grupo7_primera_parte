@@ -100,15 +100,15 @@ public abstract class Contratacion implements Promocionable, Cloneable{
 
 	public String movilAcompaniamientoString() {
 		if (movilAcompaniamiento)
-			return "Posee movil de acompaniamiento";
+			return "\nPosee movil de acompañamiento";
 		else
 			return "";
 	}
 	
 	@Override
 	public String toString() {
-		return "[Contratacion " + numId + ". Precio: $" + precio +". "+ domicilio.toString() + "Descripcion: \nCantidad de camaras: "+cantCamaras
-				+"\nCantidad de botones antipanico: "+cantBotones+"\n"+movilAcompaniamientoString()+"]\n";
+		return "[Contratacion Id: " + numId + ". Precio: $" + precio +". "+ domicilio.toString() + "Descripcion: \nCantidad de camaras: "+cantCamaras
+				+"\nCantidad de botones antipanico: "+cantBotones+movilAcompaniamientoString()+"]\n";
 	}
 	
 	

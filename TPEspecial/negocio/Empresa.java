@@ -32,13 +32,15 @@ public class Empresa {
 	}
 	
 	/**
-	 * Funcion que imprime la factura.
+	 * Funcion que devuelve un String que contiene toda la informacion de las facturas.
 	 */
-	public void generarReporteFacturas() {
+	public String generarReporteFacturas() {
 		Iterator<IFactura> it = this.facturas.iterator();
+		String aux = "";
 		while (it.hasNext()) {
-			System.out.println(it.next().toString());
+			aux += it.next().toString();
 		}
+		return aux;
 	}
 	
 	/**
@@ -61,22 +63,19 @@ public class Empresa {
 	 * @param f: Factory que creara la factura.
 	 * @param medioDePago: parametro String que se usara en el factory, indica el medio de pago utilizado.
 	 * @param cliente: parametro de tipo Cliente.
+	 * @throws MetodoDePagoInvalidoException: Se lanza cuando el metodo de pago no es valido.
 	 * @throws ClienteInvalidoException: Se lanza cuando el cliente es null.
 	 * @throws FactoryInvalidoException : Se lanza cuando el Factory es null.
 	 * <Post>: Crea una factura y la agrega a la lista de facturacion de la empresa.
 	 */
-	public void addFactura(FacturaFactory f, String medioDePago, Cliente cliente) throws ClienteInvalidoException, FactoryInvalidoException {
+	public void addFactura(FacturaFactory f, String medioDePago, Cliente cliente) throws MetodoDePagoInvalidoException, ClienteInvalidoException, FactoryInvalidoException {
 		int oldsize = this.facturas.size();
-		try {
-			if (f != null) {
-				if (cliente != null)
-					this.facturas.add(f.getFactura(medioDePago, cliente));
-				else
-					throw new ClienteInvalidoException("No se puede crear una factura para un cliente invalido.");
-			} else throw new FactoryInvalidoException("El factory que se quiere utilizar es invalido.");
-		} catch (MetodoDePagoInvalidoException e) {
-			System.out.println(e.getMessage());
-		}
+		if (f != null) {
+			if (cliente != null)
+				this.facturas.add(f.getFactura(medioDePago, cliente));
+			else
+				throw new ClienteInvalidoException("No se puede crear una factura para un cliente invalido.");
+		} else throw new FactoryInvalidoException("El factory que se quiere utilizar es invalido.");
 		assert this.facturas.size() == oldsize+1 : "Fallo postcondicion.";
 	}
 	
@@ -92,7 +91,7 @@ public class Empresa {
 		if (contratacion.getDomicilio() == null) {
 			throw new DomicilioNuloException("El domicilio no puede ser nulo");
 		} else {
-			if (!(domicilioYaExiste(cliente.getDomicilios(), contratacion.getDomicilio())))
+			if (!(domicilioYaExiste(cliente.getContrataciones(), contratacion.getDomicilio())))
 				cliente.addContratacion(contratacion);
 			else
 				throw new DomicilioYaExisteException("Ese domicilio ya existia en otra contratacion");
@@ -100,23 +99,61 @@ public class Empresa {
 		assert cliente.getContrataciones().size() == oldsize+1 : "Fallo postcondicion.";
 	}
 	
+	/**
+	 * Metodo que agrega un domicilio al arreglo de domicilios de un Cliente.
+	 * @param cliente: Cliente
+	 * @param domicilio: Domicilio que sera agregado a un arreglo.
+	 * @throws DomicilioInvalidoException
+	 * <Post>: Actualiza el arreglo de domicilios de un Cliente agregando un domicilio pasada como parametro.
+	 */
+	public void addDomicilioACliente(Cliente cliente, Domicilio domicilio) throws DomicilioInvalidoException {
+		int oldsize = cliente.getDomicilios().size();
+		if (domicilio == null) {
+			throw new DomicilioNuloException("El domicilio no puede ser nulo");
+		} else {
+			cliente.addDomicilio(domicilio);
+		}
+		assert cliente.getDomicilios().size() == oldsize+1 : "Fallo postcondicion.";
+	}
+	
+	/**
+	 * Metodo que se encarga de clonar una factura(Clonacion profunda).
+	 * <b>Pre: </b>Factura no puede ser null<br>
+	 * @param factura: Factura que se quiere clonar. 
+	 * @return Devuelve un clon del parametro factura.
+	 * @throws CloneNotSupportedException Si alguna clase del proceso de clonacion profunda no admitia clonacion.
+	 */
+	public IFactura clonarFactura(IFactura factura) throws CloneNotSupportedException {
+		assert factura != null:"Factura nula";
+		return (IFactura)factura.clone();
+	}
 	
 	/**
 	 * Metodo que recorre un array y determina si un domicilio pasado como parametro existe en el mismo.
-	 * @param domicilios: parametro ArrayList con todos los domicilios.
+	 * @param contrataciones: parametro ArrayList con todas las contrataciones de un cliente.
 	 * @param domicilio: parametro de tipo Domicilio que sera buscado.
 	 * @return Devuelve true si el domicilio ya existe, false en caso contrario.
 	 */
-	public boolean domicilioYaExiste(ArrayList<Domicilio> domicilios,Domicilio domicilio) {
-		Iterator<Domicilio> it = domicilios.iterator();
+	public boolean domicilioYaExiste(ArrayList<Contratacion> contrataciones,Domicilio domicilio) {
+		Iterator<Contratacion> it = contrataciones.iterator();
 		int aux = 1;
 		while (aux != 0 && it.hasNext()) {
-			aux = it.next().compareTo(domicilio);
+			aux = it.next().getDomicilio().compareTo(domicilio);
 		}
 		if (aux == 0) {
 			return true;
 		}else
 			return false;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public ArrayList<IFactura> getFacturas() {
+		return facturas;
+	}
+	
+	
 	
 }

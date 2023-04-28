@@ -12,10 +12,12 @@ public abstract class DecoratorMedioDePago implements IFactura {
 
 	/**
 	 * Constructor de tipo DecoratorMedioDePago
+	 * <Pre> Encapsulado no va a ser nulo
 	 * @param encapsulado: representa un decorador Personeria
 	 */
 	
 	public DecoratorMedioDePago(IFactura encapsulado) {
+		assert encapsulado != null:"Encapsulado nulo";
 		this.encapsulado = encapsulado;
 	}
 

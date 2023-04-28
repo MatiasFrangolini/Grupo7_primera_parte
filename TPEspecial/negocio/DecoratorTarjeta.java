@@ -8,7 +8,10 @@ import modelo.IFactura;
  * Aplica Decorador Tarjeta
  */
 public class DecoratorTarjeta extends DecoratorMedioDePago {
-
+	
+	/**
+	 * Constructor de la clase DecoratorTarjeta. Llama al constructor de su superclase.
+	 */
 	public DecoratorTarjeta(IFactura encapsulado) {
 		super(encapsulado);
 	}
