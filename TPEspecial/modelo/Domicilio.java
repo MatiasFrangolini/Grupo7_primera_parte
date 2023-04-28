@@ -6,7 +6,7 @@ public class Domicilio implements Cloneable, Comparable<Domicilio>{
 	private int altura;
 	
 	/**
-	 * 
+	 * Constructor de la clase Domicilio.
 	 * @param calle: parametro String que determina el nombre de la calle
 	 * @param altura: parametro int que determina la altura de la direccion
 	 */
