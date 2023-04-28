@@ -1,22 +1,13 @@
 package modelo;
 
-import java.util.Iterator;
-/**
- * 
- * 
- *
- */
 public class Factura implements IFactura{
-	/**
-     * @aggregation Agregacion
-     */
-	Cliente abonado;
+	Cliente abonado; //Relacion de composicion con Cliente.
 	double precioTotal;
 	
 
-	/*
-	 * Constructor de una Factura
-	 * Recibe como parametro un cliente
+	/**
+	 * Constructor de la clase Factura.
+	 * @param abonado: parametro de tipo Cliente que determina a que abonado pertenece la factura.
 	 */
 	public Factura(Cliente abonado) {
 		this.abonado=abonado;

@@ -48,10 +48,12 @@ public class Empresa {
 	 * <Post>: Agrega una factura a la lista de facturacion de la empresa.
 	 */
 	public void addFactura(IFactura factura) throws FacturaInvalidaException {
+		int oldsize = this.facturas.size();
 		if (factura != null) 
 			this.facturas.add(factura);
 		else
 			throw new FacturaInvalidaException("La factura que se desea agregar es invalida.");
+		assert this.facturas.size() == oldsize+1 : "Fallo postcondicion.";
 	}
 	
 	/**
@@ -64,6 +66,7 @@ public class Empresa {
 	 * <Post>: Crea una factura y la agrega a la lista de facturacion de la empresa.
 	 */
 	public void addFactura(FacturaFactory f, String medioDePago, Cliente cliente) throws ClienteInvalidoException, FactoryInvalidoException {
+		int oldsize = this.facturas.size();
 		try {
 			if (f != null) {
 				if (cliente != null)
@@ -73,7 +76,8 @@ public class Empresa {
 			} else throw new FactoryInvalidoException("El factory que se quiere utilizar es invalido.");
 		} catch (MetodoDePagoInvalidoException e) {
 			System.out.println(e.getMessage());
-		} 
+		}
+		assert this.facturas.size() == oldsize+1 : "Fallo postcondicion.";
 	}
 	
 	/**
@@ -84,6 +88,7 @@ public class Empresa {
 	 * <Post>: Actualiza el arreglo de contrataciones de un Cliente agregando una Contratacion pasada como parametro.
 	 */
 	public void addContratacionACliente(Cliente cliente, Contratacion contratacion) throws DomicilioInvalidoException {
+		int oldsize = cliente.getContrataciones().size();
 		if (contratacion.getDomicilio() == null) {
 			throw new DomicilioNuloException("El domicilio no puede ser nulo");
 		} else {
@@ -92,6 +97,7 @@ public class Empresa {
 			else
 				throw new DomicilioYaExisteException("Ese domicilio ya existia en otra contratacion");
 		}
+		assert cliente.getContrataciones().size() == oldsize+1 : "Fallo postcondicion.";
 	}
 	
 	
@@ -99,7 +105,7 @@ public class Empresa {
 	 * Metodo que recorre un array y determina si un domicilio pasado como parametro existe en el mismo.
 	 * @param domicilios: parametro ArrayList con todos los domicilios.
 	 * @param domicilio: parametro de tipo Domicilio que sera buscado.
-	 * @return
+	 * @return Devuelve true si el domicilio ya existe, false en caso contrario.
 	 */
 	public boolean domicilioYaExiste(ArrayList<Domicilio> domicilios,Domicilio domicilio) {
 		Iterator<Domicilio> it = domicilios.iterator();
