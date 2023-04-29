@@ -1,5 +1,5 @@
 package negocio;
-
+import modelo.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -146,6 +146,13 @@ public class Empresa {
 			return false;
 	}
 
+	
+	public Domicilio creaDomicilio(String calle, int altura) throws DomicilioInvalidoException {
+		if (calle != null && !(calle.equals("") && altura>0))
+			return new Domicilio(calle,altura);
+		else
+			throw new DomicilioInvalidoException("No se pudo crear el domicilio.");
+	}
 
 	public String getNombre() {
 		return nombre;
