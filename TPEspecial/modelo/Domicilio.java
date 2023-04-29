@@ -7,10 +7,14 @@ public class Domicilio implements Cloneable, Comparable<Domicilio>{
 	
 	/**
 	 * Constructor de la clase Domicilio.
+	 * <b>Pre:</b> String calle no puede ser null <br>
+	 * <B>Pre:</b> altura no puede ser negativa <br>
 	 * @param calle: parametro String que determina el nombre de la calle
 	 * @param altura: parametro int que determina la altura de la direccion
 	 */
 	public Domicilio(String calle, int altura) {
+		assert calle != null : "Fallo en la precondicion. La calle no puede ser null";
+		assert altura>0 : "Fallo en la precondicion. La altura debe ser positiva.";
 		this.calle = calle;
 		this.altura = altura;
 	}

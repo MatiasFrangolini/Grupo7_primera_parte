@@ -146,6 +146,7 @@ public class Empresa {
 			return false;
 	}
 
+
 	public String getNombre() {
 		return nombre;
 	}
