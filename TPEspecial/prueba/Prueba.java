@@ -1,6 +1,7 @@
 package prueba;
 import modelo.*;
 import negocio.*;
+import presentacion.Presentacion;
 
 public class Prueba {
 
@@ -66,7 +67,7 @@ public class Prueba {
 			e.printStackTrace();
 		}
         
-        System.out.println(e1.generarReporteFacturas());
+        Presentacion.escribeReporteFacturas();
 
 	/* Creacion de un cliente con domicilio invalido. Descomentar en linea 83 si se desea probar la excepcion.
         Cliente cliente3 = new ClienteJuridico("Ricado", "44336072");

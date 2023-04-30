@@ -20,8 +20,8 @@ public class Empresa {
 	}
 	
 	/**
-	 * Metodo propio del PatronSingleton que devuelve una instancia de la clase en caso de que no se haya instanciado nunca antes.
-	 * @return
+	 * Metodo propio del PatronSingleton.
+	 * @return devuelve una instancia de la clase en caso de que no se haya instanciado nunca antes.
 	 */
 	public static Empresa getInstancia() {
 		if (instancia == null)
@@ -45,7 +45,7 @@ public class Empresa {
 	 * Agrega una factura al arreglo de facturas de la Empresa.
 	 * @param factura: factura que sera agregada al Array.
 	 * @throws FacturaInvalidaException: se lanza cuando una factura es null.
-	 * <Post>: Agrega una factura a la lista de facturacion de la empresa.
+	 * <b>Post: </b> Agrega una factura a la lista de facturacion de la empresa.<br>
 	 */
 	public void addFactura(IFactura factura) throws FacturaInvalidaException {
 		int oldsize = this.facturas.size();
@@ -64,7 +64,7 @@ public class Empresa {
 	 * @throws MetodoDePagoInvalidoException: Se lanza cuando el metodo de pago no es valido.
 	 * @throws ClienteInvalidoException: Se lanza cuando el cliente es null.
 	 * @throws FactoryInvalidoException : Se lanza cuando el Factory es null.
-	 * <Post>: Crea una factura y la agrega a la lista de facturacion de la empresa.
+	 * <b>Post: </b> Crea una factura y la agrega a la lista de facturacion de la empresa.<br>
 	 */
 	public void addFactura(FacturaFactory f, String medioDePago, Cliente cliente) throws MetodoDePagoInvalidoException, ClienteInvalidoException, FactoryInvalidoException {
 		int oldsize = this.facturas.size();
@@ -82,7 +82,7 @@ public class Empresa {
 	 * @param cliente: parametro Cliente
 	 * @param contratacion: parametro Contratacion que sera agregado a un arreglo.
 	 * @throws DomicilioInvalidoException
-	 * <Post>: Actualiza el arreglo de contrataciones de un Cliente agregando una Contratacion pasada como parametro.
+	 * <b>Post: </b> Actualiza el arreglo de contrataciones de un Cliente agregando una Contratacion pasada como parametro.<br>
 	 */
 	public void addContratacionACliente(Cliente cliente, Contratacion contratacion) throws DomicilioInvalidoException {
 		int oldsize = cliente.getContrataciones().size();
@@ -102,7 +102,7 @@ public class Empresa {
 	 * @param cliente: Cliente
 	 * @param domicilio: Domicilio que sera agregado a un arreglo.
 	 * @throws DomicilioInvalidoException
-	 * <Post>: Actualiza el arreglo de domicilios de un Cliente agregando un domicilio pasada como parametro.
+	 * <b>Post: </b> Actualiza el arreglo de domicilios de un Cliente agregando un domicilio pasada como parametro.<br>
 	 */
 	public void addDomicilioACliente(Cliente cliente, Domicilio domicilio) throws DomicilioInvalidoException {
 		int oldsize = cliente.getDomicilios().size();
@@ -116,14 +116,16 @@ public class Empresa {
 	
 	/**
 	 * Metodo que se encarga de clonar una factura(Clonacion profunda).
-	 * <b>Pre: </b>Factura no puede ser null<br>
 	 * @param factura: Factura que se quiere clonar. 
 	 * @return Devuelve un clon del parametro factura.
 	 * @throws CloneNotSupportedException Si alguna clase del proceso de clonacion profunda no admitia clonacion.
+	 * @throws FacturaInvalidaException 
 	 */
-	public IFactura clonarFactura(IFactura factura) throws CloneNotSupportedException {
-		assert factura != null:"Factura nula";
-		return (IFactura)factura.clone();
+	public IFactura clonarFactura(IFactura factura) throws CloneNotSupportedException, FacturaInvalidaException {
+		if (factura != null)
+			return (IFactura)factura.clone();
+		else
+			throw new FacturaInvalidaException("Se intento clonar una factura nula");
 	}
 	
 	/**

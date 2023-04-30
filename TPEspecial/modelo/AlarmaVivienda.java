@@ -24,22 +24,26 @@ public class AlarmaVivienda extends Contratacion{
 	/**
 	 * Funcion que aplica la "Promo Dorada" 
 	 * Modifica el precio aplicando la promocion correspondiente
-	 * <Post>: Precio es modificado por la aplicacion de la Promo Dorada
+	 * <b>Post</b>: Precio es modificado por la aplicacion de la Promo Dorada<br>
 	 */
 	@Override
 	public void promoDorada() {
+		double oldPrecio = this.precio;
 		this.precio-=1500;
+		assert this.precio == oldPrecio-1500:"Fallo postcondicion";
 	}
 
 
 	/**
 	 * Funcion que aplica la "Promo Platino"
 	 * Modifica el precio aplicando la promocion correspondiente
-	 * <Post>: precio es modificado por la aplicacion de la Promo Platino
+	 * <b>Post</b>: Precio es modificado por la aplicacion de la Promo Platino<br>
 	 */
 	@Override
 	public void promoPlatino() {
+		double oldPrecio = this.precio;
 		this.precio*=0.7;
+		assert this.precio == oldPrecio*0.7:"Fallo postcondicion";
 	}
 
 	
