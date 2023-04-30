@@ -45,7 +45,12 @@ public class AlarmaVivienda extends Contratacion{
 		this.precio*=0.7;
 		assert this.precio == oldPrecio*0.7:"Fallo postcondicion";
 	}
-
+	
+	@Override
+	public String toString() {
+		return "[Contratacion Id: " + this.numId + ". Precio: $" + this.precio +". "+ this.domicilio.toString() + "Descripcion: \nAlarma en Vivienda\nCantidad de camaras: "+this.cantCamaras
+				+"\nCantidad de botones antipanico: "+this.cantBotones+movilAcompaniamientoString()+"]\n";
+	}
 	
 
 }

@@ -81,13 +81,18 @@ public class Empresa {
 	 * Metodo que agrega una contratacion al arreglo de contrataciones de un Cliente.
 	 * @param cliente: parametro Cliente
 	 * @param contratacion: parametro Contratacion que sera agregado a un arreglo.
-	 * @throws DomicilioInvalidoException
+	 * @throws ContratacionInvalidaException Si la contratacion es nula
+	 * @throws ClienteInvalidoException Si el cliente es nulo
+	 * @throws DomicilioNoPerteneceAClienteException Si es domicilio de la contratacion no es un domicilio del cliente
+	 * @throws DomicilioYaExisteException Si ese domicilio ya tenia una contratacion
 	 * <b>Post: </b> Actualiza el arreglo de contrataciones de un Cliente agregando una Contratacion pasada como parametro.<br>
 	 */
-	public void addContratacionACliente(Cliente cliente, Contratacion contratacion) throws DomicilioInvalidoException {
+	public void addContratacionACliente(Cliente cliente, Contratacion contratacion) throws DomicilioYaExisteException,DomicilioNoPerteneceAClienteException, ClienteInvalidoException, ContratacionInvalidaException {
+		if (cliente == null)
+			throw new ClienteInvalidoException("El cliente no puede ser nulo");
 		int oldsize = cliente.getContrataciones().size();
-		if (contratacion.getDomicilio() == null) {
-			throw new DomicilioNuloException("El domicilio no puede ser nulo");
+		if (contratacion == null) {
+			throw new ContratacionInvalidaException("La contratacion no puede ser nula");
 		} else {
 			if (puedeAgregarContratacion(cliente, contratacion)) {
 				if (!(domicilioYaExiste(cliente.getContrataciones(), contratacion.getDomicilio())))
@@ -105,25 +110,23 @@ public class Empresa {
 	 * Funcion booleana para saber si el cliente puede recibir cierta contratacion.
 	 */
 	private boolean puedeAgregarContratacion(Cliente cliente, Contratacion contratacion) {
-		Iterator<Domicilio> it = cliente.getDomicilios().iterator();
-		int aux = 1;
-		while (aux != 0 && it.hasNext()) {
-			aux = it.next().compareTo(contratacion.getDomicilio());
-		}
-		if (aux == 0)
-			return false;
-		else
+		if (cliente.getDomicilios().contains(contratacion.getDomicilio()))
 			return true;
+		else
+			return false;
 	}
 
 	/**
 	 * Metodo que agrega un domicilio al arreglo de domicilios de un Cliente.
 	 * @param cliente: Cliente
 	 * @param domicilio: Domicilio que sera agregado a un arreglo.
+	 * @throws ClienteInvalidoException 
 	 * @throws DomicilioInvalidoException
 	 * <b>Post: </b> Actualiza el arreglo de domicilios de un Cliente agregando un domicilio pasada como parametro.<br>
 	 */
-	public void addDomicilioACliente(Cliente cliente, Domicilio domicilio) throws DomicilioInvalidoException {
+	public void addDomicilioACliente(Cliente cliente, Domicilio domicilio) throws DomicilioNuloException, ClienteInvalidoException {
+		if (cliente == null)
+			throw new ClienteInvalidoException("El cliente no puede ser nulo");
 		int oldsize = cliente.getDomicilios().size();
 		if (domicilio == null) {
 			throw new DomicilioNuloException("El domicilio no puede ser nulo");
@@ -161,7 +164,7 @@ public class Empresa {
 		}
 		if (aux == 0) {
 			return true;
-		}else
+		} else
 			return false;
 	}
 

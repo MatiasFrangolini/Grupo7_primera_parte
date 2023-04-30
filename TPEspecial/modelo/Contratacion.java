@@ -5,13 +5,12 @@ import negocio.Promocionable;
 public abstract class Contratacion implements Promocionable, Cloneable{
 	
 	protected static int sigNumId = 1;
-	private int numId;
-	private boolean movilAcompaniamiento;
-	private int cantCamaras;
-	private int cantBotones;
+	protected int numId;
+	protected boolean movilAcompaniamiento;
+	protected int cantCamaras;
+	protected int cantBotones;
 	protected double precio;
-
-    private Domicilio domicilio;
+	protected Domicilio domicilio; //Relacion de composicion
     
 	
     /**
