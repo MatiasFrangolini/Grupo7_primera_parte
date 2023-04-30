@@ -3,8 +3,6 @@ import modelo.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import modelo.*;
-
 /**
  * Esta clase solo puede ser instanciada una vez. 
  * Por eso implementa un patron singleton.
@@ -146,12 +144,68 @@ public class Empresa {
 			return false;
 	}
 
-	
+	/**
+	 * Funcion que valida los datos que llaman al constructor de Domicilio.
+	 * @param calle Nombre de la calle del domicilio
+	 * @param altura Numero de la calle
+	 * @return Devuelve una instancia de la clase Domicilio
+	 * @throws DomicilioInvalidoException Si la calle es null o string vacío, o si la altura no es positiva.
+	 */
 	public Domicilio creaDomicilio(String calle, int altura) throws DomicilioInvalidoException {
-		if (calle != null && !(calle.equals("") && altura>0))
+		if (calle != null && !(calle.equals("")) && altura>0)
 			return new Domicilio(calle,altura);
 		else
 			throw new DomicilioInvalidoException("No se pudo crear el domicilio.");
+	}
+	
+	
+	/**
+	 * Funcion que valida los datos que llaman al constructor de Cliente
+	 * @param nombre Nombre del Cliente
+	 * @param dni Dni del cliente
+	 * @param tipo Tipo del cliente
+	 * @return Devuelve una instancia de un hijo de Cliente, depende del parametro tipo
+	 * @throws ClienteInvalidoException Si los parametros son null o vacios, o si el tipo no es correcto.
+	 */
+	public Cliente creaCliente(String nombre, String dni, String tipo) throws ClienteInvalidoException {
+		if (nombre != null && !(nombre.equals("")) && dni != null && !(dni.equals("")) && tipo != null)
+			
+			if (tipo.equalsIgnoreCase("fisico"))
+				return new ClienteFisico(nombre,dni);
+			else if (tipo.equalsIgnoreCase("juridico"))
+				return  new ClienteJuridico(nombre,dni);
+			else
+				throw new ClienteInvalidoException("Tipo de cliente no valido.");
+				
+		else
+			throw new ClienteInvalidoException("No se pudo crear el cliente.");
+	}
+	
+	
+	/**
+	 * 
+	 * @param movilAcompanamiento : parametro de tipo boolean que indica si se contrato un movil de acompanamiento
+     * @param cantCamaras : parametro de tipo int que indica la cantidad de camaras contratadas
+     * @param cantBotones : parametro de tipo int que indica la cantidad de botones contratados
+     * @param domicilio : parametro de tipo string que representa el domicilio del cliente
+	 * @param tipo Tipo de contratacion
+	 * @return Devuelve una instancia de un hijo de Contratacion, dependiendo del parametro tipo.
+	 * @throws DomicilioNuloException Si el domicilio es nulo
+	 * @throws ContratacionInvalidaException Si no se pudo instanciar la contratacion por valores invalidos.
+	 */
+	public Contratacion creaContratacion(boolean movilAcompaniamiento, int cantCamaras, int cantBotones, Domicilio domicilio, String tipo) throws DomicilioNuloException, ContratacionInvalidaException {
+		if (domicilio != null)
+			if (cantCamaras >= 0 && cantBotones>=0 && tipo != null)
+				if (tipo.equalsIgnoreCase("vivienda"))
+					return new AlarmaVivienda(movilAcompaniamiento, cantCamaras, cantBotones, domicilio);
+				else if (tipo.equalsIgnoreCase("comercio"))
+					return new AlarmaComercio(movilAcompaniamiento, cantCamaras, cantBotones, domicilio);
+				else
+					throw  new ContratacionInvalidaException("No se conoce ese tipo de contratacion");
+			else
+				throw  new ContratacionInvalidaException("No se pudo instanciar la  contratacion");
+		else
+			throw new DomicilioNuloException("Se quiso crear una contratacion con un domicilio nulo");
 	}
 
 	public String getNombre() {

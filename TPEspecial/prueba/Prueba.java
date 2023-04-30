@@ -11,8 +11,15 @@ public class Prueba {
 		FacturaFactory f = new FacturaFactory();
 		FacturaFactory g = null;
 		
-		Cliente cliente1 = new ClienteJuridico("Matias", "44336072");
-		Cliente cliente2 = new ClienteFisico("Bernardo", "43056411");
+		Cliente cliente1 = null;//new ClienteJuridico("Matias", "44336072");
+		Cliente cliente2 = null;//new ClienteFisico("Bernardo", "43056411");
+		
+		try {
+			cliente1 = e1.creaCliente("Matias", "44336072", "fisico");
+			cliente2 = e1.creaCliente("Bernardo", "43411056", "juridico");
+		} catch (ClienteInvalidoException e) {
+			e.printStackTrace();
+		}
 		
         Domicilio dom1 = null; //new Domicilio("Alice", 6151);
         Domicilio dom2 = null; // Domicilio("Belgrano", 2530);
@@ -29,16 +36,19 @@ public class Prueba {
 			e.printStackTrace();
 		}
         
-        Contratacion c1 = new AlarmaVivienda(true, 2, 1, dom1);
-        Contratacion c2 = new AlarmaComercio(true, 1, 3, dom2);
-        Contratacion c3 = new AlarmaVivienda(false, 4, 3, dom3);
+        Contratacion c1 = null;// new AlarmaVivienda(true, 2, 1, dom1);
+        Contratacion c2 = null;//new AlarmaComercio(true, 1, 3, dom2);
+        Contratacion c3 = null;//new AlarmaVivienda(false, 4, 3, dom3);
         
         
         try {
+        	c1 = e1.creaContratacion(true, 2, 1, dom1, "vivienda");
+        	c2 = e1.creaContratacion(true, 1, 3, dom2, "comercio");
+        	c3 = e1.creaContratacion(false, 4, 3, dom3, "vivienda");
 			e1.addContratacionACliente(cliente1, c1);
 			e1.addContratacionACliente(cliente1, c2);
 			e1.addContratacionACliente(cliente2, c3);
-		} catch (DomicilioInvalidoException e) {
+		} catch (DomicilioInvalidoException | ContratacionInvalidaException e) {
 			e.printStackTrace();
 		}
         

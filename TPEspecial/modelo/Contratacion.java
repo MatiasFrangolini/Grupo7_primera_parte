@@ -25,7 +25,7 @@ public abstract class Contratacion implements Promocionable, Cloneable{
     /**
      * Constructor con cuatro parametros para setear si tiene movil de acompañamiento, la cantidad de camaras, la cantidad de botones y el domicilio.
      * <br>
-     * <Pre>: No va a llegar un domicilio null y tampoco repetido.
+     * <Pre>: No va a llegar un domicilio null.
      * @param movilAcompanamiento : parametro de tipo boolean que indica si se contrato un movil de acompanamiento
      * @param cantCamaras : parametro de tipo int que indica la cantidad de camaras contratadas
      * @param cantBotones : parametro de tipo int que indica la cantidad de botones contratados
