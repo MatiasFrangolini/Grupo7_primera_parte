@@ -14,7 +14,7 @@ public class FacturaFactory {
 	 * 
 	 * @param medioDePago String que contiene el medio de pago a utilizar.
 	 * @param cliente     Cliente de la factura.
-	 *  <Pre> Cliente no puede ser nulo.
+	 * <b>Pre: </b> Cliente no puede ser nulo.<br>
 	 * @return Crea una instancia de factura en caso de recibir parametros validos.
 	 * @throws MetodoDePagoInvalidoException
 	 */

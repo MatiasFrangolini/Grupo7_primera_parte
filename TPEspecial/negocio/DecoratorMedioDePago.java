@@ -12,7 +12,7 @@ public abstract class DecoratorMedioDePago implements IFactura {
 
 	/**
 	 * Constructor de tipo DecoratorMedioDePago
-	 * <Pre> Encapsulado no va a ser nulo
+	 * <b>Pre</b> Encapsulado no va a ser nulo<br>
 	 * @param encapsulado: representa un decorador Personeria
 	 */
 	

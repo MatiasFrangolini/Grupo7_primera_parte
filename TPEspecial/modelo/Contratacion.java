@@ -2,30 +2,22 @@ package modelo;
 
 import negocio.Promocionable;
 
-/**
- * 
- * Invariante de clase El domicilio no puede ser null
- *
- */
 public abstract class Contratacion implements Promocionable, Cloneable{
 	
 	protected static int sigNumId = 1;
-	private int numId;
-	private boolean movilAcompaniamiento;
-	private int cantCamaras;
-	private int cantBotones;
+	protected int numId;
+	protected boolean movilAcompaniamiento;
+	protected int cantCamaras;
+	protected int cantBotones;
 	protected double precio;
-
-    /**
-     * @aggregation composite
-     */
-    private Domicilio domicilio;
+	protected Domicilio domicilio; //Relacion de composicion
     
 	
     /**
      * Constructor con cuatro parametros para setear si tiene movil de acompañamiento, la cantidad de camaras, la cantidad de botones y el domicilio.
      * <br>
-     * <Pre>: No va a llegar un domicilio null y tampoco repetido.
+     * <b>Pre</b>: No va a llegar un domicilio null.<br>
+     * <b>Pre</b>: No van a llegar cantCamaras o cantBotones menores a 0.<br>
      * @param movilAcompanamiento : parametro de tipo boolean que indica si se contrato un movil de acompanamiento
      * @param cantCamaras : parametro de tipo int que indica la cantidad de camaras contratadas
      * @param cantBotones : parametro de tipo int que indica la cantidad de botones contratados
@@ -44,14 +36,13 @@ public abstract class Contratacion implements Promocionable, Cloneable{
 	/**
 	 * Funcion que será redefinida en hijos de la clase.
 	 * @return Devuelve el valor del precio de la contratacion.
-	 * <b>Post: </b> Devuelve un precio no nulo.
 	 */
 	public abstract double getPrecio();
 	
 	
 	/**
 	 * @return Devuelve el valor que se agrega a la contratacion por sus servicios extra. 
-	 * <b>Post: </b> Devuelve un precio no nulo.
+	 * <b>Post: </b> Devuelve un valor mayor o igual a 0.<br>
 	 */
 	public double getCostoAgregado() {
 		int aux = 0;
@@ -59,6 +50,7 @@ public abstract class Contratacion implements Promocionable, Cloneable{
 			aux += 7500;
 		aux += cantCamaras*3000;
 		aux += cantBotones*2000;
+		assert aux >= 0:"Fallo en postcondicion.";
 		return aux;
 	}
 

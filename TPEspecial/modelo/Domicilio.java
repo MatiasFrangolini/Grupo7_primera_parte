@@ -7,10 +7,14 @@ public class Domicilio implements Cloneable, Comparable<Domicilio>{
 	
 	/**
 	 * Constructor de la clase Domicilio.
+	 * <b>Pre:</b> String calle no puede ser null <br>
+	 * <b>Pre:</b> altura no puede ser negativa <br>
 	 * @param calle: parametro String que determina el nombre de la calle
 	 * @param altura: parametro int que determina la altura de la direccion
 	 */
 	public Domicilio(String calle, int altura) {
+		assert calle != null : "Fallo en la precondicion. La calle no puede ser null";
+		assert altura>0 : "Fallo en la precondicion. La altura debe ser positiva.";
 		this.calle = calle;
 		this.altura = altura;
 	}
@@ -23,16 +27,6 @@ public class Domicilio implements Cloneable, Comparable<Domicilio>{
 
 	public int getAltura() {
 		return altura;
-	}
-
-
-	public void setCalle(String calle) {
-		this.calle = calle;
-	}
-
-
-	public void setAltura(int altura) {
-		this.altura = altura;
 	}
 
 
@@ -53,7 +47,7 @@ public class Domicilio implements Cloneable, Comparable<Domicilio>{
 
 	/*
 	 * Implementacion del metodo compareTo de la interfaz Comparable original de Java
-	 * <Pre>: El parametro o de tipo Domicilio no puede ser null
+	 * <b>Pre:</b> El parametro o de tipo Domicilio no puede ser null <br>
 	 */
 	@Override
 	public int compareTo(Domicilio o) {
