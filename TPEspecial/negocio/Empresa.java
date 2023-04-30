@@ -89,14 +89,33 @@ public class Empresa {
 		if (contratacion.getDomicilio() == null) {
 			throw new DomicilioNuloException("El domicilio no puede ser nulo");
 		} else {
-			if (!(domicilioYaExiste(cliente.getContrataciones(), contratacion.getDomicilio())))
-				cliente.addContratacion(contratacion);
-			else
-				throw new DomicilioYaExisteException("Ese domicilio ya existia en otra contratacion");
+			if (puedeAgregarContratacion(cliente, contratacion)) {
+				if (!(domicilioYaExiste(cliente.getContrataciones(), contratacion.getDomicilio())))
+					cliente.addContratacion(contratacion);
+				else
+					throw new DomicilioYaExisteException("Ese domicilio ya existia en otra contratacion");
+			} else
+				throw new DomicilioNoPerteneceAClienteException("El domicilio de esa contratacion no pertenece al cliente");
 		}
 		assert cliente.getContrataciones().size() == oldsize+1 : "Fallo postcondicion.";
 	}
 	
+	
+	/**
+	 * Funcion booleana para saber si el cliente puede recibir cierta contratacion.
+	 */
+	private boolean puedeAgregarContratacion(Cliente cliente, Contratacion contratacion) {
+		Iterator<Domicilio> it = cliente.getDomicilios().iterator();
+		int aux = 1;
+		while (aux != 0 && it.hasNext()) {
+			aux = it.next().compareTo(contratacion.getDomicilio());
+		}
+		if (aux == 0)
+			return false;
+		else
+			return true;
+	}
+
 	/**
 	 * Metodo que agrega un domicilio al arreglo de domicilios de un Cliente.
 	 * @param cliente: Cliente

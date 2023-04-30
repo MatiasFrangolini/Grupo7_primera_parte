@@ -11,3 +11,4 @@
 /Factura.class
 /IFactura.class
 /ContratacionInvalidaException.class
+/DomicilioNoPerteneceAClienteException.class
