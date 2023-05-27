@@ -24,6 +24,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 import javax.swing.JPasswordField;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JSeparator;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.border.TitledBorder;
 
 public class Ventana extends JFrame {
 
@@ -46,16 +52,13 @@ public class Ventana extends JFrame {
 	private JTextField textField_3;
 	private JTextArea textArea;
 	private JTextArea textArea_1;
-	private JPanel panel_23;
-	private JPanel panel_24;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
 	/**
 	 * @wbp.nonvisual location=-30,379
 	 */
 	private final JPanel panel_26 = new JPanel();
 	private JSpinner spinner;
 	private JSpinner spinner_1;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -94,21 +97,23 @@ public class Ventana extends JFrame {
 		
 		JPanel empresaPrincipal = new JPanel();
 		empresa.add(empresaPrincipal, BorderLayout.CENTER);
-		empresaPrincipal.setLayout(new GridLayout(0, 2, 0, 0));
+		empresaPrincipal.setLayout(new GridLayout(0, 2, 2, 0));
 		
 		JPanel listaIzq = new JPanel();
+		listaIzq.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		empresaPrincipal.add(listaIzq);
 		listaIzq.setLayout(new BorderLayout(0, 0));
 		
-		JList list = new JList();
-		listaIzq.add(list);
+		JList listaClientesEmpresa = new JList();
+		listaIzq.add(listaClientesEmpresa);
 		
-		JPanel panelMedio = new JPanel();
-		empresaPrincipal.add(panelMedio);
-		panelMedio.setLayout(new GridLayout(3, 1, 0, 0));
+		JPanel panelDerecho = new JPanel();
+		empresaPrincipal.add(panelDerecho);
+		panelDerecho.setLayout(new GridLayout(3, 1, 0, 2));
 		
 		JPanel panelAddAbonado = new JPanel();
-		panelMedio.add(panelAddAbonado);
+		panelAddAbonado.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		panelDerecho.add(panelAddAbonado);
 		panelAddAbonado.setLayout(new BorderLayout(0, 0));
 		
 		JLabel textoCrearCliente = new JLabel("Crear Nuevo Cliente");
@@ -166,15 +171,43 @@ public class Ventana extends JFrame {
 		panelBotones.add(btnClienteJuridico);
 		
 		JPanel panel_1 = new JPanel();
-		panelMedio.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		panelDerecho.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel labelTP = new JLabel("CREAR TECNICOS");
-		labelTP.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(labelTP, BorderLayout.CENTER);
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2);
+		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel panel_17 = new JPanel();
+		panel_17.setBorder(null);
+		panel_2.add(panel_17);
+		panel_17.setLayout(null);
+		
+		JLabel lblNombreTecnico = new JLabel("Nombre: ");
+		lblNombreTecnico.setBounds(86, 0, 218, 71);
+		panel_17.add(lblNombreTecnico);
+		
+		JPanel panel_22 = new JPanel();
+		panel_2.add(panel_22);
+		panel_22.setLayout(null);
+		
+		textField = new JTextField();
+		textField.setBounds(50, 25, 120, 20);
+		panel_22.add(textField);
+		textField.setColumns(10);
+		
+		JPanel panel_16 = new JPanel();
+		panel_1.add(panel_16);
+		panel_16.setLayout(null);
+		
+		JButton btnNewButton = new JButton("Agregar Técnico");
+		btnNewButton.setBounds(150, 20, 132, 23);
+		panel_16.add(btnNewButton);
 		
 		JPanel panelMes = new JPanel();
-		panelMedio.add(panelMes);
+		panelMes.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		panelDerecho.add(panelMes);
 		panelMes.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_3 = new JPanel();
@@ -182,7 +215,7 @@ public class Ventana extends JFrame {
 		panel_3.setLayout(null);
 		
 		this.btnAvanzarMes = new JButton("Avanzar mes");
-		this.btnAvanzarMes.setBounds(160, 60, 140, 23);
+		this.btnAvanzarMes.setBounds(150, 50, 140, 23);
 		panel_3.add(this.btnAvanzarMes);
 		
 		this.textArea = new JTextArea();
@@ -194,9 +227,10 @@ public class Ventana extends JFrame {
 		
 		this.abonadosPrincipal = new JPanel();
 		abonados.add(this.abonadosPrincipal, BorderLayout.CENTER);
-		this.abonadosPrincipal.setLayout(new GridLayout(0, 3, 0, 0));
+		this.abonadosPrincipal.setLayout(new GridLayout(0, 3, 2, 0));
 		
 		this.panelListaClientes = new JPanel();
+		panelListaClientes.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		this.abonadosPrincipal.add(this.panelListaClientes);
 		this.panelListaClientes.setLayout(new BorderLayout(0, 0));
 		
@@ -209,9 +243,10 @@ public class Ventana extends JFrame {
 		
 		JPanel panelPrincipalCentral = new JPanel();
 		this.panelCentralAbonados.add(panelPrincipalCentral, BorderLayout.CENTER);
-		panelPrincipalCentral.setLayout(new GridLayout(3, 0, 0, 0));
+		panelPrincipalCentral.setLayout(new GridLayout(2, 0, 0, 2));
 		
 		JPanel panel_4 = new JPanel();
+		panel_4.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		panelPrincipalCentral.add(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 		
@@ -220,22 +255,24 @@ public class Ventana extends JFrame {
 		panel_4.add(labelAgregarContratacion, BorderLayout.NORTH);
 		
 		JPanel panelCentralAgregar = new JPanel();
-		panelCentralAgregar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 0, 0), null));
 		panel_4.add(panelCentralAgregar, BorderLayout.CENTER);
 		panelCentralAgregar.setLayout(new GridLayout(4, 2, 10, 2));
 		
 		JPanel panel_10 = new JPanel();
 		panelCentralAgregar.add(panel_10);
-		panel_10.setLayout(null);
+		panel_10.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_2 = new JLabel("Movil acompañamiento");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(10, 0, 125, 29);
 		panel_10.add(lblNewLabel_2);
 		
 		JPanel panelCheckbox = new JPanel();
 		panelCentralAgregar.add(panelCheckbox);
-		panelCheckbox.setLayout(null);
+		panelCheckbox.setLayout(new BorderLayout(0, 0));
+		
+		JCheckBox chckbxMovilAcom = new JCheckBox("Agregar");
+		chckbxMovilAcom.setHorizontalAlignment(SwingConstants.CENTER);
+		panelCheckbox.add(chckbxMovilAcom);
 		
 		JPanel panel_12 = new JPanel();
 		panelCentralAgregar.add(panel_12);
@@ -250,7 +287,8 @@ public class Ventana extends JFrame {
 		panel_13.setLayout(null);
 		
 		this.spinner = new JSpinner();
-		this.spinner.setBounds(48, 5, 30, 20);
+		spinner.setModel(new SpinnerNumberModel(0, 0, 50, 1));
+		this.spinner.setBounds(45, 10, 45, 20);
 		panel_13.add(this.spinner);
 		
 		JPanel panel_14 = new JPanel();
@@ -266,7 +304,8 @@ public class Ventana extends JFrame {
 		panel_15.setLayout(null);
 		
 		this.spinner_1 = new JSpinner();
-		this.spinner_1.setBounds(48, 5, 30, 20);
+		spinner_1.setModel(new SpinnerNumberModel(0, 0, 50, 1));
+		this.spinner_1.setBounds(45, 10, 45, 20);
 		panel_15.add(this.spinner_1);
 		
 		this.panel_18 = new JPanel();
@@ -282,7 +321,7 @@ public class Ventana extends JFrame {
 		this.panel_20.setLayout(null);
 		
 		this.textField_2 = new JTextField();
-		this.textField_2.setBounds(34, 0, 86, 15);
+		this.textField_2.setBounds(18, 5, 102, 15);
 		this.panel_20.add(this.textField_2);
 		this.textField_2.setColumns(10);
 		
@@ -299,52 +338,49 @@ public class Ventana extends JFrame {
 		this.panel_21.setLayout(null);
 		
 		this.textField_3 = new JTextField();
-		this.textField_3.setBounds(22, 0, 96, 15);
+		this.textField_3.setBounds(18, 5, 102, 15);
 		this.panel_21.add(this.textField_3);
 		this.textField_3.setColumns(10);
 		
 		JPanel panel_7 = new JPanel();
-		panelPrincipalCentral.add(panel_7);
-		panel_7.setLayout(new BorderLayout(0, 0));
+		panel_4.add(panel_7, BorderLayout.SOUTH);
+		panel_7.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel panel_22 = new JPanel();
-		panel_7.add(panel_22, BorderLayout.CENTER);
-		panel_22.setLayout(new GridLayout(2, 1, 0, 0));
+		JButton btnAgregarContratacion = new JButton("Agregar Contratacion");
+		panel_7.add(btnAgregarContratacion);
 		
-		this.panel_23 = new JPanel();
-		panel_22.add(this.panel_23);
-		this.panel_23.setLayout(null);
-		
-		this.btnNewButton = new JButton("Agregar contratacion");
-		this.btnNewButton.setBounds(70, 11, 150, 23);
-		this.panel_23.add(this.btnNewButton);
-		
-		this.panel_24 = new JPanel();
-		panel_22.add(this.panel_24);
-		this.panel_24.setLayout(null);
-		
-		this.btnNewButton_1 = new JButton("Eliminar contratacion");
-		this.btnNewButton_1.setBounds(36, 24, 232, 23);
-		this.panel_24.add(this.btnNewButton_1);
+		JButton btnEliminarContratacion = new JButton("Eliminar Contratacion");
+		panel_7.add(btnEliminarContratacion);
 		
 		JPanel panel_8 = new JPanel();
+		panel_8.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		panelPrincipalCentral.add(panel_8);
-		panel_8.setLayout(new BorderLayout(0, 0));
+		panel_8.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		JPanel panel_25 = new JPanel();
-		panel_8.add(panel_25);
-		panel_25.setLayout(null);
+		JPanel panel_9 = new JPanel();
+		panel_8.add(panel_9);
+		panel_9.setLayout(null);
 		
-		JButton btnNewButton_2 = new JButton("Pagar factura");
-		btnNewButton_2.setBounds(78, 52, 129, 23);
-		panel_25.add(btnNewButton_2);
+		JButton btnPagarFactura = new JButton("Pagar Factura");
+		btnPagarFactura.setBounds(80, 35, 129, 30);
+		btnPagarFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_9.add(btnPagarFactura);
+		
+		JPanel panel_11 = new JPanel();
+		panel_8.add(panel_11);
+		panel_11.setLayout(null);
+		
+		JButton btnSolicitarTecnico = new JButton("Solicitar Técnico");
+		btnSolicitarTecnico.setBounds(80, 35, 129, 30);
+		btnSolicitarTecnico.setAlignmentX(0.5f);
+		panel_11.add(btnSolicitarTecnico);
 		
 		JPanel panelContratacionesFacturas = new JPanel();
 		this.abonadosPrincipal.add(panelContratacionesFacturas);
 		panelContratacionesFacturas.setLayout(new GridLayout(2, 1, 0, 2));
 		
 		JPanel panelContrataciones = new JPanel();
-		panelContrataciones.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0)));
+		panelContrataciones.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		panelContratacionesFacturas.add(panelContrataciones);
 		panelContrataciones.setLayout(new BorderLayout(0, 0));
 		
@@ -357,7 +393,7 @@ public class Ventana extends JFrame {
 		panelContrataciones.add(listaContrataciones, BorderLayout.CENTER);
 		
 		JPanel panelFacturas = new JPanel();
-		panelFacturas.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0)));
+		panelFacturas.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		panelContratacionesFacturas.add(panelFacturas);
 		panelFacturas.setLayout(new BorderLayout(0, 0));
 		
@@ -371,8 +407,5 @@ public class Ventana extends JFrame {
 		this.textArea_1 = new JTextArea();
 		this.textArea_1.setCaretColor(new Color(255, 0, 0));
 		abonados.add(this.textArea_1, BorderLayout.SOUTH);
-		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_2, null);
 	}
 }
