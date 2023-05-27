@@ -1,4 +1,4 @@
-package modelo;
+package excepciones;
 
 public class DomicilioYaExisteException extends DomicilioInvalidoException {
 

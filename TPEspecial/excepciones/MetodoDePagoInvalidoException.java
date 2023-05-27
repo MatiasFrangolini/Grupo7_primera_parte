@@ -1,4 +1,4 @@
-package negocio;
+package excepciones;
 
 public class MetodoDePagoInvalidoException extends Exception {
 	

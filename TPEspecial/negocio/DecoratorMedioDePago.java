@@ -8,7 +8,7 @@ import modelo.*;
  */
 public abstract class DecoratorMedioDePago implements IFactura {
 	
-	IFactura encapsulado;
+	protected IFactura encapsulado;
 
 	/**
 	 * Constructor de tipo DecoratorMedioDePago

@@ -1,4 +1,10 @@
 package prueba;
+import excepciones.ClienteInvalidoException;
+import excepciones.ContratacionInvalidaException;
+import excepciones.DomicilioInvalidoException;
+import excepciones.FactoryInvalidoException;
+import excepciones.FacturaInvalidaException;
+import excepciones.MetodoDePagoInvalidoException;
 import modelo.*;
 import negocio.*;
 import presentacion.Presentacion;

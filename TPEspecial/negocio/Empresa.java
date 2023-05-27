@@ -3,6 +3,16 @@ import modelo.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import excepciones.ClienteInvalidoException;
+import excepciones.ContratacionInvalidaException;
+import excepciones.DomicilioInvalidoException;
+import excepciones.DomicilioNoPerteneceAClienteException;
+import excepciones.DomicilioNuloException;
+import excepciones.DomicilioYaExisteException;
+import excepciones.FactoryInvalidoException;
+import excepciones.FacturaInvalidaException;
+import excepciones.MetodoDePagoInvalidoException;
+
 /**
  * Esta clase solo puede ser instanciada una vez. 
  * Por eso implementa un patron singleton.
