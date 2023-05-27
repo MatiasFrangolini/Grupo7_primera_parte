@@ -23,7 +23,8 @@ public class Empresa {
 	
 	private static Empresa instancia = null;
 	private String nombre;
-	private ArrayList<IFactura> facturas = new ArrayList<IFactura>();
+	//private ArrayList<IFactura> facturas = new ArrayList<IFactura>();
+	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
 	
 	private Empresa() {
 		nombre = "Grupo 7";
@@ -42,28 +43,38 @@ public class Empresa {
 	/**
 	 * Funcion que devuelve un String que contiene toda la informacion de las facturas.
 	 */
-	public String generarReporteFacturas() {
-		Iterator<IFactura> it = this.facturas.iterator();
+	/*public String generarReporteFacturas() {
+		Iterator<Cliente> it = this.abonados.iterator();
 		String aux = "";
 		while (it.hasNext()) {
-			aux += it.next().toString();
+			aux += it.next().getFacturaMes().toString;
 		}
 		return aux;
-	}
+	}*/
 	
 	/**
-	 * Agrega una factura al arreglo de facturas de la Empresa.
+	 * Agrega una factura a un cliente de la Empresa.
 	 * @param factura: factura que sera agregada al Array.
 	 * @throws FacturaInvalidaException: se lanza cuando una factura es null.
 	 * <b>Post: </b> Agrega una factura a la lista de facturacion de la empresa.<br>
 	 */
-	public void addFactura(IFactura factura) throws FacturaInvalidaException {
-		int oldsize = this.facturas.size();
+	public void addFacturaACliente(Cliente cliente, IFactura factura) throws FacturaInvalidaException {
+		int pos = getPosCliente(cliente);
+		int oldSize = this.abonados.get(pos).getFacturas().size();
 		if (factura != null) 
-			this.facturas.add(factura);
+			cliente.addFactura(factura);
 		else
 			throw new FacturaInvalidaException("La factura que se desea agregar es invalida.");
-		assert this.facturas.size() == oldsize+1 : "Fallo postcondicion.";
+		assert this.abonados.get(pos).getFacturas().size() == oldSize+1 : "Fallo postcondicion.";
+	}
+	
+	public int getPosCliente(Cliente cliente) {
+		Iterator<Cliente> it = abonados.iterator();
+		int i = 0;
+		while (it.hasNext() && !(it.next().equals(cliente))) {
+			i++;
+		}
+		return i;
 	}
 	
 	/**

@@ -8,6 +8,7 @@ public abstract class Cliente implements Cloneable{
    
     protected ArrayList<Domicilio> domicilios = new ArrayList<Domicilio>(); //Relacion de composicion
 	protected ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>(); //Relacion de composicion
+	protected ArrayList<IFactura> facturas = new ArrayList<IFactura>();
 	private String nombre;
 	private String dni;
 	
@@ -48,6 +49,19 @@ public abstract class Cliente implements Cloneable{
 		int oldSize = this.contrataciones.size();
 		this.contrataciones.add(contratacion);
 		assert this.contrataciones.size() == oldSize+1: "Fallo postcondicion";
+	}
+	
+	/**
+	 * Metodo que agrega una contratacion a la lista de contrataciones del cliente
+	 * <b>Pre: </b> La contratacion no puede ser null<br>
+	 * @param contratacion: Contratacion del cliente
+	 * <b>Post: </b> Agrega una contratacion a la lista de contrataciones del cliente.<br>
+	 */
+	public void addFactura(IFactura factura) {
+		assert factura != null:"Contratacion nula";
+		int oldSize = this.facturas.size();
+		this.facturas.add(factura);
+		assert this.facturas.size() == oldSize+1: "Fallo postcondicion";
 	}
 	
 	/**
@@ -108,6 +122,11 @@ public abstract class Cliente implements Cloneable{
 	public ArrayList<Contratacion> getContrataciones() {
 		return contrataciones;
 	}
+	public ArrayList<IFactura> getFacturas() {
+		return facturas;
+	}
+	
+	
 	
 	
 	
