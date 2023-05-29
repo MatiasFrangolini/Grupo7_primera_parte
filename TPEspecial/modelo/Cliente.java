@@ -3,10 +3,12 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import negocio.Empresa;
 
-public abstract class Cliente implements Cloneable{
+
+public abstract class Cliente extends Thread implements Cloneable{
    
-    //protected ArrayList<Domicilio> domicilios = new ArrayList<Domicilio>(); //Relacion de composicion
+	
 	protected ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>(); //Relacion de composicion
 	protected ArrayList<IFactura> facturas = new ArrayList<IFactura>();
 	protected ArrayList<IFactura> historialfacturas = new ArrayList<IFactura>();
@@ -21,6 +23,7 @@ public abstract class Cliente implements Cloneable{
 	 * @param dni: Parametro de tipo String que representa el dni del cliente
 	 */
 	public Cliente(String nombre, String dni) {
+		super(nombre);
 		assert nombre != null:"Nombre de cliente nulo";
 		assert dni != null:"Dni de cliente nulo";
 		this.nombre = nombre;
@@ -89,7 +92,10 @@ public abstract class Cliente implements Cloneable{
 		return historialfacturas;
 	}
 	
-	
+	public void run() {
+		//Empresa.getInstancia().solicitarTecnico();
+		Empresa.trabajoTecnico(Empresa.getInstancia().solicitarTecnico(), 3000);
+	}
 	
 	
 	
