@@ -408,5 +408,29 @@ public class Ventana extends JFrame {
 		this.textArea_1 = new JTextArea();
 		this.textArea_1.setCaretColor(new Color(255, 0, 0));
 		abonados.add(this.textArea_1, BorderLayout.SOUTH);
+		
+		JPanel tabHistorial = new JPanel();
+		tabbedPane.addTab("Historial", null, tabHistorial, null);
+		tabHistorial.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelHistorial = new JPanel();
+		tabHistorial.add(panelHistorial);
+		panelHistorial.setLayout(new GridLayout(1, 2, 0, 0));
+		
+		JPanel panelClientesHistorial = new JPanel();
+		panelClientesHistorial.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelHistorial.add(panelClientesHistorial);
+		panelClientesHistorial.setLayout(new BorderLayout(0, 0));
+		
+		JList listaClientesHistorial = new JList();
+		panelClientesHistorial.add(listaClientesHistorial);
+		
+		JPanel panelFacturasHistorial = new JPanel();
+		panelFacturasHistorial.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), "Facturas", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelHistorial.add(panelFacturasHistorial);
+		panelFacturasHistorial.setLayout(new BorderLayout(0, 0));
+		
+		JList listaFacturasHistorial = new JList();
+		panelFacturasHistorial.add(listaFacturasHistorial);
 	}
 }
