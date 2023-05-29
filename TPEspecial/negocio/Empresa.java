@@ -23,7 +23,7 @@ public class Empresa {
 	
 	private static Empresa instancia = null;
 	private String nombre;
-	private ArrayList<IFactura> facturas = new ArrayList<IFactura>();
+	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
 	
 	private Empresa() {
 		nombre = "Grupo 7";
@@ -39,54 +39,8 @@ public class Empresa {
 		return instancia;
 	}
 	
-	/**
-	 * Funcion que devuelve un String que contiene toda la informacion de las facturas.
-	 */
-	public String generarReporteFacturas() {
-		Iterator<IFactura> it = this.facturas.iterator();
-		String aux = "";
-		while (it.hasNext()) {
-			aux += it.next().toString();
-		}
-		return aux;
-	}
 	
-	/**
-	 * Agrega una factura al arreglo de facturas de la Empresa.
-	 * @param factura: factura que sera agregada al Array.
-	 * @throws FacturaInvalidaException: se lanza cuando una factura es null.
-	 * <b>Post: </b> Agrega una factura a la lista de facturacion de la empresa.<br>
-	 */
-	public void addFactura(IFactura factura) throws FacturaInvalidaException {
-		int oldsize = this.facturas.size();
-		if (factura != null) 
-			this.facturas.add(factura);
-		else
-			throw new FacturaInvalidaException("La factura que se desea agregar es invalida.");
-		assert this.facturas.size() == oldsize+1 : "Fallo postcondicion.";
-	}
-	
-	/**
-	 * Metodo sobrecargado que CREA la factura y ademas la agrega al arreglo.
-	 * @param f: Factory que creara la factura.
-	 * @param medioDePago: parametro String que se usara en el factory, indica el medio de pago utilizado.
-	 * @param cliente: parametro de tipo Cliente.
-	 * @throws MetodoDePagoInvalidoException: Se lanza cuando el metodo de pago no es valido.
-	 * @throws ClienteInvalidoException: Se lanza cuando el cliente es null.
-	 * @throws FactoryInvalidoException : Se lanza cuando el Factory es null.
-	 * <b>Post: </b> Crea una factura y la agrega a la lista de facturacion de la empresa.<br>
-	 */
-	public void addFactura(FacturaFactory f, String medioDePago, Cliente cliente) throws MetodoDePagoInvalidoException, ClienteInvalidoException, FactoryInvalidoException {
-		int oldsize = this.facturas.size();
-		if (f != null) {
-			if (cliente != null)
-				this.facturas.add(f.getFactura(medioDePago, cliente));
-			else
-				throw new ClienteInvalidoException("No se puede crear una factura para un cliente invalido.");
-		} else throw new FactoryInvalidoException("El factory que se quiere utilizar es invalido.");
-		assert this.facturas.size() == oldsize+1 : "Fallo postcondicion.";
-	}
-	
+
 	/**
 	 * Metodo que agrega una contratacion al arreglo de contrataciones de un Cliente.
 	 * @param cliente: parametro Cliente
@@ -104,48 +58,15 @@ public class Empresa {
 		if (contratacion == null) {
 			throw new ContratacionInvalidaException("La contratacion no puede ser nula");
 		} else {
-			if (puedeAgregarContratacion(cliente, contratacion)) {
 				if (!(domicilioYaExiste(cliente.getContrataciones(), contratacion.getDomicilio())))
 					cliente.addContratacion(contratacion);
 				else
 					throw new DomicilioYaExisteException("Ese domicilio ya existia en otra contratacion");
-			} else
-				throw new DomicilioNoPerteneceAClienteException("El domicilio de esa contratacion no pertenece al cliente");
 		}
 		assert cliente.getContrataciones().size() == oldsize+1 : "Fallo postcondicion.";
 	}
 	
-	
-	/**
-	 * Funcion booleana para saber si el cliente puede recibir cierta contratacion.
-	 */
-	private boolean puedeAgregarContratacion(Cliente cliente, Contratacion contratacion) {
-		if (cliente.getDomicilios().contains(contratacion.getDomicilio()))
-			return true;
-		else
-			return false;
-	}
 
-	/**
-	 * Metodo que agrega un domicilio al arreglo de domicilios de un Cliente.
-	 * @param cliente: Cliente
-	 * @param domicilio: Domicilio que sera agregado a un arreglo.
-	 * @throws ClienteInvalidoException 
-	 * @throws DomicilioInvalidoException
-	 * <b>Post: </b> Actualiza el arreglo de domicilios de un Cliente agregando un domicilio pasada como parametro.<br>
-	 */
-	public void addDomicilioACliente(Cliente cliente, Domicilio domicilio) throws DomicilioNuloException, ClienteInvalidoException {
-		if (cliente == null)
-			throw new ClienteInvalidoException("El cliente no puede ser nulo");
-		int oldsize = cliente.getDomicilios().size();
-		if (domicilio == null) {
-			throw new DomicilioNuloException("El domicilio no puede ser nulo");
-		} else {
-			cliente.addDomicilio(domicilio);
-		}
-		assert cliente.getDomicilios().size() == oldsize+1 : "Fallo postcondicion.";
-	}
-	
 	/**
 	 * Metodo que se encarga de clonar una factura(Clonacion profunda).
 	 * @param factura: Factura que se quiere clonar. 
@@ -201,18 +122,21 @@ public class Empresa {
 	 * @return Devuelve una instancia de un hijo de Cliente, depende del parametro tipo
 	 * @throws ClienteInvalidoException Si los parametros son null o vacios, o si el tipo no es correcto.
 	 */
-	public Cliente creaCliente(String nombre, String dni, String tipo) throws ClienteInvalidoException {
+	public void creaCliente(String nombre, String dni, String tipo) throws ClienteInvalidoException {
+		Cliente abonado = null;
+		
 		if (nombre != null && !(nombre.equals("")) && dni != null && !(dni.equals("")) && tipo != null)
 			
 			if (tipo.equalsIgnoreCase("fisico"))
-				return new ClienteFisico(nombre,dni);
+				abonado = new ClienteFisico(nombre,dni);
 			else if (tipo.equalsIgnoreCase("juridico"))
-				return  new ClienteJuridico(nombre,dni);
+				abonado =  new ClienteJuridico(nombre,dni);
 			else
-				throw new ClienteInvalidoException("Tipo de cliente no valido.");
-				
+				throw new ClienteInvalidoException("Tipo de cliente no valido.");	
 		else
 			throw new ClienteInvalidoException("No se pudo crear el cliente.");
+		abonados.add(abonado);
+		
 	}
 	
 	
@@ -227,7 +151,7 @@ public class Empresa {
 	 * @throws DomicilioNuloException Si el domicilio es nulo
 	 * @throws ContratacionInvalidaException Si no se pudo instanciar la contratacion por valores invalidos.
 	 */
-	public Contratacion creaContratacion(boolean movilAcompaniamiento, int cantCamaras, int cantBotones, Domicilio domicilio, String tipo) throws DomicilioNuloException, ContratacionInvalidaException {
+	public Contratacion creaContratacion(Cliente abonado, boolean movilAcompaniamiento, int cantCamaras, int cantBotones, Domicilio domicilio, String tipo) throws DomicilioNuloException, ContratacionInvalidaException {
 		if (domicilio != null)
 			if (cantCamaras >= 0 && cantBotones>=0 && tipo != null)
 				if (tipo.equalsIgnoreCase("vivienda"))
@@ -246,9 +170,6 @@ public class Empresa {
 		return nombre;
 	}
 
-	public ArrayList<IFactura> getFacturas() {
-		return facturas;
-	}
 	
 	
 	

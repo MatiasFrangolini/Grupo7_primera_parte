@@ -21,6 +21,11 @@ public class Factura implements IFactura{
 		return this.abonado.getPagoTotal();
 	}
 	
+	
+	public void setPrecioTotal(double precioTotal) {
+		this.precioTotal = precioTotal;
+	}
+
 	public int getCantContrataciones() {
 		return this.abonado.contrataciones.size();
 	}

@@ -26,4 +26,5 @@ public class DecoratorCheque extends DecoratorMedioDePago {
 	}
 
 
+
 }

@@ -6,8 +6,10 @@ import java.util.Iterator;
 
 public abstract class Cliente implements Cloneable{
    
-    protected ArrayList<Domicilio> domicilios = new ArrayList<Domicilio>(); //Relacion de composicion
+    //protected ArrayList<Domicilio> domicilios = new ArrayList<Domicilio>(); //Relacion de composicion
 	protected ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>(); //Relacion de composicion
+	protected ArrayList<IFactura> facturas = new ArrayList<IFactura>();
+	protected ArrayList<IFactura> historialfacturas = new ArrayList<IFactura>();
 	private String nombre;
 	private String dni;
 	
@@ -24,19 +26,7 @@ public abstract class Cliente implements Cloneable{
 		this.nombre = nombre;
 		this.dni = dni;
 	}
-	/**
-	 * Metodo que agrega un domicilio a la lista de domicilios del cliente
-	 * <b>Pre: </b> El domicilio no puede ser null
-	 * @param domicilio: Domicilio del cliente
-	 * <b>Post: </b> Agrega un domicilio a la lista de domicilios del cliente.
-	 */
-	public void addDomicilio(Domicilio domicilio) {
-		assert domicilio != null:"Domicilio nulo";
-		int oldSize = this.domicilios.size();
-		this.domicilios.add(domicilio);
-		assert this.domicilios.size() == oldSize+1: "Fallo postcondicion";
-	}
-	
+
 	/**
 	 * Metodo que agrega una contratacion a la lista de contrataciones del cliente
 	 * <b>Pre: </b> La contratacion no puede ser null<br>
@@ -71,45 +61,33 @@ public abstract class Cliente implements Cloneable{
 	public Object clone() throws CloneNotSupportedException {
 		Cliente clonado;
 		Iterator<Contratacion> itC = this.contrataciones.iterator();
-		Iterator<Domicilio> itD = this.domicilios.iterator();
 		clonado = (ClienteFisico) super.clone();
 		clonado.contrataciones = (ArrayList<Contratacion>) this.contrataciones.clone();
 		clonado.contrataciones.clear();
 		while (itC.hasNext()) {
 			clonado.contrataciones.add((Contratacion)itC.next().clone());
 		}
-		clonado.domicilios = (ArrayList<Domicilio>)this.domicilios.clone();
-		clonado.domicilios.clear();
-		while (itD.hasNext()) {
-			clonado.domicilios.add((Domicilio)itD.next().clone());
-		}
 		return clonado;
 	}
 	
-	/**
-	 * Metodo que imprime los domicilios de un Cliente
-	 */
-	public void listarDomicilios() {
-		Iterator<Domicilio> it = this.domicilios.iterator();
-		while (it.hasNext()) {
-			System.out.println(it.next().toString());
-		}
-	}
 
 	@Override
 	public String toString() {
 		return "cliente " + nombre + ", Dni " + dni + "\nContrataciones: \n"+ contrataciones.toString();
 	}
 
-	public ArrayList<Domicilio> getDomicilios() {
-		return domicilios;
+
+	public ArrayList<IFactura> getFacturas() {
+		return facturas;
 	}
 
 	public ArrayList<Contratacion> getContrataciones() {
 		return contrataciones;
 	}
 	
-	
+	public ArrayList<IFactura> getHistorialFacturas() {
+		return historialfacturas;
+	}
 	
 	
 	
