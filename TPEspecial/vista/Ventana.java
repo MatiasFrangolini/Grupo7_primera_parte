@@ -219,6 +219,7 @@ public class Ventana extends JFrame {
 		panel_3.add(this.btnAvanzarMes);
 		
 		this.textArea = new JTextArea();
+		textArea.setEnabled(false);
 		empresa.add(this.textArea, BorderLayout.SOUTH);
 		
 		JPanel abonados = new JPanel();
