@@ -21,7 +21,7 @@ import excepciones.MetodoDePagoInvalidoException;
  */
 public class Empresa {
 	
-	
+	private static int mes = 1;
 	private static Empresa instancia = null;
 	private String nombre;
 	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
@@ -227,6 +227,40 @@ public class Empresa {
 		return aux;
 	}
 	
+	public void cambiarMes() {
+		this.mes++;
+		actualizarEstado();
+		generarFacturas();
+	}
 	
+	public void actualizarEstado() {
+		Iterator<Cliente> it = abonados.iterator();
+		ClienteFisico aux;
+		while (it.hasNext()) {
+			if (it.next() instanceof ClienteFisico) {
+				aux = (ClienteFisico)it.next();
+				aux.actualizarEstado();
+			}
+		}
+	}
+	
+	
+	public void generarFacturas() {
+		Iterator<Cliente> it = abonados.iterator();
+		Random random = new Random();
+		ArrayList<String> metodosPago = new ArrayList<String>();
+		metodosPago.add("efectivo");
+		metodosPago.add("cheque");
+		metodosPago.add("tarjeta");
+		int i = random.nextInt(metodosPago.size());
+		FacturaFactory f = new FacturaFactory();
+		while (it.hasNext()) {
+			try {
+				f.getFactura(metodosPago.get(i), it.next());
+			} catch (MetodoDePagoInvalidoException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 }
