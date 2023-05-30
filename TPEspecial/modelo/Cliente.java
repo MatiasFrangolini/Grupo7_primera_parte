@@ -43,6 +43,13 @@ public abstract class Cliente extends Thread implements Cloneable{
 		assert this.contrataciones.size() == oldSize+1: "Fallo postcondicion";
 	}
 	
+	public void addFactura(IFactura factura) {
+		assert factura != null:"Factura nula";
+		int oldSize = this.facturas.size();
+		this.facturas.add(factura);
+		assert this.facturas.size() == oldSize+1: "Fallo postcondicion";
+	}
+	
 	/**
 	 * @return Devuelve el precio total de todas las contrataciones del cliente.
 	 * El pago de los servicios se calcula realizando la sumatoria de los mismos.

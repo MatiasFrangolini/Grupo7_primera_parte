@@ -247,6 +247,8 @@ public class Empresa {
 	
 	public void generarFacturas() {
 		Iterator<Cliente> it = abonados.iterator();
+		IFactura aux;
+		Cliente auxIt;
 		Random random = new Random();
 		ArrayList<String> metodosPago = new ArrayList<String>();
 		metodosPago.add("efectivo");
@@ -255,8 +257,11 @@ public class Empresa {
 		int i = random.nextInt(metodosPago.size());
 		FacturaFactory f = new FacturaFactory();
 		while (it.hasNext()) {
+			auxIt = it.next();
 			try {
-				f.getFactura(metodosPago.get(i), it.next());
+				aux = f.getFactura(metodosPago.get(i), auxIt);
+				auxIt.addFactura(aux);
+				
 			} catch (MetodoDePagoInvalidoException e) {
 				e.printStackTrace();
 			}
