@@ -36,13 +36,14 @@ import javax.swing.ButtonGroup;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
-public class Ventana extends JFrame implements KeyListener {
+public class Ventana extends JFrame implements KeyListener, ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textNombre;
 	private JTextField textDni;
 	private JButton btnAvanzarMes;
 	private JButton btnAgregarContratacion;
+	private JButton btnEliminarContratacion;
 	private JPanel abonadosPrincipal;
 	private JPanel panelListaClientes;
 	private JPanel panelCentralAbonados;
@@ -58,11 +59,23 @@ public class Ventana extends JFrame implements KeyListener {
 	private JTextField alturatext;
 	private JTextArea textArea;
 	private JTextArea textArea_1;
-	private JSpinner spinner;
-	private JSpinner spinner_1;
+	private JSpinner spinnercamaras;
+	private JSpinner spinnerbotones;
 	private JTextField textField;
+	
 
-
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Ventana frame = new Ventana();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -277,10 +290,10 @@ public class Ventana extends JFrame implements KeyListener {
 		panelCentralAgregar.add(panel_13);
 		panel_13.setLayout(null);
 		
-		this.spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(0, 0, 50, 1));
-		this.spinner.setBounds(45, 10, 45, 20);
-		panel_13.add(this.spinner);
+		this.spinnercamaras = new JSpinner();
+		spinnercamaras.setModel(new SpinnerNumberModel(0, 0, 50, 1));
+		this.spinnercamaras.setBounds(45, 10, 45, 20);
+		panel_13.add(this.spinnercamaras);
 		
 		JPanel panel_14 = new JPanel();
 		panelCentralAgregar.add(panel_14);
@@ -294,10 +307,10 @@ public class Ventana extends JFrame implements KeyListener {
 		panelCentralAgregar.add(panel_15);
 		panel_15.setLayout(null);
 		
-		this.spinner_1 = new JSpinner();
-		spinner_1.setModel(new SpinnerNumberModel(0, 0, 50, 1));
-		this.spinner_1.setBounds(45, 10, 45, 20);
-		panel_15.add(this.spinner_1);
+		this.spinnerbotones = new JSpinner();
+		spinnerbotones.setModel(new SpinnerNumberModel(0, 0, 50, 1));
+		this.spinnerbotones.setBounds(45, 10, 45, 20);
+		panel_15.add(this.spinnerbotones);
 		
 		this.panel_18 = new JPanel();
 		panelCentralAgregar.add(this.panel_18);
@@ -343,7 +356,7 @@ public class Ventana extends JFrame implements KeyListener {
 		this.btnAgregarContratacion.setEnabled(false);
 		panel_7.add(btnAgregarContratacion);
 		
-		JButton btnEliminarContratacion = new JButton("Eliminar Contratacion");
+		this.btnEliminarContratacion = new JButton("Eliminar Contratacion");
 		btnEliminarContratacion.setEnabled(false);
 		panel_7.add(btnEliminarContratacion);
 		
@@ -439,8 +452,8 @@ public class Ventana extends JFrame implements KeyListener {
 		int altura = -1;
 			calle = this.calletext.getText();
 			altura = Integer.parseInt(this.alturatext.getText());
-			boolean condicionagregarcontratacion = altura>=0;
-			this.btnAgregarContratacion.setEnabled(true);	
+			boolean condicionagregarcontratacion = calle != null && !calle.equalsIgnoreCase("") && altura>0;
+			this.btnAgregarContratacion.setEnabled(condicionagregarcontratacion);	
 	}
 	
 	public void keyTyped(KeyEvent e) {
@@ -448,6 +461,8 @@ public class Ventana extends JFrame implements KeyListener {
 
 
 
+	public void actionPerformed(ActionEvent e) {
+	}
 }
 	
 	
