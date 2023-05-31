@@ -30,13 +30,19 @@ import javax.swing.JSeparator;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.ButtonGroup;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
-public class Ventana extends JFrame {
+public class Ventana extends JFrame implements KeyListener {
 
 	private JPanel contentPane;
 	private JTextField textNombre;
 	private JTextField textDni;
 	private JButton btnAvanzarMes;
+	private JButton btnAgregarContratacion;
 	private JPanel abonadosPrincipal;
 	private JPanel panelListaClientes;
 	private JPanel panelCentralAbonados;
@@ -47,34 +53,15 @@ public class Ventana extends JFrame {
 	private JLabel lblNewLabel_5;
 	private JLabel lblNewLabel_6;
 	private JPanel panel_20;
-	private JTextField textField_2;
+	private JTextField calletext;
 	private JPanel panel_21;
-	private JTextField textField_3;
+	private JTextField alturatext;
 	private JTextArea textArea;
 	private JTextArea textArea_1;
-	/**
-	 * @wbp.nonvisual location=-30,379
-	 */
-	private final JPanel panel_26 = new JPanel();
 	private JSpinner spinner;
 	private JSpinner spinner_1;
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ventana frame = new Ventana();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -136,7 +123,8 @@ public class Ventana extends JFrame {
 		panelDatosCliente.add(panel_5);
 		panel_5.setLayout(null);
 		
-		textNombre = new JTextField();
+		this.textNombre = new JTextField();
+		this.textNombre.addKeyListener(this);
 		textNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		textNombre.setBounds(10, 17, 198, 20);
 		panel_5.add(textNombre);
@@ -154,7 +142,8 @@ public class Ventana extends JFrame {
 		panel_5_1.setLayout(null);
 		panelDatosCliente.add(panel_5_1);
 		
-		textDni = new JTextField();
+		this.textDni = new JTextField();
+		this.textDni.addKeyListener(this);
 		textDni.setHorizontalAlignment(SwingConstants.CENTER);
 		textDni.setColumns(10);
 		textDni.setBounds(10, 17, 198, 20);
@@ -193,6 +182,7 @@ public class Ventana extends JFrame {
 		panel_22.setLayout(null);
 		
 		textField = new JTextField();
+		this.textField.addKeyListener(this);
 		textField.setBounds(50, 25, 120, 20);
 		panel_22.add(textField);
 		textField.setColumns(10);
@@ -321,10 +311,11 @@ public class Ventana extends JFrame {
 		this.panel_18.add(this.panel_20, BorderLayout.CENTER);
 		this.panel_20.setLayout(null);
 		
-		this.textField_2 = new JTextField();
-		this.textField_2.setBounds(18, 5, 102, 15);
-		this.panel_20.add(this.textField_2);
-		this.textField_2.setColumns(10);
+		this.calletext = new JTextField();
+		this.calletext.addKeyListener(this);
+		this.calletext.setBounds(18, 5, 102, 15);
+		this.panel_20.add(this.calletext);
+		this.calletext.setColumns(10);
 		
 		this.panel_19 = new JPanel();
 		panelCentralAgregar.add(this.panel_19);
@@ -338,19 +329,22 @@ public class Ventana extends JFrame {
 		this.panel_19.add(this.panel_21, BorderLayout.CENTER);
 		this.panel_21.setLayout(null);
 		
-		this.textField_3 = new JTextField();
-		this.textField_3.setBounds(18, 5, 102, 15);
-		this.panel_21.add(this.textField_3);
-		this.textField_3.setColumns(10);
+		this.alturatext = new JTextField();
+		this.alturatext.addKeyListener(this);
+		this.alturatext.setBounds(18, 5, 102, 15);
+		this.panel_21.add(this.alturatext);
+		this.alturatext.setColumns(10);
 		
 		JPanel panel_7 = new JPanel();
 		panel_4.add(panel_7, BorderLayout.SOUTH);
 		panel_7.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnAgregarContratacion = new JButton("Agregar Contratacion");
+		this.btnAgregarContratacion = new JButton("Agregar Contratacion");
+		this.btnAgregarContratacion.setEnabled(false);
 		panel_7.add(btnAgregarContratacion);
 		
 		JButton btnEliminarContratacion = new JButton("Eliminar Contratacion");
+		btnEliminarContratacion.setEnabled(false);
 		panel_7.add(btnEliminarContratacion);
 		
 		JPanel panel_8 = new JPanel();
@@ -432,5 +426,28 @@ public class Ventana extends JFrame {
 		
 		JList listaFacturasHistorial = new JList();
 		panelFacturasHistorial.add(listaFacturasHistorial);
+		
 	}
+	
+	
+	public void keyPressed(KeyEvent e) {
+	}
+	
+	public void keyReleased(KeyEvent e) {
+		System.out.println("llamado");
+		String calle=null;
+		int altura = -1;
+			calle = this.calletext.getText();
+			altura = Integer.parseInt(this.alturatext.getText());
+			boolean condicionagregarcontratacion = altura>=0;
+			this.btnAgregarContratacion.setEnabled(true);	
+	}
+	
+	public void keyTyped(KeyEvent e) {
+	}
+
+
+
 }
+	
+	
