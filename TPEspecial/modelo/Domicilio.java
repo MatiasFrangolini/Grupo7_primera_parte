@@ -1,5 +1,6 @@
 package modelo;
 
+
 public class Domicilio implements Cloneable, Comparable<Domicilio>{
 	
 	private String calle;

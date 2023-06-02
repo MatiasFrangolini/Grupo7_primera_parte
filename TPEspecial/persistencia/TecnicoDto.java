@@ -1,33 +1,25 @@
-package modelo;
+package persistencia;
 
+import java.io.Serializable;
 
-public class Tecnico {
-	
+public class TecnicoDto implements Serializable {
 	private String nombre;
 	private boolean ocupado;
-	
-	public Tecnico(String nombre) {
-		this.nombre = nombre;
-		this.ocupado = false;
+	public TecnicoDto() {
+		super();
 	}
-
 	public String getNombre() {
 		return nombre;
 	}
-
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	public boolean isOcupado() {
 		return ocupado;
 	}
-
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}
 	
 	
-	
-	
-	
-	
-	
-
 }

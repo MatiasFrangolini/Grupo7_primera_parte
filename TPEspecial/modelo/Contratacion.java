@@ -1,5 +1,6 @@
 package modelo;
 
+
 import negocio.Promocionable;
 
 public abstract class Contratacion implements Promocionable, Cloneable{

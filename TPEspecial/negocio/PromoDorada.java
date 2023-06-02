@@ -1,6 +1,7 @@
 package negocio;
 
-public class PromoDorada implements IAplicaPromo {
+
+public class PromoDorada implements IAplicaPromo{
 
 	public PromoDorada() {
 		// TODO Auto-generated constructor stub

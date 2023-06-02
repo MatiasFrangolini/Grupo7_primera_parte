@@ -1,5 +1,7 @@
 package negocio;
 
+
+
 import excepciones.MetodoDePagoInvalidoException;
 import modelo.Cliente;
 import modelo.Factura;

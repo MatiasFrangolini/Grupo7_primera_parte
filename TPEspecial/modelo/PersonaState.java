@@ -1,8 +1,7 @@
 package modelo;
 
-import negocio.Empresa;
 
-public abstract class PersonaState implements IPersonaState {
+public abstract class PersonaState implements IPersonaState{
 	
 	protected ClienteFisico c;
 

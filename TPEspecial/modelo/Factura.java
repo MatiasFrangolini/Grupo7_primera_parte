@@ -1,5 +1,6 @@
 package modelo;
 
+
 public class Factura implements IFactura{
 	Cliente abonado; //Relacion de composicion con Cliente.
 	double precioTotal;

@@ -1,5 +1,5 @@
 package negocio;
-import modelo.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -10,9 +10,17 @@ import excepciones.DomicilioInvalidoException;
 import excepciones.DomicilioNoPerteneceAClienteException;
 import excepciones.DomicilioNuloException;
 import excepciones.DomicilioYaExisteException;
-import excepciones.FactoryInvalidoException;
 import excepciones.FacturaInvalidaException;
 import excepciones.MetodoDePagoInvalidoException;
+import modelo.AlarmaComercio;
+import modelo.AlarmaVivienda;
+import modelo.Cliente;
+import modelo.ClienteFisico;
+import modelo.ClienteJuridico;
+import modelo.Contratacion;
+import modelo.Domicilio;
+import modelo.IFactura;
+import modelo.Tecnico;
 
 /**
  * Esta clase solo puede ser instanciada una vez. 

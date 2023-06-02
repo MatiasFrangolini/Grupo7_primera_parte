@@ -1,5 +1,6 @@
 package modelo;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -103,6 +104,7 @@ public abstract class Cliente extends Thread implements Cloneable{
 		//Empresa.getInstancia().solicitarTecnico();
 		Empresa.trabajoTecnico(Empresa.getInstancia().solicitarTecnico(), 3000);
 	}
+	
 	
 	
 	

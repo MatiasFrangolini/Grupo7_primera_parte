@@ -1,6 +1,7 @@
 package modelo;
 
-public class MorosoState extends PersonaState {
+
+public class MorosoState extends PersonaState{
 
 	public MorosoState(ClienteFisico c) {
 		super(c);
