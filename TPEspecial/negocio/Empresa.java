@@ -275,5 +275,27 @@ public class Empresa {
 			}
 		}
 	}
+
+	public ArrayList<Cliente> getAbonados() {
+		return abonados;
+	}
+
+	public void setAbonados(ArrayList<Cliente> abonados) {
+		this.abonados = abonados;
+	}
+
+	public ArrayList<Tecnico> getTecnicos() {
+		return tecnicos;
+	}
+
+	public void setTecnicos(ArrayList<Tecnico> tecnicos) {
+		this.tecnicos = tecnicos;
+	}
+
+	public static int getMes() {
+		return mes;
+	}
+	
+	
 	
 }
