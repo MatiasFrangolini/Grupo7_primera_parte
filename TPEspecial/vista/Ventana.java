@@ -30,6 +30,11 @@ import javax.swing.JSeparator;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 import javax.swing.border.TitledBorder;
+
+import modelo.Cliente;
+import modelo.Contratacion;
+import modelo.Factura;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
@@ -65,12 +70,15 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	private JTextArea textArea_1;
 	private JSpinner spinnercamaras;
 	private JSpinner spinnerbotones;
-	private JTextField textField;
+	private JTextField textNombreTecnico;
 	private ActionListener actionListener;
 	private JButton btnAgregarTecnico;
 	private JButton btnSolicitarTecnico;
 	private JButton btnPagarFactura;
-	public JList listaClientes;
+	protected JList listaClientes;
+	private JCheckBox chckbxMovilAcom;
+	private JList listaFacturas;
+	private JList listaContrataciones;
 	
 	public void setActionListener(ActionListener actionListener)
 	    {
@@ -175,11 +183,14 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panelBotones.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		this.btnClienteFisico = new JButton("Agregar Cliente Fisico");
+		btnClienteFisico.addMouseListener(this);
 		panelBotones.add(btnClienteFisico);
+		this.btnClienteFisico.setEnabled(false);
 		
 		this.btnClienteJuridico = new JButton("Agregar Cliente Juridico");
 		btnClienteJuridico.addMouseListener(this);
 		panelBotones.add(btnClienteJuridico);
+		this.btnClienteJuridico.setEnabled(false);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -203,11 +214,11 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panel_2.add(panel_22);
 		panel_22.setLayout(null);
 		
-		textField = new JTextField();
-		this.textField.addKeyListener(this);
-		textField.setBounds(50, 25, 120, 20);
-		panel_22.add(textField);
-		textField.setColumns(10);
+		textNombreTecnico = new JTextField();
+		this.textNombreTecnico.addKeyListener(this);
+		textNombreTecnico.setBounds(50, 25, 120, 20);
+		panel_22.add(textNombreTecnico);
+		textNombreTecnico.setColumns(10);
 		
 		JPanel panel_16 = new JPanel();
 		panel_1.add(panel_16);
@@ -216,6 +227,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		this.btnAgregarTecnico = new JButton("Agregar Técnico");
 		btnAgregarTecnico.setBounds(150, 20, 132, 23);
 		panel_16.add(btnAgregarTecnico);
+		this.btnAgregarTecnico.setEnabled(false);
 		
 		JPanel panelMes = new JPanel();
 		panelMes.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -283,7 +295,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panelCentralAgregar.add(panelCheckbox);
 		panelCheckbox.setLayout(new BorderLayout(0, 0));
 		
-		JCheckBox chckbxMovilAcom = new JCheckBox("Agregar");
+		this.chckbxMovilAcom = new JCheckBox("Agregar");
 		chckbxMovilAcom.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCheckbox.add(chckbxMovilAcom);
 		
@@ -359,10 +371,10 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		
 		JPanel panel_7 = new JPanel();
 		panel_4.add(panel_7, BorderLayout.SOUTH);
-		panel_7.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		this.btnAgregarContratacion = new JButton("Agregar Contratacion");
 		this.btnAgregarContratacion.addMouseListener(this);
+		panel_7.setLayout(new GridLayout(0, 2, 0, 0));
 		this.btnAgregarContratacion.setEnabled(false);
 		panel_7.add(btnAgregarContratacion);
 		
@@ -381,6 +393,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panel_9.setLayout(null);
 		
 		this.btnPagarFactura = new JButton("Pagar Factura");
+		this.btnPagarFactura.addMouseListener(this);
 		btnPagarFactura.setBounds(80, 35, 129, 30);
 		btnPagarFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_9.add(btnPagarFactura);
@@ -390,6 +403,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panel_11.setLayout(null);
 		
 		this.btnSolicitarTecnico = new JButton("Solicitar Técnico");
+		this.btnSolicitarTecnico.addMouseListener(this);
 		btnSolicitarTecnico.setBounds(80, 35, 129, 30);
 		btnSolicitarTecnico.setAlignmentX(0.5f);
 		panel_11.add(btnSolicitarTecnico);
@@ -408,7 +422,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		contrataciones.setHorizontalAlignment(SwingConstants.CENTER);
 		panelContrataciones.add(contrataciones, BorderLayout.NORTH);
 		
-		JList listaContrataciones = new JList();
+		this.listaContrataciones = new JList();
 		panelContrataciones.add(listaContrataciones, BorderLayout.CENTER);
 		
 		JPanel panelFacturas = new JPanel();
@@ -420,7 +434,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		facturas.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturas.add(facturas, BorderLayout.NORTH);
 		
-		JList listaFacturas = new JList();
+		this.listaFacturas = new JList();
 		panelFacturas.add(listaFacturas, BorderLayout.CENTER);
 		
 		this.textArea_1 = new JTextArea();
@@ -469,20 +483,75 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	
 	public void keyReleased(KeyEvent e) {
 		String calle=null;
+		String nombre=null;
+		String DNI=null;
+		String nombreTecnico=null;
 		int altura = -1;
 			calle = this.calletext.getText();
 			if (isInteger(this.alturatext.getText())) {
 				altura = Integer.parseInt(this.alturatext.getText());
 			}
+			nombre = this.textNombre.getText();
+			DNI = this.textDni.getText();
 			boolean condicionagregarcontratacion = calle != null && !(calle.equalsIgnoreCase("")) && altura>0;
 			this.btnAgregarContratacion.setEnabled(condicionagregarcontratacion);	
+			boolean condicionagregarcliente = nombre != null && !(nombre.equalsIgnoreCase("")) && DNI != null && !(DNI.equalsIgnoreCase(""));
+			this.btnClienteFisico.setEnabled(condicionagregarcliente);
+			this.btnClienteJuridico.setEnabled(condicionagregarcliente);
+			nombreTecnico = this.textNombreTecnico.getText();
+			boolean condicionagregartecnico = nombreTecnico != null && !(nombreTecnico.equalsIgnoreCase(""));
+			this.btnAgregarTecnico.setEnabled(condicionagregartecnico);
 	}
 	
 	public void keyTyped(KeyEvent e) {
 	}
 
+	public Cliente getCliente() {
+		return (Cliente) this.listaClientes.getSelectedValue();
+	}
 
-
+	public String getNombre() {
+		return this.textNombre.getText();
+	}
+	
+	public String getDNI() {
+		return this.textDni.getText();
+	}
+	
+	public String getNombreTecnico() {
+		return this.textNombreTecnico.getText();
+	}
+	
+	public boolean getMovil() {
+		return this.chckbxMovilAcom.isSelected();
+	}
+	
+	public int getCamaras() {
+		return this.spinnercamaras.getComponentCount();
+	}
+	
+	public int getBotones() {
+		return this.spinnerbotones.getComponentCount();
+	}
+	
+	public String getCalle() {
+		return this.calletext.getText();
+	}
+	
+	public int getAltura() {
+		int aux;
+		aux = (int) Integer.parseInt(this.alturatext.getText());
+		return aux;
+	}
+	
+	public Contratacion getContratacion() {
+		return (Contratacion) this.listaContrataciones.getSelectedValue();
+	}
+	
+	public Factura getFactura() {
+		return (Factura) this.listaFacturas.getSelectedValue();
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 	}
 	public void mouseClicked(MouseEvent e) {
@@ -496,9 +565,8 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		String comando = null;
 		comando = boton.getActionCommand();
 		ActionEvent evento = new ActionEvent(e.getSource(),0,comando);
-		
-		
 	}
+	
 	public void mouseReleased(MouseEvent e) {
 	}
 }
