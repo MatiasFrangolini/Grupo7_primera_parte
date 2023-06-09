@@ -1,4 +1,5 @@
-package prueba;
+
+/*package prueba;
 import excepciones.ClienteInvalidoException;
 import excepciones.ContratacionInvalidaException;
 import excepciones.DomicilioInvalidoException;
@@ -13,7 +14,7 @@ public class Prueba {
 
 	public static void main(String[] args) {
 		
-		/*******    HAY CIERTAS LINEAS COMENTADAS, SON LAS QUE LANZAN EXCEPCIONES, DESCOMENTARLAS PARA PROBARLAS     *******/
+		/*******    HAY CIERTAS LINEAS COMENTADAS, SON LAS QUE LANZAN EXCEPCIONES, DESCOMENTARLAS PARA PROBARLAS
 		
 		
 		Empresa e1 = Empresa.getInstancia();
@@ -153,3 +154,4 @@ public class Prueba {
 	    
 	}
 }
+*/
