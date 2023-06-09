@@ -37,10 +37,14 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 
 public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener {
 
 	private JPanel contentPane;
+	private JPanel panel_4;
+	private JPanel panel_7;
 	private JTextField textNombre;
 	private JTextField textDni;
 	private JButton btnAvanzarMes;
@@ -359,11 +363,12 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		
 		JPanel panel_7 = new JPanel();
 		panel_4.add(panel_7, BorderLayout.SOUTH);
-		panel_7.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		this.btnAgregarContratacion = new JButton("Agregar Contratacion");
-		this.btnAgregarContratacion.addMouseListener(this);
 		this.btnAgregarContratacion.setEnabled(false);
+		this.btnAgregarContratacion.addActionListener(this);
+		this.btnAgregarContratacion.addMouseListener(this);
+		panel_7.setLayout(new GridLayout(0, 2, 0, 0));
 		panel_7.add(btnAgregarContratacion);
 		
 		this.btnEliminarContratacion = new JButton("Eliminar Contratacion");
