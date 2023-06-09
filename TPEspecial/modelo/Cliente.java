@@ -44,6 +44,13 @@ public abstract class Cliente extends Thread implements Cloneable{
 		assert this.contrataciones.size() == oldSize+1: "Fallo postcondicion";
 	}
 	
+	public void removeContratacion(Contratacion contratacion) {
+		assert contratacion != null:"Contratacion nula";
+		int oldSize = this.contrataciones.size();
+		this.contrataciones.remove(contratacion);
+		assert this.contrataciones.size() == oldSize+1: "Fallo postcondicion";
+	}
+	
 	public void addFactura(IFactura factura) {
 		assert factura != null:"Factura nula";
 		int oldSize = this.facturas.size();
@@ -84,7 +91,7 @@ public abstract class Cliente extends Thread implements Cloneable{
 
 	@Override
 	public String toString() {
-		return "cliente " + nombre + ", Dni " + dni + "\nContrataciones: \n"+ contrataciones.toString();
+		return nombre + ". DNI: " + dni;
 	}
 
 

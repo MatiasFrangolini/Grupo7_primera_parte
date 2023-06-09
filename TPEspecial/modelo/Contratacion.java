@@ -100,8 +100,8 @@ public abstract class Contratacion implements Promocionable, Cloneable{
 	
 	@Override
 	public String toString() {
-		return "[Contratacion Id: " + numId + ". Precio: $" + precio +". "+ domicilio.toString() + "Descripcion: \nCantidad de camaras: "+cantCamaras
-				+"\nCantidad de botones antipanico: "+cantBotones+movilAcompaniamientoString()+"]\n";
+		return "Id: " + numId + ". Precio: $" + precio +".  "+ domicilio.toString() + "  Camaras: "+cantCamaras
+				+"  Botones antipanico: "+cantBotones+movilAcompaniamientoString();
 	}
 	
 	

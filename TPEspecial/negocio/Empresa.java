@@ -76,6 +76,14 @@ public class Empresa {
 		assert cliente.getContrataciones().size() == oldsize+1 : "Fallo postcondicion.";
 	}
 	
+	
+	public void removeContratacionCliente(Cliente cliente, Contratacion contratacion) {
+		int oldsize = cliente.getContrataciones().size();
+		
+		cliente.removeContratacion(contratacion);
+		
+		assert cliente.getContrataciones().size() == oldsize-1 : "Fallo postcondicion.";
+	}
 
 	/**
 	 * Metodo que se encarga de clonar una factura(Clonacion profunda).

@@ -1,49 +1,43 @@
 package vista;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JList;
-import java.awt.FlowLayout;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JSplitPane;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import java.awt.Color;
-import javax.swing.JToggleButton;
-import javax.swing.JCheckBox;
-import javax.swing.JSpinner;
-import javax.swing.JPasswordField;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JSeparator;
-import javax.swing.BoxLayout;
 import java.awt.Component;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Iterator;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import modelo.Cliente;
 import modelo.Contratacion;
 import modelo.Factura;
+import modelo.IFactura;
+import negocio.Empresa;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.ButtonGroup;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-
-public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener {
+public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener {
 
 	private JPanel contentPane;
 	private JTextField textNombre;
@@ -75,10 +69,15 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	private JButton btnAgregarTecnico;
 	private JButton btnSolicitarTecnico;
 	private JButton btnPagarFactura;
-	protected JList listaClientes;
+	protected JList<Cliente> listaClientes;
 	private JCheckBox chckbxMovilAcom;
-	private JList listaFacturas;
-	private JList listaContrataciones;
+	private JList<IFactura> listaFacturas;
+	private JList<Contratacion> listaContrataciones;
+	private DefaultListModel<Cliente> listModelClienteEmpresa = new DefaultListModel<Cliente>();
+	private DefaultListModel<Cliente> listModelCliente = new DefaultListModel<Cliente>();
+	private DefaultListModel<IFactura> listModelFactura = new DefaultListModel<IFactura>();
+	private DefaultListModel<IFactura> listModelFacturaHistorial = new DefaultListModel<IFactura>();
+	private DefaultListModel<Contratacion> listModelContratacion = new DefaultListModel<Contratacion>();
 	
 	public void setActionListener(ActionListener actionListener)
 	    {
@@ -120,8 +119,10 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		empresaPrincipal.add(listaIzq);
 		listaIzq.setLayout(new BorderLayout(0, 0));
 		
-		JList listaClientesEmpresa = new JList();
+		
+		JList<Cliente> listaClientesEmpresa = new JList<Cliente>();
 		listaIzq.add(listaClientesEmpresa);
+		listaClientesEmpresa.setModel(listModelClienteEmpresa);
 		
 		JPanel panelDerecho = new JPanel();
 		empresaPrincipal.add(panelDerecho);
@@ -239,8 +240,16 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panel_3.setLayout(null);
 		
 		this.btnAvanzarMes = new JButton("Avanzar mes");
+		btnAvanzarMes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		this.btnAvanzarMes.setBounds(150, 50, 140, 23);
 		panel_3.add(this.btnAvanzarMes);
+		
+		JLabel lblMesActual = new JLabel("Mes actual:                        "+ String.valueOf(Empresa.getMes()));
+		lblMesActual.setBounds(150, 28, 140, 14);
+		panel_3.add(lblMesActual);
 		
 		this.textArea = new JTextArea();
 		textArea.setEnabled(false);
@@ -259,8 +268,10 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		this.abonadosPrincipal.add(this.panelListaClientes);
 		this.panelListaClientes.setLayout(new BorderLayout(0, 0));
 		
-		this.listaClientes = new JList();
+		this.listaClientes = new JList<Cliente>();
+		listaClientes.addListSelectionListener(this);
 		this.panelListaClientes.add(listaClientes, BorderLayout.CENTER);
+		listaClientes.setModel(listModelCliente);
 		
 		this.panelCentralAbonados = new JPanel();
 		this.abonadosPrincipal.add(this.panelCentralAbonados);
@@ -423,8 +434,10 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		contrataciones.setHorizontalAlignment(SwingConstants.CENTER);
 		panelContrataciones.add(contrataciones, BorderLayout.NORTH);
 		
-		this.listaContrataciones = new JList();
+		this.listaContrataciones = new JList<Contratacion>();
 		panelContrataciones.add(listaContrataciones, BorderLayout.CENTER);
+		//listaContrataciones.addListSelectionListener(this);
+		listaContrataciones.setModel(listModelContratacion);
 		
 		JPanel panelFacturas = new JPanel();
 		panelFacturas.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -435,8 +448,9 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		facturas.setHorizontalAlignment(SwingConstants.CENTER);
 		panelFacturas.add(facturas, BorderLayout.NORTH);
 		
-		this.listaFacturas = new JList();
+		this.listaFacturas = new JList<IFactura>();
 		panelFacturas.add(listaFacturas, BorderLayout.CENTER);
+		listaFacturas.setModel(listModelFactura);
 		
 		this.textArea_1 = new JTextArea();
 		this.textArea_1.setCaretColor(new Color(255, 0, 0));
@@ -455,15 +469,17 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panelHistorial.add(panelClientesHistorial);
 		panelClientesHistorial.setLayout(new BorderLayout(0, 0));
 		
-		JList listaClientesHistorial = new JList();
+		JList<Cliente> listaClientesHistorial = new JList<Cliente>();
 		panelClientesHistorial.add(listaClientesHistorial);
+		listaClientesHistorial.setModel(listModelCliente);
 		
 		JPanel panelFacturasHistorial = new JPanel();
 		panelFacturasHistorial.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), "Facturas", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelHistorial.add(panelFacturasHistorial);
 		panelFacturasHistorial.setLayout(new BorderLayout(0, 0));
 		
-		JList listaFacturasHistorial = new JList();
+		JList<IFactura> listaFacturasHistorial = new JList<IFactura>();
+		listaFacturasHistorial.setModel(listModelFacturaHistorial);
 		panelFacturasHistorial.add(listaFacturasHistorial);
 		this.setVisible(true);
 	}
@@ -487,6 +503,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		String nombre=null;
 		String DNI=null;
 		String nombreTecnico=null;
+		Cliente cliente = null;
 		int altura = -1;
 			calle = this.calletext.getText();
 			if (isInteger(this.alturatext.getText())) {
@@ -494,7 +511,8 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 			}
 			nombre = this.textNombre.getText();
 			DNI = this.textDni.getText();
-			boolean condicionagregarcontratacion = calle != null && !(calle.equalsIgnoreCase("")) && altura>0;
+			cliente = this.getCliente();
+			boolean condicionagregarcontratacion = calle != null && !(calle.equalsIgnoreCase("")) && altura>0 && cliente != null;
 			this.btnAgregarContratacion.setEnabled(condicionagregarcontratacion);	
 			boolean condicionagregarcliente = nombre != null && !(nombre.equalsIgnoreCase("")) && DNI != null && !(DNI.equalsIgnoreCase(""));
 			this.btnClienteFisico.setEnabled(condicionagregarcliente);
@@ -570,6 +588,36 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	
 	public void mouseReleased(MouseEvent e) {
 	}
+	
+	public void refrescaListaCliente() {
+		Cliente cliente = null;
+		this.listModelCliente.clear();
+		this.listModelClienteEmpresa.clear();
+		Iterator<Cliente> it = Empresa.getInstancia().getAbonados().iterator();
+		while (it.hasNext()) {
+			cliente = it.next();
+			this.listModelCliente.addElement(cliente);
+			this.listModelClienteEmpresa.addElement(cliente);
+		}
+		this.repaint();
+    }
+	
+	public void refrescaListaContratacion() {
+		this.listModelContratacion.clear();
+		Cliente c = this.getCliente();
+		Iterator<Contratacion> it = c.getContrataciones().iterator();
+		while (it.hasNext())
+		    this.listModelContratacion.addElement(it.next());
+		this.repaint();
+	}
+	
+	public void valueChanged(ListSelectionEvent e) {
+		this.refrescaListaContratacion();
+		
+	}
+	
+	
+	
 }
 	
 	

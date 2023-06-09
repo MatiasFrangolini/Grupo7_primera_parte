@@ -33,6 +33,7 @@ public class Controlador implements ActionListener {
 				Caux = this.empresa.creaContratacion(this.vista.getCliente(), this.vista.getMovil(), this.vista.getCamaras(), this.vista.getBotones(), new Domicilio(this.vista.getCalle(),this.vista.getAltura()),"Vivienda");
 				try {
 					this.empresa.addContratacionACliente(this.vista.getCliente(), Caux);
+					vista.refrescaListaContratacion();
 				} catch (DomicilioYaExisteException | DomicilioNoPerteneceAClienteException
 						| ClienteInvalidoException e1) {
 					// TODO Auto-generated catch block
@@ -49,16 +50,16 @@ public class Controlador implements ActionListener {
 		else if (comando.equalsIgnoreCase("Agregar cliente fisico")) {
 			try {
 				this.empresa.creaCliente(this.vista.getNombre(), this.vista.getDNI(), "Fisico");
+				this.vista.refrescaListaCliente();
 			} catch (ClienteInvalidoException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 		else if (comando.equalsIgnoreCase("Agregar cliente juridico")) {
 			try {
 				this.empresa.creaCliente(this.vista.getNombre(), this.vista.getDNI(), "Juridico");
+				this.vista.refrescaListaCliente();
 			} catch (ClienteInvalidoException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
