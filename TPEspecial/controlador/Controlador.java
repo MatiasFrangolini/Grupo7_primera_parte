@@ -3,11 +3,14 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JLabel;
+
 import excepciones.ClienteInvalidoException;
 import excepciones.ContratacionInvalidaException;
 import excepciones.DomicilioNoPerteneceAClienteException;
 import excepciones.DomicilioNuloException;
 import excepciones.DomicilioYaExisteException;
+import modelo.Cliente;
 import modelo.Contratacion;
 import modelo.Domicilio;
 import negocio.Empresa;
@@ -45,7 +48,10 @@ public class Controlador implements ActionListener {
 			}
 		}
 		else if (comando.equalsIgnoreCase("Eliminar Contratacion")) {
-			//HAY QUE CREAR UN METODO DE EMPRESA QUE RECIBA UN CLIENTE Y UNA CONTRATACION Y ELIMINE LA CONTRATACION DE LA LISTA DE ESE CLIENTE (NO SE SI SE PUEDE)
+			Contratacion ContAux = vista.getContratacion();
+			Cliente ClientAux = vista.getCliente();
+			this.empresa.removeContratacionCliente(ClientAux, ContAux);
+			this.vista.refrescaListaContratacion();
 		}
 		else if (comando.equalsIgnoreCase("Agregar cliente fisico")) {
 			try {
@@ -68,6 +74,7 @@ public class Controlador implements ActionListener {
 		}
 		else if (comando.equalsIgnoreCase("Avanzar mes")) {
 			this.empresa.cambiarMes();
+			vista.setLblMesActual("Mes actual:              "+ String.valueOf(Empresa.getMes()));
 		}
 		else if (comando.equalsIgnoreCase("Pagar Factura")) {
 			//HAY QUE HACER UN METODO QUE ELIMINE UNA FACTURA Y LA MANDE LA LISTA DE HISTORIAL FACTURAS (PENSE QUE YA ESTABA)

@@ -44,8 +44,7 @@ public class AlarmaComercio extends Contratacion{
 	
 	@Override
 	public String toString() {
-		return "[Contratacion Id: " + this.numId + ". Precio: $" + this.precio +". "+ this.domicilio.toString() + "Descripcion: \nAlarma en Comercio\nCantidad de camaras: "+this.cantCamaras
-				+"\nCantidad de botones antipanico: "+this.cantBotones+movilAcompaniamientoString()+"]\n";
+		return "Comercio. "+super.toString();
 	}
 
 }

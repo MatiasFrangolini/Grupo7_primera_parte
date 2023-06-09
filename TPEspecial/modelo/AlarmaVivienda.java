@@ -48,8 +48,7 @@ public class AlarmaVivienda extends Contratacion{
 	
 	@Override
 	public String toString() {
-		return "[Contratacion Id: " + this.numId + ". Precio: $" + this.precio +". "+ this.domicilio.toString() + "Descripcion: \nAlarma en Vivienda\nCantidad de camaras: "+this.cantCamaras
-				+"\nCantidad de botones antipanico: "+this.cantBotones+movilAcompaniamientoString()+"]\n";
+		return "Vivienda. "+ super.toString();
 	}
 	
 

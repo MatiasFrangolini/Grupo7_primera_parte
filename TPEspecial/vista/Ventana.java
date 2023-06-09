@@ -28,6 +28,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -36,8 +38,9 @@ import modelo.Contratacion;
 import modelo.Factura;
 import modelo.IFactura;
 import negocio.Empresa;
+import javax.swing.JScrollPane;
 
-public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener {
+public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener, ChangeListener {
 
 	private JPanel contentPane;
 	private JTextField textNombre;
@@ -78,6 +81,11 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	private DefaultListModel<IFactura> listModelFactura = new DefaultListModel<IFactura>();
 	private DefaultListModel<IFactura> listModelFacturaHistorial = new DefaultListModel<IFactura>();
 	private DefaultListModel<Contratacion> listModelContratacion = new DefaultListModel<Contratacion>();
+	private JTabbedPane tabbedPane;
+	private JList<Cliente> listaClientesHistorial;
+	private JList<IFactura> listaFacturasHistorial;
+	private JList<Cliente> listaClientesEmpresa;
+	private JLabel lblMesActual;
 	
 	public void setActionListener(ActionListener actionListener)
 	    {
@@ -103,15 +111,17 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		this.tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		tabbedPane.addChangeListener(this);
 		
-		JPanel empresa = new JPanel();
-		tabbedPane.addTab("Empresa", null, empresa, null);
-		empresa.setLayout(new BorderLayout(0, 0));
+		JPanel tabEmpresa = new JPanel();
+		tabbedPane.addTab("Empresa", null, tabEmpresa, null);
+		tabEmpresa.setLayout(new BorderLayout(0, 0));
+		
 		
 		JPanel empresaPrincipal = new JPanel();
-		empresa.add(empresaPrincipal, BorderLayout.CENTER);
+		tabEmpresa.add(empresaPrincipal, BorderLayout.CENTER);
 		empresaPrincipal.setLayout(new GridLayout(0, 2, 2, 0));
 		
 		JPanel listaIzq = new JPanel();
@@ -120,7 +130,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		listaIzq.setLayout(new BorderLayout(0, 0));
 		
 		
-		JList<Cliente> listaClientesEmpresa = new JList<Cliente>();
+		this.listaClientesEmpresa = new JList<Cliente>();
 		listaIzq.add(listaClientesEmpresa);
 		listaClientesEmpresa.setModel(listModelClienteEmpresa);
 		
@@ -240,27 +250,24 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panel_3.setLayout(null);
 		
 		this.btnAvanzarMes = new JButton("Avanzar mes");
-		btnAvanzarMes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnAvanzarMes.addMouseListener(this);
 		this.btnAvanzarMes.setBounds(150, 50, 140, 23);
 		panel_3.add(this.btnAvanzarMes);
 		
-		JLabel lblMesActual = new JLabel("Mes actual:                        "+ String.valueOf(Empresa.getMes()));
+		this.lblMesActual = new JLabel("Mes actual:              "+ String.valueOf(Empresa.getMes()));
 		lblMesActual.setBounds(150, 28, 140, 14);
 		panel_3.add(lblMesActual);
 		
 		this.textArea = new JTextArea();
 		textArea.setEnabled(false);
-		empresa.add(this.textArea, BorderLayout.SOUTH);
+		tabEmpresa.add(this.textArea, BorderLayout.SOUTH);
 		
-		JPanel abonados = new JPanel();
-		tabbedPane.addTab("Abonados", null, abonados, null);
-		abonados.setLayout(new BorderLayout(0, 0));
+		JPanel tabAbonados = new JPanel();
+		tabbedPane.addTab("Abonados", null, tabAbonados, null);
+		tabAbonados.setLayout(new BorderLayout(0, 0));
 		
 		this.abonadosPrincipal = new JPanel();
-		abonados.add(this.abonadosPrincipal, BorderLayout.CENTER);
+		tabAbonados.add(this.abonadosPrincipal, BorderLayout.CENTER);
 		this.abonadosPrincipal.setLayout(new GridLayout(0, 3, 2, 0));
 		
 		this.panelListaClientes = new JPanel();
@@ -424,9 +431,12 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		this.abonadosPrincipal.add(panelContratacionesFacturas);
 		panelContratacionesFacturas.setLayout(new GridLayout(2, 1, 0, 2));
 		
+		JScrollPane scrollPane = new JScrollPane();
+		panelContratacionesFacturas.add(scrollPane);
+		
 		JPanel panelContrataciones = new JPanel();
+		scrollPane.setViewportView(panelContrataciones);
 		panelContrataciones.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		panelContratacionesFacturas.add(panelContrataciones);
 		panelContrataciones.setLayout(new BorderLayout(0, 0));
 		
 		JLabel contrataciones = new JLabel("Contrataciones");
@@ -436,7 +446,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		
 		this.listaContrataciones = new JList<Contratacion>();
 		panelContrataciones.add(listaContrataciones, BorderLayout.CENTER);
-		//listaContrataciones.addListSelectionListener(this);
+		listaContrataciones.addListSelectionListener(this);
 		listaContrataciones.setModel(listModelContratacion);
 		
 		JPanel panelFacturas = new JPanel();
@@ -454,7 +464,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		
 		this.textArea_1 = new JTextArea();
 		this.textArea_1.setCaretColor(new Color(255, 0, 0));
-		abonados.add(this.textArea_1, BorderLayout.SOUTH);
+		tabAbonados.add(this.textArea_1, BorderLayout.SOUTH);
 		
 		JPanel tabHistorial = new JPanel();
 		tabbedPane.addTab("Historial", null, tabHistorial, null);
@@ -469,7 +479,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panelHistorial.add(panelClientesHistorial);
 		panelClientesHistorial.setLayout(new BorderLayout(0, 0));
 		
-		JList<Cliente> listaClientesHistorial = new JList<Cliente>();
+		this.listaClientesHistorial = new JList<Cliente>();
 		panelClientesHistorial.add(listaClientesHistorial);
 		listaClientesHistorial.setModel(listModelCliente);
 		
@@ -478,7 +488,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panelHistorial.add(panelFacturasHistorial);
 		panelFacturasHistorial.setLayout(new BorderLayout(0, 0));
 		
-		JList<IFactura> listaFacturasHistorial = new JList<IFactura>();
+		this.listaFacturasHistorial = new JList<IFactura>();
 		listaFacturasHistorial.setModel(listModelFacturaHistorial);
 		panelFacturasHistorial.add(listaFacturasHistorial);
 		this.setVisible(true);
@@ -571,6 +581,10 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		return (Factura) this.listaFacturas.getSelectedValue();
 	}
 	
+	public void setLblMesActual(String string) {
+		this.lblMesActual.setText("Mes actual:              "+ String.valueOf(Empresa.getMes()));
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 	}
 	public void mouseClicked(MouseEvent e) {
@@ -605,16 +619,73 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	public void refrescaListaContratacion() {
 		this.listModelContratacion.clear();
 		Cliente c = this.getCliente();
-		Iterator<Contratacion> it = c.getContrataciones().iterator();
-		while (it.hasNext())
-		    this.listModelContratacion.addElement(it.next());
-		this.repaint();
+		if (c != null && c.getContrataciones() != null) {
+			Iterator<Contratacion> it = c.getContrataciones().iterator();
+			while (it.hasNext())
+				this.listModelContratacion.addElement(it.next());
+			this.repaint();
+		}
+	}
+	
+	public void refrescaListaFactura() {
+		this.listModelFactura.clear();
+		Cliente c = this.getCliente();
+		if (c != null && c.getFacturas() != null) {
+			Iterator<IFactura> it = c.getFacturas().iterator();
+			while (it.hasNext())
+				this.listModelFactura.addElement(it.next());
+			this.repaint();
+		}
 	}
 	
 	public void valueChanged(ListSelectionEvent e) {
-		this.refrescaListaContratacion();
+		if (e.getSource() == this.listaContrataciones) {
+			Contratacion cont = null;
+			cont = this.getContratacion(); 
+			boolean cond = cont != null;
+			this.btnEliminarContratacion.setEnabled(cond);
+		} else {
+			this.refrescaListaContratacion();
+			this.refrescaListaFactura();
+		}
+		
+		
 		
 	}
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		int index = tabbedPane.getSelectedIndex();
+		
+		if (index == 0) {
+			if (listaClientes != null)
+				this.listaClientes.clearSelection();
+			if (listaContrataciones != null)
+				this.listaContrataciones.clearSelection();
+			if (listaFacturas != null)
+				this.listaFacturas.clearSelection();
+			if (listaClientesHistorial != null)
+				this.listaClientesHistorial.clearSelection();
+			if (listaFacturasHistorial != null)
+				this.listaFacturasHistorial.clearSelection();
+		} else if (index == 1) {
+			if (listaClientesEmpresa != null)
+				this.listaClientesEmpresa.clearSelection();
+			if (listaClientesHistorial != null)
+				this.listaClientesHistorial.clearSelection();
+			if (listaFacturasHistorial != null)
+				this.listaFacturasHistorial.clearSelection();
+		} else {
+			if (listaClientes != null)
+				this.listaClientes.clearSelection();
+			if (listaContrataciones != null)
+				this.listaContrataciones.clearSelection();
+			if (listaFacturas != null)
+				this.listaFacturas.clearSelection();
+		}
+		
+	}
+	
+	
 	
 	
 	

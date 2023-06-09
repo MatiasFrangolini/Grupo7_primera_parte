@@ -245,6 +245,9 @@ public class Empresa {
 	
 	public void cambiarMes() {
 		this.mes++;
+		if (mes > 12) {
+			mes = 1;
+		}
 		actualizarEstado();
 		generarFacturas();
 	}
@@ -252,9 +255,11 @@ public class Empresa {
 	public void actualizarEstado() {
 		Iterator<Cliente> it = abonados.iterator();
 		ClienteFisico aux;
+		Cliente auxIt;
 		while (it.hasNext()) {
-			if (it.next() instanceof ClienteFisico) {
-				aux = (ClienteFisico)it.next();
+			auxIt = it.next();
+			if (auxIt instanceof ClienteFisico) {
+				aux = (ClienteFisico)auxIt;
 				aux.actualizarEstado();
 			}
 		}
