@@ -25,6 +25,15 @@ public class DecoratorTarjeta extends DecoratorMedioDePago {
 		return this.encapsulado.getPrecioTotal()*1.05;
 	}
 
+	
+	
+	@Override
+	public String toString() {
+		return encapsulado.toString() + "Precio $: " + this.getPrecioTotal();
+	}
+	
+	
+
 
 
 }

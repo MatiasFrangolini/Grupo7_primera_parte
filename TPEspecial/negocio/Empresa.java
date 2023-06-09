@@ -278,9 +278,11 @@ public class Empresa {
 		int i = random.nextInt(metodosPago.size());
 		FacturaFactory f = new FacturaFactory();
 		while (it.hasNext()) {
+			i = random.nextInt(metodosPago.size());
 			auxIt = it.next();
 			try {
 				aux = f.getFactura(metodosPago.get(i), auxIt);
+				System.out.println("Metodo: "+metodosPago.get(i));
 				auxIt.addFactura(aux);
 				
 			} catch (MetodoDePagoInvalidoException e) {

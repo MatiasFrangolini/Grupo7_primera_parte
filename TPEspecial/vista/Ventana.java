@@ -431,11 +431,11 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		this.abonadosPrincipal.add(panelContratacionesFacturas);
 		panelContratacionesFacturas.setLayout(new GridLayout(2, 1, 0, 2));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panelContratacionesFacturas.add(scrollPane);
+		JScrollPane scrollPaneContrataciones = new JScrollPane();
+		panelContratacionesFacturas.add(scrollPaneContrataciones);
 		
 		JPanel panelContrataciones = new JPanel();
-		scrollPane.setViewportView(panelContrataciones);
+		scrollPaneContrataciones.setViewportView(panelContrataciones);
 		panelContrataciones.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		panelContrataciones.setLayout(new BorderLayout(0, 0));
 		
@@ -449,9 +449,12 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		listaContrataciones.addListSelectionListener(this);
 		listaContrataciones.setModel(listModelContratacion);
 		
+		JScrollPane scrollPaneFacturas = new JScrollPane();
+		panelContratacionesFacturas.add(scrollPaneFacturas);
+		
 		JPanel panelFacturas = new JPanel();
+		scrollPaneFacturas.setViewportView(panelFacturas);
 		panelFacturas.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		panelContratacionesFacturas.add(panelFacturas);
 		panelFacturas.setLayout(new BorderLayout(0, 0));
 		
 		JLabel facturas = new JLabel("Facturas");
@@ -556,11 +559,11 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	}
 	
 	public int getCamaras() {
-		return this.spinnercamaras.getComponentCount();
+		return (int)this.spinnercamaras.getValue();
 	}
 	
 	public int getBotones() {
-		return this.spinnerbotones.getComponentCount();
+		return (int)this.spinnerbotones.getValue();
 	}
 	
 	public String getCalle() {

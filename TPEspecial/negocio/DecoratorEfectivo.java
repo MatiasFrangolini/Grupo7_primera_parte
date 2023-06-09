@@ -23,6 +23,12 @@ public class DecoratorEfectivo extends DecoratorMedioDePago {
 	public double getPrecioTotal() {
 		return this.encapsulado.getPrecioTotal()*0.8;
 	}
+	
+	@Override
+	public String toString() {
+		return encapsulado.toString() + "Precio $: " + this.getPrecioTotal();
+	}
+
 
 
 

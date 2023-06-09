@@ -1,9 +1,11 @@
 package modelo;
 
+import negocio.Empresa;
 
 public class Factura implements IFactura{
-	Cliente abonado; //Relacion de composicion con Cliente.
-	double precioTotal;
+	private Cliente abonado; //Relacion de composicion con Cliente.
+	private double precioTotal;
+	private final int mes;
 	
 
 	/**
@@ -12,6 +14,8 @@ public class Factura implements IFactura{
 	 */
 	public Factura(Cliente abonado) {
 		this.abonado=abonado;
+		this.mes = Empresa.getMes()-1;
+		this.precioTotal = abonado.getPagoTotal();
 	}
 
 	/*
@@ -19,7 +23,7 @@ public class Factura implements IFactura{
 	 * Recorre las contrataciones del cliente propio de la factura.
 	 */
 	public double getPrecioTotal() {
-		return this.abonado.getPagoTotal();
+		return precioTotal;
 	}
 	
 	
@@ -45,7 +49,7 @@ public class Factura implements IFactura{
 
 	@Override
 	public String toString() {
-		return "Factura del " + abonado.toString() + "\nPrecio total de la factura: $" + getPrecioTotal()+"\n\n***********************************\n";
+		return "Factura del mes " +mes;
 	}
 
 

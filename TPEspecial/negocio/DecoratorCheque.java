@@ -25,6 +25,9 @@ public class DecoratorCheque extends DecoratorMedioDePago {
 		return this.encapsulado.getPrecioTotal()*1.1;
 	}
 
-
+	@Override
+	public String toString() {
+		return encapsulado.toString() + "Precio $: " + this.getPrecioTotal();
+	}
 
 }

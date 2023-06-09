@@ -32,10 +32,7 @@ public abstract class DecoratorMedioDePago implements IFactura{
 		return encapsulado.clone();
 	}
 
-	@Override
-	public String toString() {
-		return encapsulado.toString();
-	}
+	
 	
 	
 	
