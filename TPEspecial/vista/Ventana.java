@@ -397,6 +397,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		btnPagarFactura.setBounds(80, 35, 129, 30);
 		btnPagarFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_9.add(btnPagarFactura);
+		this.btnPagarFactura.setEnabled(false);
 		
 		JPanel panel_11 = new JPanel();
 		panel_8.add(panel_11);
