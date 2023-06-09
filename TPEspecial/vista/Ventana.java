@@ -462,6 +462,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panelFacturas.add(facturas, BorderLayout.NORTH);
 		
 		this.listaFacturas = new JList<IFactura>();
+		this.listaFacturas.addListSelectionListener(this);
 		panelFacturas.add(listaFacturas, BorderLayout.CENTER);
 		listaFacturas.setModel(listModelFactura);
 		
@@ -483,6 +484,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panelClientesHistorial.setLayout(new BorderLayout(0, 0));
 		
 		this.listaClientesHistorial = new JList<Cliente>();
+		this.listaClientesHistorial.addListSelectionListener(this);
 		panelClientesHistorial.add(listaClientesHistorial);
 		listaClientesHistorial.setModel(listModelCliente);
 		
@@ -541,6 +543,10 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	public Cliente getCliente() {
 		return (Cliente) this.listaClientes.getSelectedValue();
 	}
+	
+	public Cliente getClienteHistorial() {
+		return (Cliente) this.listaClientesHistorial.getSelectedValue();
+	}
 
 	public String getNombre() {
 		return this.textNombre.getText();
@@ -580,8 +586,8 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		return (Contratacion) this.listaContrataciones.getSelectedValue();
 	}
 	
-	public Factura getFactura() {
-		return (Factura) this.listaFacturas.getSelectedValue();
+	public IFactura getFactura() {
+		return (IFactura) this.listaFacturas.getSelectedValue();
 	}
 	
 	public void setLblMesActual(String string) {
@@ -597,6 +603,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	public void mouseExited(MouseEvent e) {
 	}
 	public void mousePressed(MouseEvent e) {
+		
 		JButton boton = (JButton) e.getSource();
 		String comando = null;
 		comando = boton.getActionCommand();
@@ -641,20 +648,36 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		}
 	}
 	
+	public void refrescaListaHistorial() {
+		this.listModelFacturaHistorial.clear();
+		Cliente c = this.getClienteHistorial();
+		if (c != null && c.getHistorialFacturas() != null) {
+			Iterator<IFactura> it = c.getHistorialFacturas().iterator();
+			while (it.hasNext())
+				this.listModelFacturaHistorial.addElement(it.next());
+			this.repaint();
+		}
+	}
+	
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getSource() == this.listaContrataciones) {
 			Contratacion cont = null;
 			cont = this.getContratacion(); 
 			boolean cond = cont != null;
 			this.btnEliminarContratacion.setEnabled(cond);
-		} else {
+		} else if (e.getSource() == this.listaFacturas) {
+			IFactura fact = null;
+			fact = this.getFactura();
+			boolean condfact = fact != null;
+			this.btnPagarFactura.setEnabled(condfact);
+		} else if (e.getSource() == this.listaClientes) {
 			this.refrescaListaContratacion();
 			this.refrescaListaFactura();
+		} else if (e.getSource() == this.listaClientesHistorial) {
+			this.refrescaListaHistorial();
 		}
-		
-		
-		
 	}
+	
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		int index = tabbedPane.getSelectedIndex();

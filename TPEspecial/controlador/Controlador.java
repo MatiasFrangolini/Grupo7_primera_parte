@@ -77,7 +77,9 @@ public class Controlador implements ActionListener {
 			vista.setLblMesActual("Mes actual:              "+ String.valueOf(Empresa.getMes()));
 		}
 		else if (comando.equalsIgnoreCase("Pagar Factura")) {
-			//HAY QUE HACER UN METODO QUE ELIMINE UNA FACTURA Y LA MANDE LA LISTA DE HISTORIAL FACTURAS (PENSE QUE YA ESTABA)
+			this.empresa.abonarFactura(this.vista.getFactura(), this.vista.getCliente());
+			this.vista.refrescaListaFactura();
+			this.vista.refrescaListaHistorial();
 		}
 		else if (comando.equalsIgnoreCase("Solicitar Tecnico")) {
 			//SE ACTIVA EL RECURSO COMPARTIDO

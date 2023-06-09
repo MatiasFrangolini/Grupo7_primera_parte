@@ -265,6 +265,10 @@ public class Empresa {
 		}
 	}
 	
+	public void abonarFactura(IFactura factura, Cliente cliente) {
+		cliente.getFacturas().remove(factura);
+		cliente.addFacturaHistorial(factura);
+	}
 	
 	public void generarFacturas() {
 		Iterator<Cliente> it = abonados.iterator();

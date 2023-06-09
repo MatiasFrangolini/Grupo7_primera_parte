@@ -7,7 +7,7 @@ import modelo.IFactura;
  * Clase de tipo decorator, que va a decorar un encapsulado de tipo DecoratorPersoneria
  *
  */
-public abstract class DecoratorMedioDePago implements IFactura{
+public abstract class DecoratorMedioDePago implements IFactura {
 	
 	protected IFactura encapsulado;
 
