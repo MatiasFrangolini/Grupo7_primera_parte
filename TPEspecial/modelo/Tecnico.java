@@ -1,15 +1,19 @@
 package modelo;
 
+import java.util.Observable;
 
-public class Tecnico {
+@SuppressWarnings("deprecation")
+public class Tecnico extends Observable implements Runnable{
 	
 	private String nombre;
 	private boolean ocupado;
+	private Contratacion asignacion=null;
 	
 	public Tecnico(String nombre) {
 		this.nombre = nombre;
 		this.ocupado = false;
 	}
+
 
 	public String getNombre() {
 		return nombre;
@@ -21,6 +25,24 @@ public class Tecnico {
 
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
+	}
+	
+	public Contratacion getAsignacion() {
+		return asignacion;
+	}
+
+
+	public void setAsignacion(Contratacion asignacion) {
+		this.asignacion = asignacion;
+	}
+
+
+	@Override
+	public void run() {
+		
+		//
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
