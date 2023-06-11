@@ -2,9 +2,13 @@ package persistencia;
 
 import java.io.Serializable;
 
+import modelo.Cliente;
+
 public class TecnicoDto implements Serializable {
 	private String nombre;
 	private boolean ocupado;
+	private ClienteDto cliente;
+	
 	public TecnicoDto() {
 		super();
 	}
@@ -20,6 +24,13 @@ public class TecnicoDto implements Serializable {
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}
+	public ClienteDto getCliente() {
+		return cliente;
+	}
+	public void setCliente(ClienteDto cliente) {
+		this.cliente = cliente;
+	}
+	
 	
 	
 }

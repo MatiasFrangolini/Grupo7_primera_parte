@@ -5,7 +5,6 @@ import java.io.Serializable;
 import modelo.Domicilio;
 
 public class ContratacionDto implements Serializable {
-	protected static int sigNumId = 1;
 	protected int numId;
 	protected boolean movilAcompaniamiento;
 	protected int cantCamaras;
@@ -15,14 +14,6 @@ public class ContratacionDto implements Serializable {
 	
 	public ContratacionDto() {
 		super();
-	}
-
-	public static int getSigNumId() {
-		return sigNumId;
-	}
-
-	public static void setSigNumId(int sigNumId) {
-		ContratacionDto.sigNumId = sigNumId;
 	}
 
 	public int getNumId() {

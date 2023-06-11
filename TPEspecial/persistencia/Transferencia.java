@@ -12,6 +12,7 @@ import modelo.Contratacion;
 import modelo.Domicilio;
 import modelo.MorosoState;
 import modelo.PersonaState;
+import modelo.ServicioTecnico;
 import modelo.SinContratacionState;
 import modelo.Tecnico;
 import negocio.Empresa;
@@ -25,6 +26,18 @@ public class Transferencia {
 		return respuesta;
 	}
 	
+	
+	public static PersonaState PersonaStatefromPersonaStateDto(PersonaStateDto personastatedto) {
+		PersonaState respuesta;
+		if(personastatedto instanceof MorosoStateDto)
+			respuesta=Transferencia.MorosoStatefromPersonaStateDto(personastatedto);
+		else
+			if(personastatedto instanceof ConContratacionStateDto)
+				respuesta=Transferencia.ConContratacionStatefromPersonaStateDto(personastatedto);
+			else
+				respuesta=Transferencia.SinContratacionStatefromPersonaStateDto(personastatedto);
+		return respuesta;
+	}
 	
 	
 	
@@ -110,6 +123,15 @@ public class Transferencia {
 		return respuesta;
 	}
 		
+	public static ClienteDto clienteDtofromCliente(Cliente cliente) {
+		ClienteDto respuesta;
+		if(cliente instanceof ClienteFisico) {
+			respuesta=Transferencia.clienteFisicoDtofromClienteFisico(cliente);
+		}
+		else
+			respuesta=Transferencia.clienteJuridicoDtofromClienteJuridico(cliente);
+		return respuesta;
+	}
 	
 	
 	public static ClienteJuridico clienteJuridicofromClienteJuridicoDto(ClienteDto clientedto) {
@@ -167,6 +189,29 @@ public class Transferencia {
 	}
 	
 	
+	//Servicio tecnico
+	public static ServicioTecnicoDto servicioTecnicoDtofromServicioTecnico(ServicioTecnico st) {
+		ServicioTecnicoDto respuesta = new ServicioTecnicoDto();
+		int i;
+		ArrayList<TecnicoDto> tecnicosDto = new ArrayList <TecnicoDto>();
+		for(i=0;i<st.getTecnicos().size();i++) {
+			tecnicosDto.add(Transferencia.tecnicoDtofromTecnico(st.getTecnicos().get(i)));
+		}
+		respuesta.setTecnicos(tecnicosDto);
+		return respuesta;
+	}
+	
+	public static ServicioTecnico servicioTecnicofromServicioTecnicoDto(ServicioTecnicoDto st) {
+		ServicioTecnico respuesta = new ServicioTecnico();
+		int i;
+		ArrayList<Tecnico> tecnicos = new ArrayList <Tecnico>();
+		for(i=0;i<st.getTecnicos().size();i++) {
+			tecnicos.add(Transferencia.tecnicofromTecnicoDto(st.getTecnicos().get(i)));
+		}
+		respuesta.setTecnicos(tecnicos);
+		return respuesta;
+	}
+	
 	//Empresa
 	public static EmpresaDto empresaDtofromEmpresa(Empresa empresa) {
 		int i;
@@ -180,8 +225,7 @@ public class Transferencia {
 				clientesDto.add(Transferencia.clienteJuridicoDtofromClienteJuridico(empresa.getAbonados().get(i)));
 		}
 		respuesta.setAbonados(clientesDto);
-		
-		respuesta.setServicioTecnico(empresa.getServiciotecnico());
+		respuesta.setServiciotecnico(Transferencia.servicioTecnicoDtofromServicioTecnico(empresa.getServiciotecnico()));
 		return respuesta;
 	}
 	
@@ -194,12 +238,7 @@ public class Transferencia {
 			clientes.add(Transferencia.clientefromClienteDto(empresadto.getAbonados().get(i)));
 		}
 		respuesta.setAbonados(clientes);
-		
-		ArrayList<Tecnico> tecnicos = new ArrayList <Tecnico>();
-		for(i=0;i<empresadto.getTecnicos().size();i++) {
-			tecnicos.add(Transferencia.tecnicofromTecnicoDto(empresadto.getTecnicos().get(i)));
-		}
-		respuesta.setTecnicos(tecnicos);
+		respuesta.setServiciotecnico(Transferencia.servicioTecnicofromServicioTecnicoDto(empresadto.getServiciotecnico()));
 		return respuesta;
 	}
 	
@@ -209,6 +248,7 @@ public class Transferencia {
 		TecnicoDto respuesta = new TecnicoDto();
 		respuesta.setNombre(tecnico.getNombre());
 		respuesta.setOcupado(tecnico.isOcupado());
+		respuesta.setCliente(Transferencia.clienteDtofromCliente(tecnico.getCliente()));
 		return respuesta;
 	}
 	

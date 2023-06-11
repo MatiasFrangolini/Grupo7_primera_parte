@@ -5,7 +5,7 @@ import negocio.Empresa;
 public class Factura implements IFactura{
 	private Cliente abonado; //Relacion de composicion con Cliente.
 	private double precioTotal;
-	private final int mes;
+	private int mes;
 	
 
 	/**

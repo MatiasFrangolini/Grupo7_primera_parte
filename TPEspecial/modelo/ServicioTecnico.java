@@ -61,6 +61,10 @@ public class ServicioTecnico extends Observable{
 	public ArrayList<Tecnico> getTecnicos() {
 		return tecnicos;
 	}
+
+	public void setTecnicos(ArrayList<Tecnico> tecnicos) {
+		this.tecnicos = tecnicos;
+	}
 	
 	
 }

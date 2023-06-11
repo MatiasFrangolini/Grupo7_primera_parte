@@ -1,7 +1,6 @@
 package modelo;
 
 
-
 public class Tecnico {
 	
 	private String nombre;

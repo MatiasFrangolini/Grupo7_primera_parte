@@ -7,7 +7,7 @@ import modelo.Cliente;
 public class FacturaDto implements Serializable{
 	Cliente abonado; //Relacion de composicion con Cliente.
 	double precioTotal;
-	
+	private int mes;
 	
 	
 	public FacturaDto() {
@@ -24,6 +24,12 @@ public class FacturaDto implements Serializable{
 	}
 	public void setPrecioTotal(double precioTotal) {
 		this.precioTotal = precioTotal;
+	}
+	public int getMes() {
+		return mes;
+	}
+	public void setMes(int mes) {
+		this.mes = mes;
 	}
 	
 	

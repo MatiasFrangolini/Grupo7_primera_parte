@@ -36,4 +36,14 @@ public abstract class PersonaState extends Observable implements IPersonaState{
 	public void addObserver(Controlador c) {
 		super.addObserver(c);
 	}
+
+	public ClienteFisico getC() {
+		return c;
+	}
+
+	public void setC(ClienteFisico c) {
+		this.c = c;
+	}
+	
+	
 }

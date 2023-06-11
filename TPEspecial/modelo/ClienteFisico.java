@@ -48,6 +48,12 @@ public class ClienteFisico extends Cliente {
 	public void addObserver(Controlador c) {
 		this.estado.addObserver(c);
 	}
+
+	public IPersonaState getEstado() {
+		return estado;
+	}
+	
+	
 }
 
 	

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import modelo.Cliente;
+import modelo.ServicioTecnico;
 import modelo.Tecnico;
 import negocio.Empresa;
 
@@ -12,7 +13,8 @@ public class EmpresaDto implements Serializable {
 	private static Empresa instancia = null;
 	private String nombre;
 	private ArrayList<ClienteDto> abonados = new ArrayList<ClienteDto>();
-	private ArrayList<TecnicoDto> tecnicos = new ArrayList<TecnicoDto>();
+	private ServicioTecnicoDto serviciotecnico = new ServicioTecnicoDto();
+	
 	public EmpresaDto() {
 		super();
 	}
@@ -40,12 +42,14 @@ public class EmpresaDto implements Serializable {
 	public void setAbonados(ArrayList<ClienteDto> abonados) {
 		this.abonados = abonados;
 	}
-	public ArrayList<TecnicoDto> getTecnicos() {
-		return tecnicos;
+	public ServicioTecnicoDto getServiciotecnico() {
+		return serviciotecnico;
 	}
-	public void setTecnicos(ArrayList<TecnicoDto> tecnicos) {
-		this.tecnicos = tecnicos;
+	public void setServiciotecnico(ServicioTecnicoDto serviciotecnico) {
+		this.serviciotecnico = serviciotecnico;
 	}
+	
+	
 	
 	
 
