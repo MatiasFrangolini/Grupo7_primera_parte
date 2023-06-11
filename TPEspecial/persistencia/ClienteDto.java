@@ -5,23 +5,25 @@ import java.util.ArrayList;
 
 import modelo.Contratacion;
 import modelo.IFactura;
+import modelo.IPersonaState;
 
 public class ClienteDto implements Serializable{
-	protected ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>(); //Relacion de composicion
+	protected ArrayList<ContratacionDto> contrataciones = new ArrayList<ContratacionDto>(); //Relacion de composicion
 	protected ArrayList<IFactura> facturas = new ArrayList<IFactura>();
 	protected ArrayList<IFactura> historialfacturas = new ArrayList<IFactura>();
 	private String nombre;
 	private String dni;
+	//private IPersonaState estado=null;
 	
 	public ClienteDto() {
 		super();
 	}
 
-	public ArrayList<Contratacion> getContrataciones() {
+	public ArrayList<ContratacionDto> getContrataciones() {
 		return contrataciones;
 	}
 
-	public void setContrataciones(ArrayList<Contratacion> contrataciones) {
+	public void setContrataciones(ArrayList<ContratacionDto> contrataciones) {
 		this.contrataciones = contrataciones;
 	}
 
@@ -56,6 +58,14 @@ public class ClienteDto implements Serializable{
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
+
+	/*public IPersonaState getEstado() {
+		return estado;
+	}
+
+	public void setEstado(IPersonaState estado) {
+		this.estado = estado;
+	}*/
 	
 	
 

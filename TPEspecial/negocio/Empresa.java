@@ -20,6 +20,7 @@ import modelo.ClienteJuridico;
 import modelo.Contratacion;
 import modelo.Domicilio;
 import modelo.IFactura;
+import modelo.ServicioTecnico;
 import modelo.Tecnico;
 
 /**
@@ -34,6 +35,7 @@ public class Empresa {
 	private String nombre;
 	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
 	private ArrayList<Tecnico> tecnicos = new ArrayList<Tecnico>();
+	private ServicioTecnico serviciotecnico = new ServicioTecnico();
 
 	private Empresa() {
 		nombre = "Grupo 7";
@@ -188,7 +190,7 @@ public class Empresa {
 		return nombre;
 	}
 	
-	
+	/*
 	public static void trabajoTecnico(Tecnico tecnico, int milisegundos)
 	{	
 		Random r = new Random();
@@ -242,6 +244,7 @@ public class Empresa {
 		}
 		return aux;
 	}
+	*/
 	
 	public void cambiarMes() {
 		this.mes++;
@@ -313,6 +316,10 @@ public class Empresa {
 
 	public static int getMes() {
 		return mes;
+	}
+
+	public ServicioTecnico getServiciotecnico() {
+		return serviciotecnico;
 	}
 	
 	

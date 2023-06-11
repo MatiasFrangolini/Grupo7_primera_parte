@@ -3,7 +3,7 @@ package modelo;
 import java.util.Observable;
 
 @SuppressWarnings("deprecation")
-public class Tecnico extends Observable implements Runnable{
+public class Tecnico extends Observable{
 	
 	private String nombre;
 	private boolean ocupado;
@@ -36,20 +36,5 @@ public class Tecnico extends Observable implements Runnable{
 		this.asignacion = asignacion;
 	}
 
-
-	@Override
-	public void run() {
-		
-		//
-		this.setChanged();
-		this.notifyObservers();
-	}
-	
-	
-	
-	
-	
-	
-	
 
 }

@@ -22,4 +22,14 @@ public abstract class PersonaState implements IPersonaState{
 	public void bajaServicio(ClienteFisico abonado, Contratacion contratacion) {
 		this.c.getContrataciones().remove(contratacion);
 	}
+
+	public ClienteFisico getC() {
+		return c;
+	}
+
+	public void setC(ClienteFisico c) {
+		this.c = c;
+	}
+	
+	
 }

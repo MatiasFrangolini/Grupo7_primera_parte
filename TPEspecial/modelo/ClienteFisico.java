@@ -37,4 +37,10 @@ public class ClienteFisico extends Cliente {
 		else if (this.facturas.size()>=2)
 			this.setEstado(new MorosoState(this));	
 		}
+
+	public IPersonaState getEstado() {
+		return estado;
+	}
+	
+	
 	}
