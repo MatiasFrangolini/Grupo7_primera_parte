@@ -15,6 +15,8 @@ import java.awt.event.MouseListener;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -48,7 +50,8 @@ import modelo.Contratacion;
 import modelo.IFactura;
 import negocio.Empresa;
 
-public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener, ChangeListener {
+@SuppressWarnings("deprecation")
+public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener, ChangeListener, Observer {
 
 	private JPanel contentPane;
 	private JTextField textNombre;
@@ -241,6 +244,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		
 		this.btnAgregarTecnico = new JButton("Agregar Técnico");
 		btnAgregarTecnico.setBounds(150, 20, 132, 23);
+		btnAgregarTecnico.addMouseListener(this);
 		panel_16.add(btnAgregarTecnico);
 		this.btnAgregarTecnico.setEnabled(false);
 		
@@ -782,6 +786,11 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
                 JOptionPane.ERROR_MESSAGE);
 
     }
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

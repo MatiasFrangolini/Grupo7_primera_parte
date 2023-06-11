@@ -9,9 +9,6 @@ public class ServicioTecnico {
 	
 	private ArrayList<Tecnico>tecnicos = new ArrayList<Tecnico>();
 	
-	public ServicioTecnico() {
-		super();
-	}
 	
 	public void addTecnico(String nombre) {
 		tecnicos.add(new Tecnico(nombre));

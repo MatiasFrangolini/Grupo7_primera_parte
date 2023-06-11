@@ -71,7 +71,7 @@ public class Controlador implements ActionListener {
 			}
 		}
 		else if (comando.equalsIgnoreCase("Agregar tecnico")) {
-			//NO ESTOY SEGURO SI HAY QUE CREAR UN THREAD O QUE HACER YA CREE LA FUNCION .GETNOMBRETECNICO
+			this.empresa.addTecnico(this.vista.getNombreTecnico());
 		}
 		else if (comando.equalsIgnoreCase("Avanzar mes")) {
 			this.empresa.cambiarMes();

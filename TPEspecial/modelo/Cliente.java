@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import negocio.Empresa;
+import util.Util;
 
 
 public abstract class Cliente extends Thread implements Cloneable{
@@ -115,8 +116,10 @@ public abstract class Cliente extends Thread implements Cloneable{
 	}
 	
 	public void run() {
-		//Empresa.getInstancia().solicitarTecnico();
-		Empresa.trabajoTecnico(Empresa.getInstancia().solicitarTecnico(), 3000);
+		Tecnico aux;
+		aux=Empresa.getInstancia().getServiciotecnico().trabajaTecnico();
+		Util.espera(3000);  // Simulo que el tecnico trabaja
+		Empresa.getInstancia().getServiciotecnico().terminaTecnico(aux);
 	}
 	
 	

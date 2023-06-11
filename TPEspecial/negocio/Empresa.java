@@ -265,6 +265,12 @@ public class Empresa {
 	public static int getMes() {
 		return mes;
 	}
+
+	public ServicioTecnico getServiciotecnico() {
+		return serviciotecnico;
+	}
+
+	
 	
 	
 	
