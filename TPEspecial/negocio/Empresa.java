@@ -20,6 +20,7 @@ import modelo.ClienteJuridico;
 import modelo.Contratacion;
 import modelo.Domicilio;
 import modelo.IFactura;
+import modelo.ServicioTecnico;
 import modelo.Tecnico;
 
 /**
@@ -34,6 +35,7 @@ public class Empresa {
 	private String nombre;
 	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
 	private ArrayList<Tecnico> tecnicos = new ArrayList<Tecnico>();
+	private ServicioTecnico serviciotecnico = new ServicioTecnico();
 
 	private Empresa() {
 		nombre = "Grupo 7";
@@ -189,58 +191,8 @@ public class Empresa {
 	}
 	
 	
-	public static void trabajoTecnico(Tecnico tecnico, int milisegundos)
-	{	
-		Random r = new Random();
-		try
-		{
-			Thread.sleep(r.nextInt(1000));
-		} catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Empresa.getInstancia().liberarTecnico(tecnico);
-
-	}
-
-	private synchronized void liberarTecnico(Tecnico tecnico) {
-		while (!tecnico.isOcupado()) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		tecnico.setOcupado(false);
-		notifyAll();
-		
-	}
-
-	public synchronized Tecnico solicitarTecnico() {
-		Tecnico tecnico = tecnicoDisponible();
-		while (tecnico == null) {
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		tecnico.setOcupado(true);
-		return tecnico;
-	}
-	
-	public Tecnico tecnicoDisponible() {
-		Iterator<Tecnico> it = tecnicos.iterator();
-		Tecnico aux = null;
-		while (it.hasNext() && aux == null) {
-			if (!it.next().isOcupado()) {
-				aux = it.next();
-			}
-		}
-		return aux;
+	public void addTecnico(String nombre) {
+		serviciotecnico.addTecnico(nombre);
 	}
 	
 	public void cambiarMes() {
