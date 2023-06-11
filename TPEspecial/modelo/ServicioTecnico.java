@@ -5,14 +5,26 @@ import java.util.Iterator;
 
 //RECURSO COMPARTIDO
 public class ServicioTecnico {
+	
+	
 	private ArrayList<Tecnico>tecnicos = new ArrayList<Tecnico>();
 	
-	public synchronized Tecnico tecnicoDisponible() {
+	public ServicioTecnico() {
+		super();
+	}
+	
+	public void addTecnico(String nombre) {
+		tecnicos.add(new Tecnico(nombre));
+	}
+	
+	public Tecnico tecnicoDisponible() {
 		Iterator<Tecnico> it = tecnicos.iterator();
 		Tecnico aux = null;
+		Tecnico aux2 = null;
 		while (it.hasNext() && aux == null) {
-			if (!it.next().isOcupado()) {
-				aux = it.next();
+			aux2 = it.next();
+			if (!aux2.isOcupado()) {
+				aux = aux2;
 			}
 		}
 		return aux;
@@ -25,7 +37,6 @@ public class ServicioTecnico {
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		aux=tecnicoDisponible();

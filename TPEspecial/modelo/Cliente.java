@@ -118,7 +118,7 @@ public abstract class Cliente extends Thread implements Cloneable{
 	public void run() {
 		Tecnico aux;
 		aux=Empresa.getInstancia().getServiciotecnico().trabajaTecnico();
-		Util.espera(3000);
+		Util.espera(3000);  // Simulo que el tecnico trabaja
 		Empresa.getInstancia().getServiciotecnico().terminaTecnico(aux);
 	}
 	
