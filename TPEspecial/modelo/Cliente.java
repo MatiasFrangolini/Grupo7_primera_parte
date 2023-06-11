@@ -4,6 +4,9 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import controlador.Controlador;
+import excepciones.MorosoException;
+import excepciones.SinContratacionException;
 import negocio.Empresa;
 import util.Util;
 
@@ -37,8 +40,9 @@ public abstract class Cliente extends Thread implements Cloneable{
 	 * <b>Pre: </b> La contratacion no puede ser null<br>
 	 * @param contratacion: Contratacion del cliente
 	 * <b>Post: </b> Agrega una contratacion a la lista de contrataciones del cliente.<br>
+	 * @throws MorosoException 
 	 */
-	public void addContratacion(Contratacion contratacion) {
+	public void addContratacion(Contratacion contratacion) throws MorosoException {
 		assert contratacion != null:"Contratacion nula";
 		int oldSize = this.contrataciones.size();
 		this.contrataciones.add(contratacion);
@@ -115,12 +119,24 @@ public abstract class Cliente extends Thread implements Cloneable{
 		return historialfacturas;
 	}
 	
+	public void pagarFactura(IFactura factura) throws SinContratacionException {
+		this.facturas.remove(factura);
+		this.historialfacturas.add(factura);
+	}
+	
 	public void run() {
 		Tecnico aux;
-		aux=Empresa.getInstancia().getServiciotecnico().trabajaTecnico();
+		System.out.println("asd");
+		aux=Empresa.getInstancia().getServiciotecnico().trabajaTecnico(this);
 		Util.espera(3000);  // Simulo que el tecnico trabaja
 		Empresa.getInstancia().getServiciotecnico().terminaTecnico(aux);
 	}
+
+	public void actualizarEstado() {
+		
+	}
+
+	public abstract void addObserver(Controlador controlador);
 	
 	
 	

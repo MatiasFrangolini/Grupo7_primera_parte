@@ -1,7 +1,13 @@
 package modelo;
 
+import java.util.Observable;
 
-public abstract class PersonaState implements IPersonaState{
+import controlador.Controlador;
+import excepciones.MorosoException;
+import excepciones.SinContratacionException;
+
+@SuppressWarnings("deprecation")
+public abstract class PersonaState extends Observable implements IPersonaState{
 	
 	protected ClienteFisico c;
 
@@ -9,17 +15,25 @@ public abstract class PersonaState implements IPersonaState{
 		this.c = c;
 	}
 	
-	public void pagarFactura(IFactura f) {
+	public void pagarFactura(IFactura f) throws SinContratacionException {
+		this.setChanged();
+		this.notifyObservers("El cliente "+this.c.getName()+ " pagó "+f.getPrecioTotal());
 		this.c.getHistorialFacturas().add(f);
 		this.c.getFacturas().remove(f);
 	}
 
-	public void contratarServicio(ClienteFisico abonado) {
-		//Empresa.getInstancia().addContratacionACliente(abonado);
-		//Delegar al metodo de creacion de contrataciones en un cliente (Clase EMPRESA)
+	public void contratarServicio(Contratacion contratacion) throws MorosoException {
+		assert contratacion != null:"Contratacion nula";
+		int oldSize = this.c.getContrataciones().size();
+		this.c.getContrataciones().add(contratacion);
+		assert this.c.getContrataciones().size() == oldSize+1: "Fallo postcondicion";
 	}
 	
-	public void bajaServicio(ClienteFisico abonado, Contratacion contratacion) {
+	public void bajaServicio(Contratacion contratacion) throws SinContratacionException, MorosoException {
 		this.c.getContrataciones().remove(contratacion);
+	}
+	
+	public void addObserver(Controlador c) {
+		super.addObserver(c);
 	}
 }

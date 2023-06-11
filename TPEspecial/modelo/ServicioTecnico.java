@@ -2,16 +2,19 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
 
 //RECURSO COMPARTIDO
-public class ServicioTecnico {
+@SuppressWarnings("deprecation")
+public class ServicioTecnico extends Observable{
 	
 	
 	private ArrayList<Tecnico>tecnicos = new ArrayList<Tecnico>();
 	
 	
-	public void addTecnico(String nombre) {
+	public synchronized void addTecnico(String nombre) {
 		tecnicos.add(new Tecnico(nombre));
+		notifyAll();
 	}
 	
 	public Tecnico tecnicoDisponible() {
@@ -28,23 +31,36 @@ public class ServicioTecnico {
 	}
 	
 	
-	public synchronized Tecnico trabajaTecnico() {
+	public synchronized Tecnico trabajaTecnico(Cliente cliente) {
 		Tecnico aux;
 		while(tecnicoDisponible()==null)
 			try {
+				this.setChanged();
+				this.notifyObservers("El cliente "+ cliente.getName()+ " esta a la espera de un tecnico");
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		aux=tecnicoDisponible();
+		aux.setCliente(cliente);
 		aux.setOcupado(true);
+		this.setChanged();
+		this.notifyObservers("El tecnico "+aux.getNombre()+" empieza a trabajar con el cliente "+ cliente.getName());
 		notifyAll();
 		return aux;
 	}
 
 	public synchronized void terminaTecnico(Tecnico tecnico) {
 		tecnico.setOcupado(false);
+		this.setChanged();
+		this.notifyObservers("El tecnico "+tecnico.getNombre()+" terminó de trabajar con el cliente "+ tecnico.getCliente().getName());
+		tecnico.setCliente(null);
 		notifyAll();
 	}
+
+	public ArrayList<Tecnico> getTecnicos() {
+		return tecnicos;
+	}
+	
 	
 }

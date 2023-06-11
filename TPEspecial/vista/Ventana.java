@@ -15,8 +15,6 @@ import java.awt.event.MouseListener;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Iterator;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -49,9 +47,9 @@ import modelo.Cliente;
 import modelo.Contratacion;
 import modelo.IFactura;
 import negocio.Empresa;
+import java.awt.Font;
 
-@SuppressWarnings("deprecation")
-public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener, ChangeListener, Observer {
+public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener, ChangeListener {
 
 	private JPanel contentPane;
 	private JTextField textNombre;
@@ -93,6 +91,8 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	private JButton btnEliminarContratacion;
 	private JRadioButton rdbtnVivienda;
 	private JRadioButton rdbtnComercio;
+	private JLabel lblCantTecnicos;
+	private JTextArea textAreaConsole;
 	
 	public void setActionListener(ActionListener actionListener)
 	    {
@@ -242,11 +242,15 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panel_1.add(panel_16);
 		panel_16.setLayout(null);
 		
-		this.btnAgregarTecnico = new JButton("Agregar Técnico");
+		this.btnAgregarTecnico = new JButton("Agregar Tecnico");
 		btnAgregarTecnico.setBounds(150, 20, 132, 23);
 		btnAgregarTecnico.addMouseListener(this);
 		panel_16.add(btnAgregarTecnico);
 		this.btnAgregarTecnico.setEnabled(false);
+		
+		this.lblCantTecnicos = new JLabel("Cantidad de tecnicos: "+String.valueOf(Empresa.getInstancia().getServiciotecnico().getTecnicos().size()));
+		lblCantTecnicos.setBounds(137, 0, 156, 14);
+		panel_16.add(lblCantTecnicos);
 		
 		JPanel panelMes = new JPanel();
 		panelMes.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -279,14 +283,36 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		this.abonadosPrincipal.setLayout(new GridLayout(0, 3, 2, 0));
 		
 		this.panelListaClientes = new JPanel();
-		panelListaClientes.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panelListaClientes.setBorder(null);
 		this.abonadosPrincipal.add(this.panelListaClientes);
-		this.panelListaClientes.setLayout(new BorderLayout(0, 0));
+		panelListaClientes.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		JPanel panel_18 = new JPanel();
+		panel_18.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), "Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelListaClientes.add(panel_18);
+		panel_18.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel_18.add(scrollPane);
 		
 		this.listaClientes = new JList<Cliente>();
+		scrollPane.setViewportView(listaClientes);
 		listaClientes.addListSelectionListener(this);
-		this.panelListaClientes.add(listaClientes, BorderLayout.CENTER);
 		listaClientes.setModel(listModelCliente);
+		
+		JPanel panel_19 = new JPanel();
+		panel_19.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		panelListaClientes.add(panel_19);
+		panel_19.setLayout(new BorderLayout(0, 0));
+		
+		this.textAreaConsole = new JTextArea();
+		textAreaConsole.setLineWrap(true);
+		textAreaConsole.setWrapStyleWord(true);
+		textAreaConsole.setDisabledTextColor(new Color(0, 0, 0));
+		textAreaConsole.setFont(new Font("Monospaced", Font.BOLD, 13));
+		textAreaConsole.setForeground(new Color(0, 0, 0));
+		textAreaConsole.setEnabled(false);
+		panel_19.add(textAreaConsole);
 		
 		this.panelCentralAbonados = new JPanel();
 		this.abonadosPrincipal.add(this.panelCentralAbonados);
@@ -453,11 +479,8 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panel_8.add(panel_11);
 		panel_11.setLayout(null);
 		
-		this.btnSolicitarTecnico = new JButton("Solicitar Técnico");
-		/*btnSolicitarTecnico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});*/
+		this.btnSolicitarTecnico = new JButton("Solicitar Tecnico");
+		
 		this.btnSolicitarTecnico.addMouseListener(this);
 		btnSolicitarTecnico.setBounds(75, 15, 140, 35);
 		btnSolicitarTecnico.setAlignmentX(0.5f);
@@ -634,8 +657,12 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		return (IFactura) this.listaFacturas.getSelectedValue();
 	}
 	
-	public void setLblMesActual(String string) {
-		this.lblMesActual.setText("Mes actual:              "+ String.valueOf(Empresa.getMes()));
+	public void setLblMesActual(String string) {  
+		this.lblMesActual.setText(string);
+	}
+	
+	public void setLblCantTecnicos(String string) {
+		this.lblCantTecnicos.setText(string);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -786,12 +813,10 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
                 JOptionPane.ERROR_MESSAGE);
 
     }
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
-	}
 	
+	public void writeText(String str) {
+		this.textAreaConsole.append(str);
+	}
 	
 }
 	

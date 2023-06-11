@@ -1,16 +1,17 @@
 package modelo;
 
-import java.util.Observable;
 
-@SuppressWarnings("deprecation")
-public class Tecnico extends Observable{
+
+public class Tecnico {
 	
 	private String nombre;
 	private boolean ocupado;
+	private Cliente cliente;
 	
 	public Tecnico(String nombre) {
 		this.nombre = nombre;
 		this.ocupado = false;
+		this.cliente = null;
 	}
 
 	public String getNombre() {
@@ -24,12 +25,16 @@ public class Tecnico extends Observable{
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}
-	
-	
-	
-	
-	
-	
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+		
 	
 
 }

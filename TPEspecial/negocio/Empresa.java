@@ -12,6 +12,8 @@ import excepciones.DomicilioNuloException;
 import excepciones.DomicilioYaExisteException;
 import excepciones.FacturaInvalidaException;
 import excepciones.MetodoDePagoInvalidoException;
+import excepciones.MorosoException;
+import excepciones.SinContratacionException;
 import modelo.AlarmaComercio;
 import modelo.AlarmaVivienda;
 import modelo.Cliente;
@@ -34,7 +36,6 @@ public class Empresa {
 	private static Empresa instancia = null;
 	private String nombre;
 	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
-	private ArrayList<Tecnico> tecnicos = new ArrayList<Tecnico>();
 	private ServicioTecnico serviciotecnico = new ServicioTecnico();
 
 	private Empresa() {
@@ -62,8 +63,9 @@ public class Empresa {
 	 * @throws DomicilioNoPerteneceAClienteException Si es domicilio de la contratacion no es un domicilio del cliente
 	 * @throws DomicilioYaExisteException Si ese domicilio ya tenia una contratacion
 	 * <b>Post: </b> Actualiza el arreglo de contrataciones de un Cliente agregando una Contratacion pasada como parametro.<br>
+	 * @throws MorosoException 
 	 */
-	public void addContratacionACliente(Cliente cliente, Contratacion contratacion) throws DomicilioYaExisteException,DomicilioNoPerteneceAClienteException, ClienteInvalidoException, ContratacionInvalidaException {
+	public void addContratacionACliente(Cliente cliente, Contratacion contratacion) throws DomicilioYaExisteException,DomicilioNoPerteneceAClienteException, ClienteInvalidoException, ContratacionInvalidaException, MorosoException {
 		if (cliente == null)
 			throw new ClienteInvalidoException("El cliente no puede ser nulo");
 		int oldsize = cliente.getContrataciones().size();
@@ -206,20 +208,13 @@ public class Empresa {
 	
 	public void actualizarEstado() {
 		Iterator<Cliente> it = abonados.iterator();
-		ClienteFisico aux;
-		Cliente auxIt;
 		while (it.hasNext()) {
-			auxIt = it.next();
-			if (auxIt instanceof ClienteFisico) {
-				aux = (ClienteFisico)auxIt;
-				aux.actualizarEstado();
-			}
+			it.next().actualizarEstado();
 		}
 	}
 	
-	public void abonarFactura(IFactura factura, Cliente cliente) {
-		cliente.getFacturas().remove(factura);
-		cliente.addFacturaHistorial(factura);
+	public void abonarFactura(IFactura factura, Cliente cliente) throws SinContratacionException {
+		cliente.pagarFactura(factura);
 	}
 	
 	public void generarFacturas() {
@@ -237,8 +232,10 @@ public class Empresa {
 			i = random.nextInt(metodosPago.size());
 			auxIt = it.next();
 			try {
-				aux = f.getFactura(metodosPago.get(i), auxIt);
-				auxIt.addFactura(aux);
+				if (auxIt.getContrataciones().size()>0) {
+					aux = f.getFactura(metodosPago.get(i), auxIt);
+					auxIt.addFactura(aux); 
+				}
 				
 			} catch (MetodoDePagoInvalidoException e) {
 				e.printStackTrace();
@@ -254,13 +251,6 @@ public class Empresa {
 		this.abonados = abonados;
 	}
 
-	public ArrayList<Tecnico> getTecnicos() {
-		return tecnicos;
-	}
-
-	public void setTecnicos(ArrayList<Tecnico> tecnicos) {
-		this.tecnicos = tecnicos;
-	}
 
 	public static int getMes() {
 		return mes;

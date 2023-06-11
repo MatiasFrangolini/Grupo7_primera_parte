@@ -2,6 +2,8 @@ package modelo;
 
 import java.util.Iterator;
 
+import controlador.Controlador;
+
 public class ClienteJuridico extends Cliente {
 	
 	/**
@@ -40,7 +42,14 @@ public class ClienteJuridico extends Cliente {
 		throw new CloneNotSupportedException("Un cliente juridico no admite clonacion.");
 	}
 	
+	@Override
+	public String toString() {
+		return super.toString()+".Persona jurídica ";
+	}
 	
 	
+	public void addObserver(Controlador c) {
+		
+	}
 	
 }

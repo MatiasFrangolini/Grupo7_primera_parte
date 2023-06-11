@@ -1,5 +1,8 @@
 package modelo;
 
+import excepciones.MorosoException;
+import excepciones.SinContratacionException;
+
 public class SinContratacionState extends PersonaState {
 
 	public SinContratacionState(ClienteFisico c) {
@@ -7,20 +10,25 @@ public class SinContratacionState extends PersonaState {
 	}
 
 	@Override
-	public void pagarFactura(IFactura f) {
-		//lanzar excepcion
+	public void pagarFactura(IFactura f) throws SinContratacionException {
+		throw new SinContratacionException("Un cliente sin factura no puede pagarla.");
 	}
 	
 
 	@Override
-	public void contratarServicio(ClienteFisico abonado) {
-		super.contratarServicio(abonado);
-		abonado.setEstado(new ConContratacionState(abonado));
+	public void contratarServicio(Contratacion contratacion) throws MorosoException {
+		super.contratarServicio(contratacion);
+		this.c.setEstado(new ConContratacionState(this.c));
 	}
 
 	@Override
-	public void bajaServicio(ClienteFisico abonado, Contratacion contratacion) {
-		//lanzar excepcion
+	public void bajaServicio(Contratacion contratacion) throws SinContratacionException {
+		throw new SinContratacionException("Un cliente sin contratacion no puede darla de baja.");
+	}
+	
+	@Override
+	public String toString() {
+		return "sin contratacion.";
 	}
 	
 	
