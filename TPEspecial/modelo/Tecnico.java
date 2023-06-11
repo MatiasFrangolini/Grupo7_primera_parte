@@ -1,7 +1,9 @@
 package modelo;
 
+import java.util.Observable;
 
-public class Tecnico {
+@SuppressWarnings("deprecation")
+public class Tecnico extends Observable{
 	
 	private String nombre;
 	private boolean ocupado;
