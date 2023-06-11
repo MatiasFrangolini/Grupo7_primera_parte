@@ -286,7 +286,6 @@ public class Empresa {
 			auxIt = it.next();
 			try {
 				aux = f.getFactura(metodosPago.get(i), auxIt);
-				System.out.println("Metodo: "+metodosPago.get(i));
 				auxIt.addFactura(aux);
 				
 			} catch (MetodoDePagoInvalidoException e) {

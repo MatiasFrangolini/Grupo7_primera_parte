@@ -3,28 +3,38 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Iterator;
 
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -35,10 +45,8 @@ import javax.swing.event.ListSelectionListener;
 
 import modelo.Cliente;
 import modelo.Contratacion;
-import modelo.Factura;
 import modelo.IFactura;
 import negocio.Empresa;
-import javax.swing.JScrollPane;
 
 public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener, ChangeListener {
 
@@ -48,21 +56,11 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	private JButton btnAvanzarMes;
 	private JButton btnClienteFisico;
 	private JButton btnClienteJuridico;
-	private JButton btnAgregarContratacion;
-	private JButton btnEliminarContratacion;
 	private JPanel abonadosPrincipal;
 	private JPanel panelListaClientes;
 	private JPanel panelCentralAbonados;
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_4;
-	private JPanel panel_18;
-	private JPanel panel_19;
-	private JLabel lblNewLabel_5;
-	private JLabel lblNewLabel_6;
-	private JPanel panel_20;
-	private JTextField calletext;
-	private JPanel panel_21;
-	private JTextField alturatext;
 	private JTextArea textArea;
 	private JTextArea textArea_1;
 	private JSpinner spinnercamaras;
@@ -86,6 +84,12 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	private JList<IFactura> listaFacturasHistorial;
 	private JList<Cliente> listaClientesEmpresa;
 	private JLabel lblMesActual;
+	private JTextField textFieldCalle;
+	private JTextField textFieldAltura;
+	private JButton btnAgregarContratacion;
+	private JButton btnEliminarContratacion;
+	private JRadioButton rdbtnVivienda;
+	private JRadioButton rdbtnComercio;
 	
 	public void setActionListener(ActionListener actionListener)
 	    {
@@ -286,7 +290,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		
 		JPanel panelPrincipalCentral = new JPanel();
 		this.panelCentralAbonados.add(panelPrincipalCentral, BorderLayout.CENTER);
-		panelPrincipalCentral.setLayout(new GridLayout(2, 0, 0, 2));
+		panelPrincipalCentral.setLayout(new GridLayout(3, 0, 0, 2));
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -299,7 +303,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		
 		JPanel panelCentralAgregar = new JPanel();
 		panel_4.add(panelCentralAgregar, BorderLayout.CENTER);
-		panelCentralAgregar.setLayout(new GridLayout(4, 2, 10, 2));
+		panelCentralAgregar.setLayout(new GridLayout(3, 2, 10, 2));
 		
 		JPanel panel_10 = new JPanel();
 		panelCentralAgregar.add(panel_10);
@@ -351,54 +355,78 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		this.spinnerbotones.setBounds(45, 10, 45, 20);
 		panel_15.add(this.spinnerbotones);
 		
-		this.panel_18 = new JPanel();
-		panelCentralAgregar.add(this.panel_18);
-		this.panel_18.setLayout(new BorderLayout(0, 0));
+		JPanel panel_23 = new JPanel();
+		panel_23.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		panelPrincipalCentral.add(panel_23);
+		panel_23.setLayout(new GridLayout(3, 1, 0, 0));
 		
-		this.lblNewLabel_5 = new JLabel("Calle");
-		this.lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		this.panel_18.add(this.lblNewLabel_5, BorderLayout.NORTH);
+		JPanel panel_18_1 = new JPanel();
+		panel_23.add(panel_18_1);
+		panel_18_1.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		this.panel_20 = new JPanel();
-		this.panel_18.add(this.panel_20, BorderLayout.CENTER);
-		this.panel_20.setLayout(null);
+		JPanel panel_24 = new JPanel();
+		panel_18_1.add(panel_24);
+		panel_24.setLayout(new BorderLayout(0, 0));
 		
-		this.calletext = new JTextField();
-		this.calletext.addKeyListener(this);
-		this.calletext.setBounds(18, 5, 102, 15);
-		this.panel_20.add(this.calletext);
-		this.calletext.setColumns(10);
+		JLabel lblCalle = new JLabel("Calle");
+		lblCalle.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_24.add(lblCalle, BorderLayout.NORTH);
 		
-		this.panel_19 = new JPanel();
-		panelCentralAgregar.add(this.panel_19);
-		this.panel_19.setLayout(new BorderLayout(0, 0));
+		JPanel panel_20_1 = new JPanel();
+		panel_24.add(panel_20_1);
+		panel_20_1.setLayout(new BorderLayout(0, 0));
 		
-		this.lblNewLabel_6 = new JLabel("Altura");
-		this.lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		this.panel_19.add(this.lblNewLabel_6, BorderLayout.NORTH);
+		textFieldCalle = new JTextField();
+		textFieldCalle.addKeyListener(this);
+		textFieldCalle.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldCalle.setColumns(10);
+		panel_20_1.add(textFieldCalle, BorderLayout.CENTER);
 		
-		this.panel_21 = new JPanel();
-		this.panel_19.add(this.panel_21, BorderLayout.CENTER);
-		this.panel_21.setLayout(null);
+		JPanel panel_25 = new JPanel();
+		panel_18_1.add(panel_25);
+		panel_25.setLayout(new BorderLayout(0, 0));
 		
-		this.alturatext = new JTextField();
-		this.alturatext.addKeyListener(this);
-		this.alturatext.setBounds(18, 5, 102, 15);
-		this.panel_21.add(this.alturatext);
-		this.alturatext.setColumns(10);
+		JLabel lblAltura = new JLabel("Altura");
+		lblAltura.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_25.add(lblAltura, BorderLayout.NORTH);
+		
+		JPanel panel_21_1 = new JPanel();
+		panel_25.add(panel_21_1);
+		panel_21_1.setLayout(new BorderLayout(0, 0));
+		
+		textFieldAltura = new JTextField();
+		textFieldAltura.addKeyListener(this);
+		textFieldAltura.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldAltura.setColumns(10);
+		panel_21_1.add(textFieldAltura);
+		
+		JPanel panel_26 = new JPanel();
+		panel_23.add(panel_26);
+		panel_26.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		this.rdbtnVivienda = new JRadioButton("Vivienda");
+		rdbtnVivienda.setSelected(true);
+		rdbtnVivienda.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_26.add(rdbtnVivienda);
+		
+		this.rdbtnComercio = new JRadioButton("Comercio");
+		rdbtnComercio.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_26.add(rdbtnComercio);
+		
+		ButtonGroup rdbtnGrupo = new ButtonGroup();
+		rdbtnGrupo.add(rdbtnComercio);
+		rdbtnGrupo.add(rdbtnVivienda);
 		
 		JPanel panel_7 = new JPanel();
-		panel_4.add(panel_7, BorderLayout.SOUTH);
+		panel_23.add(panel_7);
+		panel_7.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		this.btnAgregarContratacion = new JButton("Agregar Contratacion");
-		this.btnAgregarContratacion.addMouseListener(this);
-		panel_7.setLayout(new GridLayout(0, 2, 0, 0));
-		this.btnAgregarContratacion.setEnabled(false);
+		btnAgregarContratacion.setEnabled(false);
 		panel_7.add(btnAgregarContratacion);
 		
 		this.btnEliminarContratacion = new JButton("Eliminar Contratacion");
-		this.btnEliminarContratacion.addMouseListener(this);
-		this.btnEliminarContratacion.setEnabled(false);
+		btnEliminarContratacion.setEnabled(false);
 		panel_7.add(btnEliminarContratacion);
 		
 		JPanel panel_8 = new JPanel();
@@ -408,11 +436,11 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		
 		JPanel panel_9 = new JPanel();
 		panel_8.add(panel_9);
-		panel_9.setLayout(null);
 		
 		this.btnPagarFactura = new JButton("Pagar Factura");
+		btnPagarFactura.setBounds(75, 15, 140, 35);
 		this.btnPagarFactura.addMouseListener(this);
-		btnPagarFactura.setBounds(80, 35, 129, 30);
+		panel_9.setLayout(null);
 		btnPagarFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_9.add(btnPagarFactura);
 		this.btnPagarFactura.setEnabled(false);
@@ -422,8 +450,12 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		panel_11.setLayout(null);
 		
 		this.btnSolicitarTecnico = new JButton("Solicitar Técnico");
+		/*btnSolicitarTecnico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});*/
 		this.btnSolicitarTecnico.addMouseListener(this);
-		btnSolicitarTecnico.setBounds(80, 35, 129, 30);
+		btnSolicitarTecnico.setBounds(75, 15, 140, 35);
 		btnSolicitarTecnico.setAlignmentX(0.5f);
 		panel_11.add(btnSolicitarTecnico);
 		
@@ -520,9 +552,9 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		String nombreTecnico=null;
 		Cliente cliente = null;
 		int altura = -1;
-			calle = this.calletext.getText();
-			if (isInteger(this.alturatext.getText())) {
-				altura = Integer.parseInt(this.alturatext.getText());
+			calle = this.textFieldCalle.getText();
+			if (isInteger(this.textFieldAltura.getText())) {
+				altura = Integer.parseInt(this.textFieldAltura.getText());
 			}
 			nombre = this.textNombre.getText();
 			DNI = this.textDni.getText();
@@ -573,15 +605,23 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	}
 	
 	public String getCalle() {
-		return this.calletext.getText();
+		return this.textFieldCalle.getText();
 	}
 	
 	public int getAltura() {
 		int aux;
-		aux = (int) Integer.parseInt(this.alturatext.getText());
+		aux = (int) Integer.parseInt(this.textFieldAltura.getText());
 		return aux;
 	}
 	
+	
+	
+	public boolean isRdbtnVivienda() {
+		return rdbtnVivienda.isSelected();
+	}
+	public boolean isRdbtnComercio() {
+		return rdbtnComercio.isSelected();
+	}
 	public Contratacion getContratacion() {
 		return (Contratacion) this.listaContrataciones.getSelectedValue();
 	}
@@ -604,9 +644,11 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	}
 	public void mousePressed(MouseEvent e) {
 		
-		JButton boton = (JButton) e.getSource();
 		String comando = null;
+		
+		JButton boton = (JButton) e.getSource();
 		comando = boton.getActionCommand();
+		
 		ActionEvent evento = new ActionEvent(e.getSource(),0,comando);
 	}
 	
@@ -712,7 +754,34 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	}
 	
 	
-	
+	public void showExceptionMessage(Component parentComponent,
+            Exception exception) throws HeadlessException {
+
+        StringWriter stringWriter = new StringWriter();
+        exception.printStackTrace(new PrintWriter(stringWriter));
+
+        JLabel message = new JLabel(exception.getMessage());
+        message.setBorder(BorderFactory.createEmptyBorder(3, 0, 10, 0));
+
+        JTextArea text = new JTextArea();
+        text.setEditable(false);
+        text.setFont(UIManager.getFont("Label.font"));
+        text.setText(stringWriter.toString());
+        text.setCaretPosition(0);
+
+        JScrollPane scroller = new JScrollPane(text);
+        scroller.setPreferredSize(new Dimension(400, 200));
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        panel.add(message, BorderLayout.NORTH);
+        panel.add(scroller, BorderLayout.SOUTH);
+
+        JOptionPane.showMessageDialog(parentComponent, panel, "Exception!",
+                JOptionPane.ERROR_MESSAGE);
+
+    }
 	
 	
 }

@@ -33,18 +33,19 @@ public class Controlador implements ActionListener {
 		if (comando.equalsIgnoreCase("Agregar Contratacion")) {
 			Contratacion Caux = null;
 			try {
-				Caux = this.empresa.creaContratacion(this.vista.getCliente(), this.vista.getMovil(), this.vista.getCamaras(), this.vista.getBotones(), new Domicilio(this.vista.getCalle(),this.vista.getAltura()),"Vivienda");
+				if (vista.isRdbtnVivienda())
+					Caux = this.empresa.creaContratacion(this.vista.getCliente(), this.vista.getMovil(), this.vista.getCamaras(), this.vista.getBotones(), new Domicilio(this.vista.getCalle(),this.vista.getAltura()),"Vivienda");
+				else
+					Caux = this.empresa.creaContratacion(this.vista.getCliente(), this.vista.getMovil(), this.vista.getCamaras(), this.vista.getBotones(), new Domicilio(this.vista.getCalle(),this.vista.getAltura()),"Comercio");
 				try {
 					this.empresa.addContratacionACliente(this.vista.getCliente(), Caux);
 					vista.refrescaListaContratacion();
 				} catch (DomicilioYaExisteException | DomicilioNoPerteneceAClienteException
 						| ClienteInvalidoException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					vista.showExceptionMessage(vista, e1);
 				}
 			} catch (DomicilioNuloException | ContratacionInvalidaException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				vista.showExceptionMessage(vista, e1);
 			}
 		}
 		else if (comando.equalsIgnoreCase("Eliminar Contratacion")) {
@@ -58,7 +59,7 @@ public class Controlador implements ActionListener {
 				this.empresa.creaCliente(this.vista.getNombre(), this.vista.getDNI(), "Fisico");
 				this.vista.refrescaListaCliente();
 			} catch (ClienteInvalidoException e1) {
-				e1.printStackTrace();
+				vista.showExceptionMessage(vista, e1);
 			}
 		}
 		else if (comando.equalsIgnoreCase("Agregar cliente juridico")) {
@@ -66,7 +67,7 @@ public class Controlador implements ActionListener {
 				this.empresa.creaCliente(this.vista.getNombre(), this.vista.getDNI(), "Juridico");
 				this.vista.refrescaListaCliente();
 			} catch (ClienteInvalidoException e1) {
-				e1.printStackTrace();
+				vista.showExceptionMessage(vista, e1);
 			}
 		}
 		else if (comando.equalsIgnoreCase("Agregar tecnico")) {
@@ -84,6 +85,7 @@ public class Controlador implements ActionListener {
 		else if (comando.equalsIgnoreCase("Solicitar Tecnico")) {
 			//SE ACTIVA EL RECURSO COMPARTIDO
 		}
+		
 	}
 
 }
