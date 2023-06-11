@@ -11,7 +11,7 @@ public class ContratacionDto implements Serializable {
 	protected int cantCamaras;
 	protected int cantBotones;
 	protected double precio;
-	protected Domicilio domicilio; //Relacion de composicion
+	protected DomicilioDto domicilio; //Relacion de composicion
 	
 	public ContratacionDto() {
 		super();
@@ -65,11 +65,11 @@ public class ContratacionDto implements Serializable {
 		this.precio = precio;
 	}
 
-	public Domicilio getDomicilio() {
+	public DomicilioDto getDomicilio() {
 		return domicilio;
 	}
 
-	public void setDomicilio(Domicilio domicilio) {
+	public void setDomicilio(DomicilioDto domicilio) {
 		this.domicilio = domicilio;
 	}
 	

@@ -5,17 +5,17 @@ import java.io.Serializable;
 import modelo.ClienteFisico;
 
 public class PersonaStateDto implements Serializable {
-	protected ClienteFisico c;
+	protected ClienteDto c;
 
 	public PersonaStateDto() {
 		super();
 	}
 
-	public ClienteFisico getC() {
+	public ClienteDto getC() {
 		return c;
 	}
 
-	public void setC(ClienteFisico c) {
+	public void setC(ClienteDto c) {
 		this.c = c;
 	}
 	

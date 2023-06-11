@@ -260,6 +260,24 @@ public class Empresa {
 		return serviciotecnico;
 	}
 
+	public static void setMes(int mes) {
+		Empresa.mes = mes;
+	}
+
+	public static void setInstancia(Empresa instancia) {
+		Empresa.instancia = instancia;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setServiciotecnico(ServicioTecnico serviciotecnico) {
+		this.serviciotecnico = serviciotecnico;
+	}
+	
+	
+
 	
 	
 	

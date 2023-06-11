@@ -137,6 +137,40 @@ public abstract class Cliente extends Thread implements Cloneable{
 	}
 
 	public abstract void addObserver(Controlador controlador);
+
+	public ArrayList<IFactura> getHistorialfacturas() {
+		return historialfacturas;
+	}
+
+	public void setHistorialfacturas(ArrayList<IFactura> historialfacturas) {
+		this.historialfacturas = historialfacturas;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public void setContrataciones(ArrayList<Contratacion> contrataciones) {
+		this.contrataciones = contrataciones;
+	}
+
+	public void setFacturas(ArrayList<IFactura> facturas) {
+		this.facturas = facturas;
+	}
+	
+	
 	
 	
 	
