@@ -170,6 +170,10 @@ public abstract class Cliente extends Thread implements Cloneable, Serializable 
 	public void setFacturas(ArrayList<IFactura> facturas) {
 		this.facturas = facturas;
 	}
+
+	public Cliente() {
+		super();
+	}
 	
 	
 	

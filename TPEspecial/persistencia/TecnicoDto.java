@@ -7,7 +7,7 @@ import modelo.Cliente;
 public class TecnicoDto implements Serializable {
 	private String nombre;
 	private boolean ocupado;
-	private ClienteDto cliente;
+	private Cliente cliente;
 	
 	public TecnicoDto() {
 		super();
@@ -24,10 +24,10 @@ public class TecnicoDto implements Serializable {
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}
-	public ClienteDto getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
-	public void setCliente(ClienteDto cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 	

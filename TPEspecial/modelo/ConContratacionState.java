@@ -8,7 +8,12 @@ public class ConContratacionState extends PersonaState {
 	}
 	
 	
+	
 	// Pasa a SinContratacionState en el caso de que al final del mes, no tenga ninguna contratacion (Mediante la funcion actualizarEstado en ClienteFisico)
+
+
+	public ConContratacionState() {}
+
 
 
 	@Override

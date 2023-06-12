@@ -4,15 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import modelo.Cliente;
-import modelo.ServicioTecnico;
-import modelo.Tecnico;
 import negocio.Empresa;
 
 public class EmpresaDto implements Serializable {
 	private static int mes = 1;
 	private static Empresa instancia = null;
 	private String nombre;
-	private ArrayList<ClienteDto> abonados = new ArrayList<ClienteDto>();
+	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
 	private ServicioTecnicoDto serviciotecnico = new ServicioTecnicoDto();
 	
 	public EmpresaDto() {
@@ -36,10 +34,10 @@ public class EmpresaDto implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public ArrayList<ClienteDto> getAbonados() {
+	public ArrayList<Cliente> getAbonados() {
 		return abonados;
 	}
-	public void setAbonados(ArrayList<ClienteDto> abonados) {
+	public void setAbonados(ArrayList<Cliente> abonados) {
 		this.abonados = abonados;
 	}
 	public ServicioTecnicoDto getServiciotecnico() {

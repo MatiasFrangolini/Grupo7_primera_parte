@@ -1,11 +1,10 @@
 package modelo;
 
-import java.io.Serializable;
 
 import excepciones.MorosoException;
 import excepciones.SinContratacionException;
 
-public class SinContratacionState extends PersonaState implements Serializable {
+public class SinContratacionState extends PersonaState{
 	
 	public SinContratacionState(){};
 	

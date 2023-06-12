@@ -56,11 +56,25 @@ public class Factura implements IFactura,Serializable{
 		return "Factura del mes " +mes;
 	}
 
+	public Factura() {
+		super();
+	}
 
-	
-	
-	
-	
+	public Cliente getAbonado() {
+		return abonado;
+	}
+
+	public void setAbonado(Cliente abonado) {
+		this.abonado = abonado;
+	}
+
+	public int getMes() {
+		return mes;
+	}
+
+	public void setMes(int mes) {
+		this.mes = mes;
+	}
 	
 	
 }

@@ -12,6 +12,9 @@ public class ClienteJuridico extends Cliente {
 	public ClienteJuridico(String nombre, String dni) {
 		super(nombre, dni);
 	}
+	
+	public ClienteJuridico() {
+	}
 
 	/**
 	 * Metodo que sobreescribe el de la clase abstracta Cliente

@@ -23,7 +23,6 @@ import modelo.Contratacion;
 import modelo.Domicilio;
 import modelo.IFactura;
 import modelo.ServicioTecnico;
-import modelo.Tecnico;
 
 /**
  * Esta clase solo puede ser instanciada una vez. 

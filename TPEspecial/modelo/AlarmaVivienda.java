@@ -13,6 +13,7 @@ public class AlarmaVivienda extends Contratacion{
 		this.precio=super.getCostoAgregado()+valorBase;
 	}
 
+	public AlarmaVivienda() {}
 
 
 	@Override
@@ -49,6 +50,14 @@ public class AlarmaVivienda extends Contratacion{
 	@Override
 	public String toString() {
 		return "Vivienda. "+ super.toString();
+	}
+
+	public static double getValorBase() {
+		return valorBase;
+	}
+
+	public static void setValorBase(double valorBase) {
+		AlarmaVivienda.valorBase = valorBase;
 	}
 	
 

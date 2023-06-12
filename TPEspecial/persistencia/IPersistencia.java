@@ -1,7 +1,6 @@
 package persistencia;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 public interface IPersistencia <E>
 {

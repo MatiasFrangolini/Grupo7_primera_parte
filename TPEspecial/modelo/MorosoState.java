@@ -3,6 +3,8 @@ package modelo;
 import excepciones.MorosoException;
 
 public class MorosoState extends PersonaState{
+	
+	public MorosoState() {}
 
 	public MorosoState(ClienteFisico c) {
 		super(c);
@@ -34,5 +36,6 @@ public class MorosoState extends PersonaState{
 	public String toString() {
 		return "moroso.";
 	}
+	
 	
 }

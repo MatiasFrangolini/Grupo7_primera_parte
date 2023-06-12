@@ -34,6 +34,16 @@ public abstract class DecoratorMedioDePago implements IFactura, Serializable {
 		return encapsulado.clone();
 	}
 
+	public IFactura getEncapsulado() {
+		return encapsulado;
+	}
+
+	public void setEncapsulado(IFactura encapsulado) {
+		this.encapsulado = encapsulado;
+	}
+
+	public DecoratorMedioDePago() {}
+
 	
 	
 	

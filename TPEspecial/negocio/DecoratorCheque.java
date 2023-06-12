@@ -16,6 +16,8 @@ public class DecoratorCheque extends DecoratorMedioDePago {
 		super(encapsulado);
 	}
 
+	public DecoratorCheque() {}
+	
 	/**
 	 * 
 	 * Metodo override que agrega la recarga correspondiente cuando se paga con cheque.
@@ -29,5 +31,7 @@ public class DecoratorCheque extends DecoratorMedioDePago {
 	public String toString() {
 		return encapsulado.toString() + "Precio $: " + this.getPrecioTotal();
 	}
+	
+	
 
 }

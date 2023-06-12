@@ -105,11 +105,38 @@ public abstract class Contratacion implements Promocionable, Cloneable, Serializ
 		return "Id: " + numId + ". Precio: $" + precio +".  "+ domicilio.toString() + "  Camaras: "+cantCamaras
 				+"  Botones antipanico: "+cantBotones+movilAcompaniamientoString();
 	}
-	
-	
-	
-	
-	
+
+	public Contratacion() {
+		super();
+	}
+
+	public static void setSigNumId(int sigNumId) {
+		Contratacion.sigNumId = sigNumId;
+	}
+
+	public void setNumId(int numId) {
+		this.numId = numId;
+	}
+
+	public void setMovilAcompaniamiento(boolean movilAcompaniamiento) {
+		this.movilAcompaniamiento = movilAcompaniamiento;
+	}
+
+	public void setCantCamaras(int cantCamaras) {
+		this.cantCamaras = cantCamaras;
+	}
+
+	public void setCantBotones(int cantBotones) {
+		this.cantBotones = cantBotones;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+	public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
+	}
 	
 	
 }

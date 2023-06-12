@@ -15,6 +15,8 @@ public class ClienteFisico extends Cliente {
 		super(nombre, dni);
 		this.setEstado(new SinContratacionState(this));
 	}
+	
+	public ClienteFisico() {}
 
 	public void pagarFactura(IFactura f) throws SinContratacionException {
 		this.estado.pagarFactura(f);

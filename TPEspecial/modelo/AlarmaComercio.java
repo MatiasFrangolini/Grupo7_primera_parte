@@ -13,6 +13,8 @@ public class AlarmaComercio extends Contratacion{
 		this.precio=super.getCostoAgregado()+valorBase;
 	}
 	
+	public AlarmaComercio() {}
+	
 	@Override
 	public double getPrecio() {
 		return this.precio;
@@ -47,4 +49,13 @@ public class AlarmaComercio extends Contratacion{
 		return "Comercio. "+super.toString();
 	}
 
+	public static double getValorBase() {
+		return valorBase;
+	}
+
+	public static void setValorBase(double valorBase) {
+		AlarmaComercio.valorBase = valorBase;
+	}
+
+	
 }

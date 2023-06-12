@@ -15,6 +15,10 @@ public class DecoratorEfectivo extends DecoratorMedioDePago {
 	public DecoratorEfectivo(IFactura encapsulado) {
 		super(encapsulado);
 	}
+	
+	public DecoratorEfectivo() {
+	}
+
 
 	/**
 	 * Metodo override que agrega la recarga correspondiente cuando se paga con cheque.

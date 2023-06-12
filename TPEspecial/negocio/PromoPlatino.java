@@ -1,7 +1,8 @@
 package negocio;
 
+import java.io.Serializable;
 
-public class PromoPlatino implements IAplicaPromo{
+public class PromoPlatino implements IAplicaPromo,Serializable{
 
 	public PromoPlatino() {
 		// TODO Auto-generated constructor stub
