@@ -1,13 +1,27 @@
 package modelo;
 
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import controlador.Controlador;
+import excepciones.MorosoException;
+import excepciones.SinContratacionException;
+import negocio.Empresa;
+import util.Util;
 
-public abstract class Cliente implements Cloneable{
+
+public abstract class Cliente extends Thread implements Cloneable, Serializable {
    
-    protected ArrayList<Domicilio> domicilios = new ArrayList<Domicilio>(); //Relacion de composicion
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>(); //Relacion de composicion
+	protected ArrayList<IFactura> facturas = new ArrayList<IFactura>();
+	protected ArrayList<IFactura> historialfacturas = new ArrayList<IFactura>();
 	private String nombre;
 	private String dni;
 	
@@ -19,35 +33,46 @@ public abstract class Cliente implements Cloneable{
 	 * @param dni: Parametro de tipo String que representa el dni del cliente
 	 */
 	public Cliente(String nombre, String dni) {
+		super(nombre);
 		assert nombre != null:"Nombre de cliente nulo";
 		assert dni != null:"Dni de cliente nulo";
 		this.nombre = nombre;
 		this.dni = dni;
 	}
-	/**
-	 * Metodo que agrega un domicilio a la lista de domicilios del cliente
-	 * <b>Pre: </b> El domicilio no puede ser null
-	 * @param domicilio: Domicilio del cliente
-	 * <b>Post: </b> Agrega un domicilio a la lista de domicilios del cliente.
-	 */
-	public void addDomicilio(Domicilio domicilio) {
-		assert domicilio != null:"Domicilio nulo";
-		int oldSize = this.domicilios.size();
-		this.domicilios.add(domicilio);
-		assert this.domicilios.size() == oldSize+1: "Fallo postcondicion";
-	}
-	
+
 	/**
 	 * Metodo que agrega una contratacion a la lista de contrataciones del cliente
 	 * <b>Pre: </b> La contratacion no puede ser null<br>
 	 * @param contratacion: Contratacion del cliente
 	 * <b>Post: </b> Agrega una contratacion a la lista de contrataciones del cliente.<br>
+	 * @throws MorosoException 
 	 */
-	public void addContratacion(Contratacion contratacion) {
+	public void addContratacion(Contratacion contratacion) throws MorosoException {
 		assert contratacion != null:"Contratacion nula";
 		int oldSize = this.contrataciones.size();
 		this.contrataciones.add(contratacion);
 		assert this.contrataciones.size() == oldSize+1: "Fallo postcondicion";
+	}
+	
+	public void removeContratacion(Contratacion contratacion) {
+		assert contratacion != null:"Contratacion nula";
+		int oldSize = this.contrataciones.size();
+		this.contrataciones.remove(contratacion);
+		assert this.contrataciones.size() == oldSize+1: "Fallo postcondicion";
+	}
+	
+	public void addFactura(IFactura factura) {
+		assert factura != null:"Factura nula";
+		int oldSize = this.facturas.size();
+		this.facturas.add(factura);
+		assert this.facturas.size() == oldSize+1: "Fallo postcondicion";
+	}
+	
+	public void addFacturaHistorial(IFactura factura) {
+		assert factura != null:"Factura nula";
+		int oldSize = this.historialfacturas.size();
+		this.historialfacturas.add(factura);
+		assert this.facturas.size() == oldSize+1: "Fallo postcondicion";
 	}
 	
 	/**
@@ -71,44 +96,87 @@ public abstract class Cliente implements Cloneable{
 	public Object clone() throws CloneNotSupportedException {
 		Cliente clonado;
 		Iterator<Contratacion> itC = this.contrataciones.iterator();
-		Iterator<Domicilio> itD = this.domicilios.iterator();
 		clonado = (ClienteFisico) super.clone();
 		clonado.contrataciones = (ArrayList<Contratacion>) this.contrataciones.clone();
 		clonado.contrataciones.clear();
 		while (itC.hasNext()) {
 			clonado.contrataciones.add((Contratacion)itC.next().clone());
 		}
-		clonado.domicilios = (ArrayList<Domicilio>)this.domicilios.clone();
-		clonado.domicilios.clear();
-		while (itD.hasNext()) {
-			clonado.domicilios.add((Domicilio)itD.next().clone());
-		}
 		return clonado;
 	}
 	
-	/**
-	 * Metodo que imprime los domicilios de un Cliente
-	 */
-	public void listarDomicilios() {
-		Iterator<Domicilio> it = this.domicilios.iterator();
-		while (it.hasNext()) {
-			System.out.println(it.next().toString());
-		}
-	}
 
 	@Override
 	public String toString() {
-		return "cliente " + nombre + ", Dni " + dni + "\nContrataciones: \n"+ contrataciones.toString();
+		return nombre + ". DNI: " + dni;
 	}
 
-	public ArrayList<Domicilio> getDomicilios() {
-		return domicilios;
+
+	public ArrayList<IFactura> getFacturas() {
+		return facturas;
 	}
 
 	public ArrayList<Contratacion> getContrataciones() {
 		return contrataciones;
 	}
 	
+	public ArrayList<IFactura> getHistorialFacturas() {
+		return historialfacturas;
+	}
+	
+	public void pagarFactura(IFactura factura) throws SinContratacionException {
+		this.facturas.remove(factura);
+		this.historialfacturas.add(factura);
+	}
+	
+	public void run() {
+		Tecnico aux;
+		aux=Empresa.getInstancia().getServiciotecnico().trabajaTecnico(this);
+		Util.espera(3000);  // Simulo que el tecnico trabaja
+		Empresa.getInstancia().getServiciotecnico().terminaTecnico(aux);
+	}
+
+	public void actualizarEstado() {
+		
+	}
+
+	public abstract void addObserver(Controlador controlador);
+
+	public ArrayList<IFactura> getHistorialfacturas() {
+		return historialfacturas;
+	}
+
+	public void setHistorialfacturas(ArrayList<IFactura> historialfacturas) {
+		this.historialfacturas = historialfacturas;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public void setContrataciones(ArrayList<Contratacion> contrataciones) {
+		this.contrataciones = contrataciones;
+	}
+
+	public void setFacturas(ArrayList<IFactura> facturas) {
+		this.facturas = facturas;
+	}
+
+	public Cliente() {
+		super();
+	}
 	
 	
 	

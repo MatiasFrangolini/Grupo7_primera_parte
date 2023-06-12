@@ -1,8 +1,19 @@
 package modelo;
 
-public class Factura implements IFactura{
-	Cliente abonado; //Relacion de composicion con Cliente.
-	double precioTotal;
+
+
+import java.io.Serializable;
+
+import negocio.Empresa;
+
+public class Factura implements IFactura,Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Cliente abonado; //Relacion de composicion con Cliente.
+	private double precioTotal;
+	private int mes;
 	
 
 	/**
@@ -11,6 +22,8 @@ public class Factura implements IFactura{
 	 */
 	public Factura(Cliente abonado) {
 		this.abonado=abonado;
+		this.mes = Empresa.getMes()-1;
+		this.precioTotal = abonado.getPagoTotal();
 	}
 
 	/*
@@ -18,35 +31,52 @@ public class Factura implements IFactura{
 	 * Recorre las contrataciones del cliente propio de la factura.
 	 */
 	public double getPrecioTotal() {
-		return this.abonado.getPagoTotal();
+		return precioTotal;
 	}
 	
+	
+	public void setPrecioTotal(double precioTotal) {
+		this.precioTotal = precioTotal;
+	}
+
 	public int getCantContrataciones() {
 		return this.abonado.contrataciones.size();
 	}
 	
 	/*
-	 * Metodo para clonar una factura, realiza una clonacion profunda.
-	 * La clonacion es condicional.
+	 * Metodo para clonar una factura.
 	 */
 	public Object clone() throws CloneNotSupportedException{
-		Factura clonado = null;
-		clonado = (Factura)super.clone();
-		clonado.abonado = (Cliente) this.abonado.clone();
+		IFactura clonado = null;
+		clonado = (IFactura)super.clone();
 		return clonado;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Factura del " + abonado.toString() + "\nPrecio total de la factura: $" + getPrecioTotal()+"\n\n***********************************\n";
+		return "Factura del mes " +mes+". Precio base: "+this.precioTotal;
 	}
 
+	public Factura() {
+		super();
+	}
 
-	
-	
-	
-	
+	public Cliente getAbonado() {
+		return abonado;
+	}
+
+	public void setAbonado(Cliente abonado) {
+		this.abonado = abonado;
+	}
+
+	public int getMes() {
+		return mes;
+	}
+
+	public void setMes(int mes) {
+		this.mes = mes;
+	}
 	
 	
 }
