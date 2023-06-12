@@ -41,7 +41,7 @@ public class ServicioTecnico extends Observable implements Serializable{
 		while(tecnicoDisponible()==null)
 			try {
 				this.setChanged();
-				this.notifyObservers("El cliente "+ cliente.getName()+ " esta a la espera de un tecnico");
+				this.notifyObservers("El cliente "+ cliente.getNombre()+ " esta a la espera de un tecnico");
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -50,7 +50,7 @@ public class ServicioTecnico extends Observable implements Serializable{
 		aux.setCliente(cliente);
 		aux.setOcupado(true);
 		this.setChanged();
-		this.notifyObservers("El tecnico "+aux.getNombre()+" empieza a trabajar con el cliente "+ cliente.getName());
+		this.notifyObservers("El tecnico "+aux.getNombre()+" empieza a trabajar con el cliente "+ cliente.getNombre());
 		notifyAll();
 		return aux;
 	}
@@ -58,7 +58,7 @@ public class ServicioTecnico extends Observable implements Serializable{
 	public synchronized void terminaTecnico(Tecnico tecnico) {
 		tecnico.setOcupado(false);
 		this.setChanged();
-		this.notifyObservers("El tecnico "+tecnico.getNombre()+" terminó de trabajar con el cliente "+ tecnico.getCliente().getName());
+		this.notifyObservers("El tecnico "+tecnico.getNombre()+" terminó de trabajar con el cliente "+ tecnico.getCliente().getNombre());
 		tecnico.setCliente(null);
 		notifyAll();
 	}

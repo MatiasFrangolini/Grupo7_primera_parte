@@ -37,9 +37,7 @@ public class Controlador implements WindowListener, ActionListener, Observer {
 	public Controlador()
 	    {
 		this.vista = new Ventana();
-		this.empresa = Empresa.getInstancia();
-		this.servicioTecnico = empresa.getServiciotecnico();
-		this.servicioTecnico.addObserver(this);
+		
 		this.vista.setActionListener(this);
 		this.vista.addWindowListener(this);
 		this.persistenciaBIN = new PersistenciaBIN();
@@ -96,7 +94,7 @@ public class Controlador implements WindowListener, ActionListener, Observer {
 		}
 		else if (comando.equalsIgnoreCase("Agregar tecnico")) {
 			this.empresa.addTecnico(this.vista.getNombreTecnico());
-			this.vista.setLblCantTecnicos("Cantidad de tecnicos:  "+String.valueOf(this.servicioTecnico.getTecnicos().size()));
+			this.vista.setLblCantTecnicos("Cantidad de tecnicos:  "+String.valueOf(this.empresa.getServiciotecnico().getTecnicos().size()));
 		}
 		else if (comando.equalsIgnoreCase("Avanzar mes")) {
 			this.empresa.cambiarMes(); 
@@ -116,7 +114,8 @@ public class Controlador implements WindowListener, ActionListener, Observer {
 		else if (comando.equalsIgnoreCase("Solicitar Tecnico")) {
 			Cliente c = this.vista.getCliente();
 			try {
-				c.start();
+				Thread t = new Thread(c);
+				t.start();
 			} catch  (Exception excepcion) {
 				vista.showExceptionMessage(vista, excepcion);
 			}
@@ -155,7 +154,9 @@ public class Controlador implements WindowListener, ActionListener, Observer {
             System.out.println("Archivo abierto");
             EmpresaDto edto=(EmpresaDto) persistenciaBIN.leer();
             this.empresa = Transferencia.empresafromEmpresaDto(edto);
- 
+    		this.servicioTecnico = empresa.getServiciotecnico();
+    		this.servicioTecnico.addObserver(this);
+            
             System.out.println("Empresa recuperada");
             persistenciaBIN.cerrarInput();
             System.out.println("Archivo cerrado");
@@ -163,6 +164,7 @@ public class Controlador implements WindowListener, ActionListener, Observer {
             this.vista.refrescaListaContratacion();
             this.vista.refrescaListaFactura();
             this.vista.refrescaListaHistorial();
+            this.vista.setLblCantTecnicos("Cantidad de tecnicos:  "+String.valueOf(this.empresa.getServiciotecnico().getTecnicos().size()));
         } catch (IOException e1)
         {
             this.vista.showExceptionMessage(vista, e1);
@@ -179,7 +181,7 @@ public class Controlador implements WindowListener, ActionListener, Observer {
 		try {
         persistenciaBIN.abrirOutput("Empresa.dat");
         System.out.println("Crea archivo escritura");
-        EmpresaDto edto=Transferencia.empresaDtofromEmpresa(empresa);
+        EmpresaDto edto=Transferencia.empresaDtofromEmpresa(Empresa.getInstancia());
         persistenciaBIN.escribir(edto);
         System.out.println("Empresa grabada exitosamente");
         persistenciaBIN.cerrarOutput();

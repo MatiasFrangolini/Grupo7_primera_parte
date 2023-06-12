@@ -5,6 +5,10 @@ import java.io.Serializable;
 import modelo.Cliente;
 
 public class TecnicoDto implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private boolean ocupado;
 	private Cliente cliente;

@@ -311,9 +311,12 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		listaClientes.addListSelectionListener(this);
 		listaClientes.setModel(listModelCliente);
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panelListaClientes.add(scrollPane_1);
+		
 		JPanel panel_19 = new JPanel();
+		scrollPane_1.setViewportView(panel_19);
 		panel_19.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		panelListaClientes.add(panel_19);
 		panel_19.setLayout(new BorderLayout(0, 0));
 		
 		this.textAreaConsole = new JTextArea();
