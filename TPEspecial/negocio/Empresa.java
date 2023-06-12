@@ -148,7 +148,6 @@ public class Empresa {
 		
 		if (nombre != null && !(nombre.equals("")) && dni != null && !(dni.equals("")) && tipo != null) {
 			
-			System.out.println(this.hashCode());
 			if (tipo.equalsIgnoreCase("fisico"))
 				abonado = new ClienteFisico(nombre,dni);
 			else if (tipo.equalsIgnoreCase("juridico"))

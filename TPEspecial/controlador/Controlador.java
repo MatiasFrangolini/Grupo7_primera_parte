@@ -37,9 +37,7 @@ public class Controlador implements WindowListener, ActionListener, Observer {
 	public Controlador()
 	    {
 		this.vista = new Ventana();
-		this.empresa = Empresa.getInstancia();
-		this.servicioTecnico = empresa.getServiciotecnico();
-		this.servicioTecnico.addObserver(this);
+		
 		this.vista.setActionListener(this);
 		this.vista.addWindowListener(this);
 		this.persistenciaBIN = new PersistenciaBIN();
@@ -156,7 +154,9 @@ public class Controlador implements WindowListener, ActionListener, Observer {
             System.out.println("Archivo abierto");
             EmpresaDto edto=(EmpresaDto) persistenciaBIN.leer();
             this.empresa = Transferencia.empresafromEmpresaDto(edto);
- 
+    		this.servicioTecnico = empresa.getServiciotecnico();
+    		this.servicioTecnico.addObserver(this);
+            
             System.out.println("Empresa recuperada");
             persistenciaBIN.cerrarInput();
             System.out.println("Archivo cerrado");
@@ -181,7 +181,7 @@ public class Controlador implements WindowListener, ActionListener, Observer {
 		try {
         persistenciaBIN.abrirOutput("Empresa.dat");
         System.out.println("Crea archivo escritura");
-        EmpresaDto edto=Transferencia.empresaDtofromEmpresa(empresa);
+        EmpresaDto edto=Transferencia.empresaDtofromEmpresa(Empresa.getInstancia());
         persistenciaBIN.escribir(edto);
         System.out.println("Empresa grabada exitosamente");
         persistenciaBIN.cerrarOutput();
