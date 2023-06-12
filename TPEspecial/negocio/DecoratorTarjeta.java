@@ -10,11 +10,20 @@ import modelo.IFactura;
 public class DecoratorTarjeta extends DecoratorMedioDePago {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
+	/**
 	 * Constructor de la clase DecoratorTarjeta. Llama al constructor de su superclase.
 	 */
 	public DecoratorTarjeta(IFactura encapsulado) {
 		super(encapsulado);
 	}
+	
+	public DecoratorTarjeta() {}
 	
 /**
 * Metodo override que agrega la recarga correspondiente cuando se paga con cheque.
@@ -24,6 +33,15 @@ public class DecoratorTarjeta extends DecoratorMedioDePago {
 	public double getPrecioTotal() {
 		return this.encapsulado.getPrecioTotal()*1.05;
 	}
+
+	
+	
+	@Override
+	public String toString() {
+		return encapsulado.toString() + " Precio final: $" + this.getPrecioTotal();
+	}
+	
+	
 
 
 

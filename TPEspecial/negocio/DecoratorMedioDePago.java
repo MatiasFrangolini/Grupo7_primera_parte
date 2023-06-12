@@ -1,13 +1,20 @@
 package negocio;
-import modelo.*;
+
+import java.io.Serializable;
+
+import modelo.IFactura;
 
 /**
  * 
  * Clase de tipo decorator, que va a decorar un encapsulado de tipo DecoratorPersoneria
  *
  */
-public abstract class DecoratorMedioDePago implements IFactura {
+public abstract class DecoratorMedioDePago implements IFactura, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected IFactura encapsulado;
 
 	/**
@@ -31,10 +38,17 @@ public abstract class DecoratorMedioDePago implements IFactura {
 		return encapsulado.clone();
 	}
 
-	@Override
-	public String toString() {
-		return encapsulado.toString();
+	public IFactura getEncapsulado() {
+		return encapsulado;
 	}
+
+	public void setEncapsulado(IFactura encapsulado) {
+		this.encapsulado = encapsulado;
+	}
+
+	public DecoratorMedioDePago() {}
+
+	
 	
 	
 	

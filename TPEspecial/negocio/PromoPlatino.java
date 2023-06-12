@@ -1,6 +1,13 @@
 package negocio;
 
-public class PromoPlatino implements IAplicaPromo {
+import java.io.Serializable;
+
+public class PromoPlatino implements IAplicaPromo,Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public PromoPlatino() {
 		// TODO Auto-generated constructor stub

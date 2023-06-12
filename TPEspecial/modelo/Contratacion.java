@@ -1,9 +1,16 @@
 package modelo;
 
+
+import java.io.Serializable;
+
 import negocio.Promocionable;
 
-public abstract class Contratacion implements Promocionable, Cloneable{
+public abstract class Contratacion implements Promocionable, Cloneable, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected static int sigNumId = 1;
 	protected int numId;
 	protected boolean movilAcompaniamiento;
@@ -99,14 +106,41 @@ public abstract class Contratacion implements Promocionable, Cloneable{
 	
 	@Override
 	public String toString() {
-		return "[Contratacion Id: " + numId + ". Precio: $" + precio +". "+ domicilio.toString() + "Descripcion: \nCantidad de camaras: "+cantCamaras
-				+"\nCantidad de botones antipanico: "+cantBotones+movilAcompaniamientoString()+"]\n";
+		return "Id: " + numId + ". Precio: $" + precio +".  "+ domicilio.toString() + "  Camaras: "+cantCamaras
+				+"  Botones antipanico: "+cantBotones+movilAcompaniamientoString();
 	}
-	
-	
-	
-	
-	
+
+	public Contratacion() {
+		super();
+	}
+
+	public static void setSigNumId(int sigNumId) {
+		Contratacion.sigNumId = sigNumId;
+	}
+
+	public void setNumId(int numId) {
+		this.numId = numId;
+	}
+
+	public void setMovilAcompaniamiento(boolean movilAcompaniamiento) {
+		this.movilAcompaniamiento = movilAcompaniamiento;
+	}
+
+	public void setCantCamaras(int cantCamaras) {
+		this.cantCamaras = cantCamaras;
+	}
+
+	public void setCantBotones(int cantBotones) {
+		this.cantBotones = cantBotones;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+	public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
+	}
 	
 	
 }

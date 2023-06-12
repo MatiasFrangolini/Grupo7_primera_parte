@@ -2,6 +2,10 @@ package modelo;
 
 public class AlarmaComercio extends Contratacion{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static double valorBase = 10000;
 	
 	/**
@@ -12,6 +16,8 @@ public class AlarmaComercio extends Contratacion{
 		super(movilAcompaniamiento, cantCamaras, cantBotones, domicilio);
 		this.precio=super.getCostoAgregado()+valorBase;
 	}
+	
+	public AlarmaComercio() {}
 	
 	@Override
 	public double getPrecio() {
@@ -44,8 +50,16 @@ public class AlarmaComercio extends Contratacion{
 	
 	@Override
 	public String toString() {
-		return "[Contratacion Id: " + this.numId + ". Precio: $" + this.precio +". "+ this.domicilio.toString() + "Descripcion: \nAlarma en Comercio\nCantidad de camaras: "+this.cantCamaras
-				+"\nCantidad de botones antipanico: "+this.cantBotones+movilAcompaniamientoString()+"]\n";
+		return "Comercio. "+super.toString();
 	}
 
+	public static double getValorBase() {
+		return valorBase;
+	}
+
+	public static void setValorBase(double valorBase) {
+		AlarmaComercio.valorBase = valorBase;
+	}
+
+	
 }
