@@ -1,8 +1,12 @@
 package modelo;
 
+
+
+import java.io.Serializable;
+
 import negocio.Empresa;
 
-public class Factura implements IFactura{
+public class Factura implements IFactura,Serializable{
 	private Cliente abonado; //Relacion de composicion con Cliente.
 	private double precioTotal;
 	private int mes;

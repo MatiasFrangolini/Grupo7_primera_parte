@@ -3,6 +3,7 @@ package persistencia;
 import java.io.Serializable;
 
 import modelo.Cliente;
+import modelo.IFactura;
 
 public class FacturaDto implements Serializable{
 	Cliente abonado; //Relacion de composicion con Cliente.

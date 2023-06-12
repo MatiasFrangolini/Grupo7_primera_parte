@@ -19,6 +19,9 @@ import negocio.Empresa;
 
 public class Transferencia {
 	
+	//Factura
+	
+	
 	//State
 	public static PersonaStateDto PersonaStateDtofromPersonaState(PersonaState personastate) {
 		PersonaStateDto respuesta=new PersonaStateDto();
