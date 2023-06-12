@@ -96,7 +96,7 @@ public class Controlador implements WindowListener, ActionListener, Observer {
 		}
 		else if (comando.equalsIgnoreCase("Agregar tecnico")) {
 			this.empresa.addTecnico(this.vista.getNombreTecnico());
-			this.vista.setLblCantTecnicos("Cantidad de tecnicos:  "+String.valueOf(this.servicioTecnico.getTecnicos().size()));
+			this.vista.setLblCantTecnicos("Cantidad de tecnicos:  "+String.valueOf(this.empresa.getServiciotecnico().getTecnicos().size()));
 		}
 		else if (comando.equalsIgnoreCase("Avanzar mes")) {
 			this.empresa.cambiarMes(); 
