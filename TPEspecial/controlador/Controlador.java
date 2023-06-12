@@ -116,7 +116,8 @@ public class Controlador implements WindowListener, ActionListener, Observer {
 		else if (comando.equalsIgnoreCase("Solicitar Tecnico")) {
 			Cliente c = this.vista.getCliente();
 			try {
-				c.start();
+				Thread t = new Thread(c);
+				t.start();
 			} catch  (Exception excepcion) {
 				vista.showExceptionMessage(vista, excepcion);
 			}

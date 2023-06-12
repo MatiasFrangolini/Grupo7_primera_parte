@@ -12,7 +12,7 @@ import negocio.Empresa;
 import util.Util;
 
 
-public abstract class Cliente extends Thread implements Cloneable, Serializable {
+public abstract class Cliente implements Cloneable, Serializable, Runnable {
    
 	
 	/**
@@ -33,7 +33,6 @@ public abstract class Cliente extends Thread implements Cloneable, Serializable 
 	 * @param dni: Parametro de tipo String que representa el dni del cliente
 	 */
 	public Cliente(String nombre, String dni) {
-		super(nombre);
 		assert nombre != null:"Nombre de cliente nulo";
 		assert dni != null:"Dni de cliente nulo";
 		this.nombre = nombre;

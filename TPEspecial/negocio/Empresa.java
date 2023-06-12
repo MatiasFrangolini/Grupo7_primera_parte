@@ -35,11 +35,10 @@ public class Empresa {
 	private static Empresa instancia = null;
 	private String nombre;
 	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
-	private ServicioTecnico serviciotecnico;
+	private ServicioTecnico serviciotecnico = new ServicioTecnico();
 
 	private Empresa() {
 		nombre = "Grupo 7";
-		serviciotecnico = new ServicioTecnico();
 	}
 	
 	/**
@@ -147,15 +146,16 @@ public class Empresa {
 	public void creaCliente(String nombre, String dni, String tipo) throws ClienteInvalidoException {
 		Cliente abonado = null;
 		
-		if (nombre != null && !(nombre.equals("")) && dni != null && !(dni.equals("")) && tipo != null)
+		if (nombre != null && !(nombre.equals("")) && dni != null && !(dni.equals("")) && tipo != null) {
 			
+			System.out.println(this.hashCode());
 			if (tipo.equalsIgnoreCase("fisico"))
 				abonado = new ClienteFisico(nombre,dni);
 			else if (tipo.equalsIgnoreCase("juridico"))
 				abonado =  new ClienteJuridico(nombre,dni);
 			else
 				throw new ClienteInvalidoException("Tipo de cliente no valido.");	
-		else
+		}else
 			throw new ClienteInvalidoException("No se pudo crear el cliente.");
 		abonados.add(abonado);
 		
