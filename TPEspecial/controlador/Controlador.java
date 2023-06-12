@@ -163,6 +163,7 @@ public class Controlador implements WindowListener, ActionListener, Observer {
             this.vista.refrescaListaContratacion();
             this.vista.refrescaListaFactura();
             this.vista.refrescaListaHistorial();
+            this.vista.setLblCantTecnicos("Cantidad de tecnicos:  "+String.valueOf(this.empresa.getServiciotecnico().getTecnicos().size()));
         } catch (IOException e1)
         {
             this.vista.showExceptionMessage(vista, e1);
