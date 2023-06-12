@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class DomicilioDto implements Serializable {
 	private String calle;
 	private int altura;
+	
 	public DomicilioDto() {
 		super();
 	}

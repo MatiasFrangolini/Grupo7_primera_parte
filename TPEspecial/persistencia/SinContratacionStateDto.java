@@ -1,5 +1,7 @@
 package persistencia;
 
+import java.io.Serializable;
+
 public class SinContratacionStateDto extends PersonaStateDto {
 
 	public SinContratacionStateDto() {

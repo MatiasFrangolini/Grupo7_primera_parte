@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.Observable;
 
 import controlador.Controlador;
@@ -7,9 +8,13 @@ import excepciones.MorosoException;
 import excepciones.SinContratacionException;
 
 @SuppressWarnings("deprecation")
-public abstract class PersonaState extends Observable implements IPersonaState{
+public abstract class PersonaState extends Observable implements IPersonaState, Serializable {
 	
 	protected ClienteFisico c;
+	
+
+	public PersonaState() {
+	}
 
 	public PersonaState(ClienteFisico c) {
 		this.c = c;

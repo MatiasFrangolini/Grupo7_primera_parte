@@ -1,7 +1,8 @@
 package modelo;
 
+import java.io.Serializable;
 
-public class Domicilio implements Cloneable, Comparable<Domicilio>{
+public class Domicilio implements Cloneable, Comparable<Domicilio>, Serializable {
 	
 	private String calle;
 	private int altura;

@@ -1,6 +1,8 @@
 package persistencia;
 
-public class MorosoStateDto extends PersonaStateDto {
+import java.io.Serializable;
+
+public class MorosoStateDto extends PersonaStateDto{
 
 	public MorosoStateDto() {
 		super();

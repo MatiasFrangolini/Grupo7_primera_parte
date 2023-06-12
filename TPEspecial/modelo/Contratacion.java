@@ -1,9 +1,11 @@
 package modelo;
 
 
+import java.io.Serializable;
+
 import negocio.Promocionable;
 
-public abstract class Contratacion implements Promocionable, Cloneable{
+public abstract class Contratacion implements Promocionable, Cloneable, Serializable {
 	
 	protected static int sigNumId = 1;
 	protected int numId;

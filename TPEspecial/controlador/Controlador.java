@@ -2,6 +2,9 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,13 +20,18 @@ import modelo.Contratacion;
 import modelo.Domicilio;
 import modelo.ServicioTecnico;
 import negocio.Empresa;
+import persistencia.*;
+import persistencia.IPersistencia;
+import persistencia.PersistenciaBIN;
+import persistencia.Transferencia;
 import vista.Ventana;
 
 @SuppressWarnings("deprecation")
-public class Controlador implements ActionListener, Observer {
+public class Controlador implements WindowListener, ActionListener, Observer {
 	 private Empresa empresa;
 	 private Ventana vista;
 	 private ServicioTecnico servicioTecnico;
+	 private IPersistencia persistenciaBIN;
 
 	public Controlador()
 	    {
@@ -32,6 +40,8 @@ public class Controlador implements ActionListener, Observer {
 		this.servicioTecnico = empresa.getServiciotecnico();
 		this.servicioTecnico.addObserver(this);
 		this.vista.setActionListener(this);
+		this.vista.addWindowListener(this);
+		this.persistenciaBIN = new PersistenciaBIN();
 	    }
 	
 	
@@ -117,6 +127,106 @@ public class Controlador implements ActionListener, Observer {
 	public void update(Observable o, Object arg) {
 		this.vista.writeText((String)arg);
 		this.vista.writeText("\n");
+	}
+
+
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		try
+        {
+            persistenciaBIN.abrirInput("Empresa.dat");
+            System.out.println("Archivo abierto");
+            EmpresaDto edto=(EmpresaDto) persistenciaBIN.leer();
+            this.empresa = Transferencia.empresafromEmpresaDto(edto);
+ 
+            System.out.println("Empresa recuperada");
+            persistenciaBIN.cerrarInput();
+            System.out.println("Archivo cerado");
+            this.vista.refrescaListaCliente();
+            this.vista.refrescaListaContratacion();
+            this.vista.refrescaListaFactura();
+            this.vista.refrescaListaHistorial();
+        } catch (IOException e1)
+        {
+            // TODO Auto-generated catch block
+            System.out.println(e1.getMessage());
+        } catch (ClassNotFoundException e1)
+        {
+            // TODO Auto-generated catch block
+            System.out.println(e1.getMessage());
+        }
+	}
+
+
+
+	@Override
+	public void windowClosing(WindowEvent e) {	
+		try {
+        persistenciaBIN.abrirOutput("Empresa.dat");
+        System.out.println("Crea archivo escritura");
+        EmpresaDto edto=Transferencia.empresaDtofromEmpresa(empresa);
+        persistenciaBIN.escribir(edto);
+        System.out.println("Empresa grabada exitosamente");
+        persistenciaBIN.cerrarOutput();
+        System.out.println("Archivo cerrado");
+    } catch (IOException e1)
+    {
+        // TODO Auto-generated catch block
+        System.out.println(e1.getLocalizedMessage());
+    }
+		
+	}
+
+
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		try {
+            persistenciaBIN.abrirOutput("Empresa.dat");
+            System.out.println("Crea archivo escritura");
+            EmpresaDto edto=Transferencia.empresaDtofromEmpresa(empresa);
+            persistenciaBIN.escribir(edto);
+            System.out.println("Empresa grabada exitosamente");
+            persistenciaBIN.cerrarOutput();
+            System.out.println("Archivo cerrado");
+        } catch (IOException e1)
+        {
+            // TODO Auto-generated catch block
+            System.out.println(e1.getLocalizedMessage());
+        }
+	}
+
+
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

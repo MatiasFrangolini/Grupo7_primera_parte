@@ -13,10 +13,10 @@ public class MorosoState extends PersonaState{
 	@Override
 	public void pagarFactura(IFactura f) {
 		this.setChanged();
-		this.notifyObservers("El cliente "+this.c.getName()+ " pagó "+f.getPrecioTotal()*1.3);
+		this.notifyObservers("El cliente "+this.c.getNombre()+ " pagó "+f.getPrecioTotal()*1.3);
 		this.c.getHistorialFacturas().add(f);
 		this.c.getFacturas().remove(f);
-		if (this.c.facturas.size()<2)
+		if (this.c.getFacturas().size()<2)
 			this.c.setEstado(new ConContratacionState(c));
 	}
 

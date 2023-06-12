@@ -1,5 +1,7 @@
 package negocio;
 
+import java.io.Serializable;
+
 import modelo.IFactura;
 
 /**
@@ -7,7 +9,7 @@ import modelo.IFactura;
  * Clase de tipo decorator, que va a decorar un encapsulado de tipo DecoratorPersoneria
  *
  */
-public abstract class DecoratorMedioDePago implements IFactura {
+public abstract class DecoratorMedioDePago implements IFactura, Serializable {
 	
 	protected IFactura encapsulado;
 

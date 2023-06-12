@@ -48,8 +48,10 @@ import modelo.Contratacion;
 import modelo.IFactura;
 import negocio.Empresa;
 import java.awt.Font;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowEvent;
 
-public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener, ChangeListener {
+public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener, ChangeListener, WindowListener {
 
 	private JPanel contentPane;
 	private JTextField textNombre;
@@ -110,6 +112,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	 * Create the frame.
 	 */
 	public Ventana() {
+		addWindowListener(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 905, 527);
 		contentPane = new JPanel();
@@ -818,6 +821,20 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		this.textAreaConsole.append(str);
 	}
 	
+	public void windowActivated(WindowEvent e) {
+	}
+	public void windowClosed(WindowEvent e) {
+	}
+	public void windowClosing(WindowEvent e) {
+	}
+	public void windowDeactivated(WindowEvent e) {
+	}
+	public void windowDeiconified(WindowEvent e) {
+	}
+	public void windowIconified(WindowEvent e) {
+	}
+	public void windowOpened(WindowEvent e) {
+	}
 }
 	
 	

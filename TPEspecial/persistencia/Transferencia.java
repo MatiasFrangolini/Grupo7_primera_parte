@@ -56,7 +56,7 @@ public class Transferencia {
 	}
 	
 	public static SinContratacionState SinContratacionStatefromPersonaStateDto(PersonaStateDto personastatedto) {
-		SinContratacionState respuesta=new SinContratacionState(Transferencia.clienteFisicofromClienteFisicoDto(personastatedto.getC()));
+		SinContratacionState respuesta = new SinContratacionState(Transferencia.clienteFisicofromClienteFisicoDto(personastatedto.getC()));
 		return respuesta;
 	}
 	

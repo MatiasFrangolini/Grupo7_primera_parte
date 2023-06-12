@@ -1,6 +1,7 @@
 package modelo;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -11,7 +12,7 @@ import negocio.Empresa;
 import util.Util;
 
 
-public abstract class Cliente extends Thread implements Cloneable{
+public abstract class Cliente extends Thread implements Cloneable, Serializable {
    
 	
 	protected ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>(); //Relacion de composicion
