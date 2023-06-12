@@ -46,10 +46,12 @@ public class Empresa {
 	 * @return devuelve una instancia de la clase en caso de que no se haya instanciado nunca antes.
 	 */
 	public static Empresa getInstancia() {
-		if (instancia == null)
+		if (instancia == null) {
 			instancia = new Empresa();
+		}
 		return instancia;
 	}
+	
 	
 	
 

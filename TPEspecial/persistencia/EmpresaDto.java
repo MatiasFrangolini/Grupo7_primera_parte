@@ -16,7 +16,7 @@ public class EmpresaDto implements Serializable {
 	private static Empresa instancia = null;
 	private String nombre;
 	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
-	private ServicioTecnicoDto serviciotecnico = new ServicioTecnicoDto();
+	private ServicioTecnico serviciotecnico = new ServicioTecnico();
 	
 	public EmpresaDto() {
 		super();
@@ -45,10 +45,10 @@ public class EmpresaDto implements Serializable {
 	public void setAbonados(ArrayList<Cliente> abonados) {
 		this.abonados = abonados;
 	}
-	public ServicioTecnicoDto getServiciotecnico() {
+	public ServicioTecnico getServiciotecnico() {
 		return serviciotecnico;
 	}
-	public void setServiciotecnico(ServicioTecnicoDto serviciotecnico) {
+	public void setServiciotecnico(ServicioTecnico serviciotecnico) {
 		this.serviciotecnico = serviciotecnico;
 	}
 	

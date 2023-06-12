@@ -17,6 +17,10 @@ public class ServicioTecnico extends Observable implements Serializable{
 	private ArrayList<Tecnico>tecnicos = new ArrayList<Tecnico>();
 	
 	
+	public ServicioTecnico() {
+		super();
+	}
+
 	public synchronized void addTecnico(String nombre) {
 		tecnicos.add(new Tecnico(nombre));
 		notifyAll();
@@ -70,6 +74,12 @@ public class ServicioTecnico extends Observable implements Serializable{
 	public void setTecnicos(ArrayList<Tecnico> tecnicos) {
 		this.tecnicos = tecnicos;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 	
 	
 }

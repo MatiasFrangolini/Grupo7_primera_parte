@@ -23,36 +23,12 @@ public class Transferencia {
 		return respuesta;
 	}
 	
-	
-	//Servicio tecnico
-	public static ServicioTecnicoDto servicioTecnicoDtofromServicioTecnico(ServicioTecnico st) {
-		ServicioTecnicoDto respuesta = new ServicioTecnicoDto();
-		int i;
-		ArrayList<TecnicoDto> tecnicosDto = new ArrayList <TecnicoDto>();
-		for(i=0;i<st.getTecnicos().size();i++) {
-			tecnicosDto.add(Transferencia.tecnicoDtofromTecnico(st.getTecnicos().get(i)));
-		}
-		respuesta.setTecnicos(tecnicosDto);
-		return respuesta;
-	}
-	
-	public static ServicioTecnico servicioTecnicofromServicioTecnicoDto(ServicioTecnicoDto st) {
-		ServicioTecnico respuesta = new ServicioTecnico();
-		int i;
-		ArrayList<Tecnico> tecnicos = new ArrayList <Tecnico>();
-		for(i=0;i<st.getTecnicos().size();i++) {
-			tecnicos.add(Transferencia.tecnicofromTecnicoDto(st.getTecnicos().get(i)));
-		}
-		respuesta.setTecnicos(tecnicos);
-		return respuesta;
-	}
-	
 	//Empresa
 	public static EmpresaDto empresaDtofromEmpresa(Empresa empresa) {
 		EmpresaDto respuesta = new EmpresaDto();
 		respuesta.setNombre(empresa.getNombre());
 		respuesta.setAbonados(empresa.getAbonados());
-		respuesta.setServiciotecnico(Transferencia.servicioTecnicoDtofromServicioTecnico(empresa.getServiciotecnico()));
+		respuesta.setServiciotecnico(empresa.getServiciotecnico());
 		return respuesta;
 	}
 	
@@ -60,23 +36,9 @@ public class Transferencia {
 		Empresa respuesta = Empresa.getInstancia();
 		respuesta.setNombre(empresadto.getNombre());
 		respuesta.setAbonados(empresadto.getAbonados());
-		respuesta.setServiciotecnico(Transferencia.servicioTecnicofromServicioTecnicoDto(empresadto.getServiciotecnico()));
+		respuesta.setServiciotecnico(empresadto.getServiciotecnico());
 		return respuesta;
 	}
 	
-	
-	//Tecnico
-	public static TecnicoDto tecnicoDtofromTecnico(Tecnico tecnico) {
-		TecnicoDto respuesta = new TecnicoDto();
-		respuesta.setNombre(tecnico.getNombre());
-		respuesta.setOcupado(tecnico.isOcupado());
-		respuesta.setCliente(tecnico.getCliente());
-		return respuesta;
-	}
-	
-	public static Tecnico tecnicofromTecnicoDto(TecnicoDto tecnicodto) {
-		Tecnico respuesta = new Tecnico(tecnicodto.getNombre());
-		respuesta.setCliente(tecnicodto.getCliente());
-		return respuesta;
-	}
+
 }

@@ -17,6 +17,14 @@ public class Tecnico implements Serializable{
 		this.ocupado = false;
 		this.cliente = null;
 	}
+	
+	
+
+	public Tecnico() {
+		super();
+	}
+
+
 
 	public String getNombre() {
 		return nombre;
@@ -36,6 +44,18 @@ public class Tecnico implements Serializable{
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 		
