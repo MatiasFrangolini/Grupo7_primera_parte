@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import modelo.Tecnico;
 
 public class ServicioTecnicoDto implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<TecnicoDto>tecnicos = new ArrayList<TecnicoDto>();
 
 	

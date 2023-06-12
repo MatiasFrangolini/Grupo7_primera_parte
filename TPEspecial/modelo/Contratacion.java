@@ -7,6 +7,10 @@ import negocio.Promocionable;
 
 public abstract class Contratacion implements Promocionable, Cloneable, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected static int sigNumId = 1;
 	protected int numId;
 	protected boolean movilAcompaniamiento;

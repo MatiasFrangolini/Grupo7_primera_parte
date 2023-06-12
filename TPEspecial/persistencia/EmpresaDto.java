@@ -4,9 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import modelo.Cliente;
+import modelo.ServicioTecnico;
 import negocio.Empresa;
 
 public class EmpresaDto implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static int mes = 1;
 	private static Empresa instancia = null;
 	private String nombre;

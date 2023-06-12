@@ -7,6 +7,10 @@ import java.io.Serializable;
 import negocio.Empresa;
 
 public class Factura implements IFactura,Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Cliente abonado; //Relacion de composicion con Cliente.
 	private double precioTotal;
 	private int mes;
@@ -40,20 +44,18 @@ public class Factura implements IFactura,Serializable{
 	}
 	
 	/*
-	 * Metodo para clonar una factura, realiza una clonacion profunda.
-	 * La clonacion es condicional.
+	 * Metodo para clonar una factura.
 	 */
 	public Object clone() throws CloneNotSupportedException{
-		Factura clonado = null;
-		clonado = (Factura)super.clone();
-		clonado.abonado = (Cliente) this.abonado.clone();
+		IFactura clonado = null;
+		clonado = (IFactura)super.clone();
 		return clonado;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Factura del mes " +mes;
+		return "Factura del mes " +mes+". Precio base: "+this.precioTotal;
 	}
 
 	public Factura() {

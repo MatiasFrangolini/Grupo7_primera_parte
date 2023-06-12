@@ -4,11 +4,15 @@ import excepciones.MorosoException;
 
 public class MorosoState extends PersonaState{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public MorosoState() {}
 
 	public MorosoState(ClienteFisico c) {
 		super(c);
-		this.c.getFacturas().get(this.c.getFacturas().size()-1);
 	}
 
 	@SuppressWarnings("deprecation")

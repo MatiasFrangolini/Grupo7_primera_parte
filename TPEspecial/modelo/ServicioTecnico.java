@@ -1,14 +1,19 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
 //RECURSO COMPARTIDO
 @SuppressWarnings("deprecation")
-public class ServicioTecnico extends Observable{
+public class ServicioTecnico extends Observable implements Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Tecnico>tecnicos = new ArrayList<Tecnico>();
 	
 	

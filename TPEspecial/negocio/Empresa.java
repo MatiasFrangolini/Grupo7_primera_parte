@@ -35,10 +35,11 @@ public class Empresa {
 	private static Empresa instancia = null;
 	private String nombre;
 	private ArrayList<Cliente> abonados = new ArrayList<Cliente>();
-	private ServicioTecnico serviciotecnico = new ServicioTecnico();
+	private ServicioTecnico serviciotecnico;
 
 	private Empresa() {
 		nombre = "Grupo 7";
+		serviciotecnico = new ServicioTecnico();
 	}
 	
 	/**

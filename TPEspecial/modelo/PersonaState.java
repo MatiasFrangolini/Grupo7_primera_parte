@@ -10,6 +10,10 @@ import excepciones.SinContratacionException;
 @SuppressWarnings("deprecation")
 public abstract class PersonaState extends Observable implements IPersonaState, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected ClienteFisico c;
 	
 
@@ -22,7 +26,7 @@ public abstract class PersonaState extends Observable implements IPersonaState, 
 	
 	public void pagarFactura(IFactura f) throws SinContratacionException {
 		this.setChanged();
-		this.notifyObservers("El cliente "+this.c.getName()+ " pagó "+f.getPrecioTotal());
+		this.notifyObservers("El cliente "+this.c.getNombre()+ " pagó "+f.getPrecioTotal());
 		this.c.getHistorialFacturas().add(f);
 		this.c.getFacturas().remove(f);
 	}

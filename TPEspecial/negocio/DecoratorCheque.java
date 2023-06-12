@@ -10,6 +10,11 @@ import modelo.IFactura;
 public class DecoratorCheque extends DecoratorMedioDePago {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Constructor de la clase DecoratorCheque. Llama al constructor de su superclase.
 	 */
 	public DecoratorCheque(IFactura encapsulado) {
@@ -29,7 +34,7 @@ public class DecoratorCheque extends DecoratorMedioDePago {
 
 	@Override
 	public String toString() {
-		return encapsulado.toString() + "Precio $: " + this.getPrecioTotal();
+		return encapsulado.toString() + " Precio final: $" + this.getPrecioTotal();
 	}
 	
 	

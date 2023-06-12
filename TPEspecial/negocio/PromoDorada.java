@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class PromoDorada implements IAplicaPromo,Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public PromoDorada() {
 		// TODO Auto-generated constructor stub
 	}
@@ -14,6 +19,7 @@ public class PromoDorada implements IAplicaPromo,Serializable{
 	 */
 	@Override
 	public void aplicarPromocion(Promocionable promo) {
+		System.out.println("aa");
 		promo.promoDorada();
 	}
 

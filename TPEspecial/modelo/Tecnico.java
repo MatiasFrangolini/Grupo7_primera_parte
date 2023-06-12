@@ -1,8 +1,13 @@
 package modelo;
 
+import java.io.Serializable;
 
-public class Tecnico {
+public class Tecnico implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private boolean ocupado;
 	private Cliente cliente;

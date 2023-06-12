@@ -15,6 +15,10 @@ import util.Util;
 public abstract class Cliente extends Thread implements Cloneable, Serializable {
    
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected ArrayList<Contratacion> contrataciones = new ArrayList<Contratacion>(); //Relacion de composicion
 	protected ArrayList<IFactura> facturas = new ArrayList<IFactura>();
 	protected ArrayList<IFactura> historialfacturas = new ArrayList<IFactura>();
@@ -127,7 +131,6 @@ public abstract class Cliente extends Thread implements Cloneable, Serializable 
 	
 	public void run() {
 		Tecnico aux;
-		System.out.println("asd");
 		aux=Empresa.getInstancia().getServiciotecnico().trabajaTecnico(this);
 		Util.espera(3000);  // Simulo que el tecnico trabaja
 		Empresa.getInstancia().getServiciotecnico().terminaTecnico(aux);

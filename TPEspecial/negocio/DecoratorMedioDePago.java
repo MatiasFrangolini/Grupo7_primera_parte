@@ -11,6 +11,10 @@ import modelo.IFactura;
  */
 public abstract class DecoratorMedioDePago implements IFactura, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected IFactura encapsulado;
 
 	/**

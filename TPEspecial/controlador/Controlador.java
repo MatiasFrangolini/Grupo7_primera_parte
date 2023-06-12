@@ -13,6 +13,7 @@ import excepciones.ContratacionInvalidaException;
 import excepciones.DomicilioNoPerteneceAClienteException;
 import excepciones.DomicilioNuloException;
 import excepciones.DomicilioYaExisteException;
+import excepciones.FacturaInvalidaException;
 import excepciones.MorosoException;
 import excepciones.SinContratacionException;
 import modelo.Cliente;
@@ -119,6 +120,21 @@ public class Controlador implements WindowListener, ActionListener, Observer {
 			} catch  (Exception excepcion) {
 				vista.showExceptionMessage(vista, excepcion);
 			}
+		} 
+		else if (comando.equalsIgnoreCase("Aplicar promocion")) {
+			if (this.vista.isRdbtnPromoDorada()) {
+				this.vista.getContratacion().promoDorada();
+			} else if (this.vista.isRdbtnPromoPlatino()) {
+				this.vista.getContratacion().promoPlatino();
+			}
+			this.vista.refrescaListaContratacion();
+		}
+		else if (comando.equalsIgnoreCase("Clonar Factura")) {
+			try {
+				this.vista.getCliente().addFactura(this.empresa.clonarFactura(this.vista.getFactura()));
+			} catch (CloneNotSupportedException | FacturaInvalidaException e1) {
+				this.vista.showExceptionMessage(vista, e1);
+			}
 		}
 		
 	}
@@ -142,19 +158,17 @@ public class Controlador implements WindowListener, ActionListener, Observer {
  
             System.out.println("Empresa recuperada");
             persistenciaBIN.cerrarInput();
-            System.out.println("Archivo cerado");
+            System.out.println("Archivo cerrado");
             this.vista.refrescaListaCliente();
             this.vista.refrescaListaContratacion();
             this.vista.refrescaListaFactura();
             this.vista.refrescaListaHistorial();
         } catch (IOException e1)
         {
-            // TODO Auto-generated catch block
-            System.out.println(e1.getMessage());
+            this.vista.showExceptionMessage(vista, e1);
         } catch (ClassNotFoundException e1)
         {
-            // TODO Auto-generated catch block
-            System.out.println(e1.getMessage());
+            this.vista.showExceptionMessage(vista, e1);
         }
 	}
 

@@ -2,6 +2,10 @@ package modelo;
 
 public class AlarmaVivienda extends Contratacion{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static double valorBase = 8500;
 	
 	/**

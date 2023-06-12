@@ -3,6 +3,13 @@ package modelo;
 
 public class ConContratacionState extends PersonaState {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
 	public ConContratacionState(ClienteFisico c) {
 		super(c);
 	}

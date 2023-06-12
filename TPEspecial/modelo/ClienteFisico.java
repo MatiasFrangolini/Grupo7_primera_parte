@@ -6,6 +6,10 @@ import excepciones.SinContratacionException;
 
 public class ClienteFisico extends Cliente {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private IPersonaState estado; 
 	
 	/**

@@ -7,6 +7,12 @@ import controlador.Controlador;
 public class ClienteJuridico extends Cliente {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	/**
 	 * Constructor de la clase Cliente Juridico, que llama al constructor de su superclase.
 	 */
 	public ClienteJuridico(String nombre, String dni) {

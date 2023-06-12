@@ -6,6 +6,11 @@ import excepciones.SinContratacionException;
 
 public class SinContratacionState extends PersonaState{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public SinContratacionState(){};
 	
 	public SinContratacionState(ClienteFisico c) {

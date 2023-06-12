@@ -10,6 +10,13 @@ import modelo.IFactura;
 public class DecoratorTarjeta extends DecoratorMedioDePago {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
+	/**
 	 * Constructor de la clase DecoratorTarjeta. Llama al constructor de su superclase.
 	 */
 	public DecoratorTarjeta(IFactura encapsulado) {
@@ -31,7 +38,7 @@ public class DecoratorTarjeta extends DecoratorMedioDePago {
 	
 	@Override
 	public String toString() {
-		return encapsulado.toString() + "Precio $: " + this.getPrecioTotal();
+		return encapsulado.toString() + " Precio final: $" + this.getPrecioTotal();
 	}
 	
 	

@@ -53,6 +53,8 @@ import java.awt.event.WindowEvent;
 
 public class Ventana extends JFrame implements KeyListener, ActionListener, MouseListener, ListSelectionListener, ChangeListener, WindowListener {
 
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textNombre;
 	private JTextField textDni;
@@ -72,7 +74,7 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	private ActionListener actionListener;
 	private JButton btnAgregarTecnico;
 	private JButton btnSolicitarTecnico;
-	private JButton btnPagarFactura;
+	private JButton btnClonarFactura;
 	protected JList<Cliente> listaClientes;
 	private JCheckBox chckbxMovilAcom;
 	private JList<IFactura> listaFacturas;
@@ -95,6 +97,10 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	private JRadioButton rdbtnComercio;
 	private JLabel lblCantTecnicos;
 	private JTextArea textAreaConsole;
+	private JRadioButton rdbtnPromoPlatino;
+	private JRadioButton rdbtnPromoDorada;
+	private JButton btnAplicarPromo;
+	private JButton btnPagarFactura;
 	
 	public void setActionListener(ActionListener actionListener)
 	    {
@@ -105,7 +111,9 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		this.btnClienteJuridico.addActionListener(actionListener);
 		this.btnAgregarTecnico.addActionListener(actionListener);
 		this.btnSolicitarTecnico.addActionListener(actionListener);
+		this.btnClonarFactura.addActionListener(actionListener);
 		this.btnPagarFactura.addActionListener(actionListener);
+		this.btnAplicarPromo.addActionListener(actionListener);
 		this.actionListener = actionListener;
 	    }
 	/**
@@ -469,14 +477,33 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		
 		JPanel panel_9 = new JPanel();
 		panel_8.add(panel_9);
+		panel_9.setLayout(new BorderLayout(0, 0));
 		
-		this.btnPagarFactura = new JButton("Pagar Factura");
-		btnPagarFactura.setBounds(75, 15, 140, 35);
-		this.btnPagarFactura.addMouseListener(this);
-		panel_9.setLayout(null);
-		btnPagarFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panel_9.add(btnPagarFactura);
-		this.btnPagarFactura.setEnabled(false);
+		JLabel lblAplicarPromo = new JLabel("Promociones");
+		lblAplicarPromo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblAplicarPromo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_9.add(lblAplicarPromo, BorderLayout.NORTH);
+		
+		JPanel panel_20 = new JPanel();
+		panel_9.add(panel_20, BorderLayout.CENTER);
+		panel_20.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		this.rdbtnPromoDorada = new JRadioButton("Promo Dorada");
+		rdbtnPromoDorada.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_20.add(rdbtnPromoDorada);
+		
+		this.rdbtnPromoPlatino = new JRadioButton("Promo Platino");
+		rdbtnPromoPlatino.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_20.add(rdbtnPromoPlatino);
+		
+		ButtonGroup grupoPromo = new ButtonGroup();
+		grupoPromo.add(rdbtnPromoPlatino);
+		grupoPromo.add(rdbtnPromoDorada);
+		
+		this.btnAplicarPromo = new JButton("Aplicar promocion");
+		btnAplicarPromo.setEnabled(false);
+		btnAplicarPromo.addMouseListener(this);
+		panel_9.add(btnAplicarPromo, BorderLayout.SOUTH);
 		
 		JPanel panel_11 = new JPanel();
 		panel_8.add(panel_11);
@@ -485,9 +512,23 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 		this.btnSolicitarTecnico = new JButton("Solicitar Tecnico");
 		
 		this.btnSolicitarTecnico.addMouseListener(this);
-		btnSolicitarTecnico.setBounds(75, 15, 140, 35);
+		btnSolicitarTecnico.setBounds(10, 15, 115, 35);
 		btnSolicitarTecnico.setAlignmentX(0.5f);
 		panel_11.add(btnSolicitarTecnico);
+		
+		this.btnClonarFactura = new JButton("Clonar Factura");
+		btnClonarFactura.setBounds(161, 38, 115, 30);
+		panel_11.add(btnClonarFactura);
+		this.btnClonarFactura.addMouseListener(this);
+		btnClonarFactura.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.btnClonarFactura.setEnabled(false);
+		
+		this.btnPagarFactura = new JButton("Pagar Factura");
+		btnPagarFactura.setEnabled(false);
+		btnPagarFactura.setAlignmentX(0.5f);
+		this.btnPagarFactura.addMouseListener(this);
+		btnPagarFactura.setBounds(161, 0, 115, 30);
+		panel_11.add(btnPagarFactura);
 		
 		JPanel panelContratacionesFacturas = new JPanel();
 		this.abonadosPrincipal.add(panelContratacionesFacturas);
@@ -652,6 +693,14 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 	public boolean isRdbtnComercio() {
 		return rdbtnComercio.isSelected();
 	}
+	
+	public boolean isRdbtnPromoPlatino() {
+		return rdbtnPromoPlatino.isSelected();
+	}
+	public boolean isRdbtnPromoDorada() {
+		return rdbtnPromoDorada.isSelected();
+	}
+	
 	public Contratacion getContratacion() {
 		return (Contratacion) this.listaContrataciones.getSelectedValue();
 	}
@@ -740,11 +789,13 @@ public class Ventana extends JFrame implements KeyListener, ActionListener, Mous
 			Contratacion cont = null;
 			cont = this.getContratacion(); 
 			boolean cond = cont != null;
+			this.btnAplicarPromo.setEnabled(cond);
 			this.btnEliminarContratacion.setEnabled(cond);
 		} else if (e.getSource() == this.listaFacturas) {
 			IFactura fact = null;
 			fact = this.getFactura();
 			boolean condfact = fact != null;
+			this.btnClonarFactura.setEnabled(condfact);
 			this.btnPagarFactura.setEnabled(condfact);
 		} else if (e.getSource() == this.listaClientes) {
 			this.refrescaListaContratacion();

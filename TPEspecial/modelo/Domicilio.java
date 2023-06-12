@@ -1,10 +1,19 @@
 package modelo;
 
+import java.io.Serializable;
 
-public class Domicilio implements Cloneable, Comparable<Domicilio>{
+public class Domicilio implements Cloneable, Comparable<Domicilio>, Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String calle;
 	private int altura;
+	
+	public Domicilio() {
+		
+	}
 	
 	/**
 	 * Constructor de la clase Domicilio.
@@ -29,7 +38,17 @@ public class Domicilio implements Cloneable, Comparable<Domicilio>{
 	public int getAltura() {
 		return altura;
 	}
+	
+	
 
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public void setAltura(int altura) {
+		this.altura = altura;
+	}
 
 	@Override
 	public String toString() {
